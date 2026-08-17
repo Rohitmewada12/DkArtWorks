@@ -1,70 +1,115 @@
 // ============================================================
-// GALLERY DATA — EDIT ME
+// GALLERY DATA
 // ------------------------------------------------------------
-// Each entry is one artwork. To show a real photo instead of the
-// drawn placeholder tile, add an "image" field pointing at a file
-// you've placed in /public/gallery, e.g.:
-//
-//   { id: 1, title: "Portrait Study", category: "Sketch",
-//     medium: "Graphite on paper", image: "/gallery/portrait-study.jpg" }
-//
-// Recommended photo size: at least 1000px on the short side,
-// square or portrait crop, good natural light, no flash glare.
+// Real artwork photos live in /public/gallery. Add new pieces by
+// dropping a photo in that folder and adding an entry below.
 // ============================================================
-
-// NOTE: the images below are placeholder illustrations generated for this
-// template — not real artwork — just so the gallery isn't empty. Replace
-// each "image" path with a real photo in /public/gallery when ready.
 
 const artworks = [
   {
     id: 1,
-    title: "Untitled Portrait Study",
-    category: "Sketch",
-    medium: "Graphite on paper",
-    image: "/gallery/s1.jpeg",
+    title: "Royal Portrait Study",
+    category: "Painting",
+    medium: "Watercolour & coloured pencil",
+    image: "/gallery/painting-turban.jpg",
   },
   {
     id: 2,
-    title: "Evening Wash",
+    title: "Devotion",
     category: "Painting",
-    medium: "Watercolour on cotton paper",
-    image: "/gallery/Painting1.jpeg",
+    medium: "Mixed colour on paper",
+    image: "/gallery/painting-guru.jpg",
   },
   {
     id: 3,
-    title: "Commission — Family Portrait",
-    category: "Commission",
-    medium: "Charcoal on toned paper",
-    image: "/gallery/c1.jpeg",
+    title: "Panchmukhi Hanuman",
+    category: "Painting",
+    medium: "Colour pencil on paper",
+    image: "/gallery/painting-hanuman.jpg",
   },
   {
     id: 4,
-    title: "Still Life, Late Light",
-    category: "Painting",
-    medium: "Acrylic on canvas board",
-    image: "/gallery/Painting2.jpeg",
-  },
-   {
-    id: 7,
-    title: "Still Life, Late Light",
-    category: "Painting",
-    medium: "Acrylic on canvas board",
-    image: "/gallery/Painting3.jpeg",
+    title: "Half-Face Study",
+    category: "Sketch",
+    medium: "Charcoal & graphite",
+    image: "/gallery/sketch-goddess.jpg",
   },
   {
     id: 5,
-    title: "Quick Study — Hands",
+    title: "Ganesha Study I",
     category: "Sketch",
-    medium: "Ink pen",
-    image: "/gallery/s2.jpeg",
+    medium: "Graphite on paper",
+    image: "/gallery/sketch-ganesha-1.jpg",
   },
   {
     id: 6,
-    title: "Commission — Pet Portrait",
+    title: "Ganesha Study II",
+    category: "Sketch",
+    medium: "Graphite on paper",
+    image: "/gallery/sketch-ganesha-2.jpg",
+  },
+  {
+    id: 7,
+    title: "Guru Portrait",
+    category: "Sketch",
+    medium: "Graphite on paper",
+    image: "/gallery/sketch-guru.jpg",
+  },
+  {
+    id: 8,
+    title: "Commission — Portrait",
     category: "Commission",
-    medium: "Coloured pencil",
-    image: "/gallery/c2.jpeg",
+    medium: "Graphite on paper",
+    image: "/gallery/commission-portrait-woman.jpg",
+  },
+  {
+    id: 9,
+    title: "Commission — Armed Forces Portrait",
+    category: "Commission",
+    medium: "Graphite on paper",
+    image: "/gallery/commission-soldier-1.jpg",
+  },
+  {
+    id: 10,
+    title: "Commission — Portrait",
+    category: "Commission",
+    medium: "Graphite on paper",
+    image: "/gallery/commission-portrait-man.jpg",
+  },
+  {
+    id: 11,
+    title: "Commission — Portrait",
+    category: "Commission",
+    medium: "Graphite on paper",
+    image: "/gallery/commission-praying-portrait.jpg",
+  },
+  {
+    id: 12,
+    title: "Commission — Family Portrait",
+    category: "Commission",
+    medium: "Graphite on paper",
+    image: "/gallery/commission-couple.jpg",
+  },
+  {
+    id: 13,
+    title: "Commission — Baby Portrait",
+    category: "Commission",
+    medium: "Graphite on paper",
+    image: "/gallery/commission-baby.jpg",
+  },
+  {
+    id: 14,
+    title: "Commission — Armed Forces Portrait",
+    category: "Commission",
+    medium: "Graphite on paper",
+    image: "/gallery/commission-soldier-2.jpg",
+  },
+  {
+    id: 15,
+    title: "Commission — Portrait",
+    category: "Commission",
+    medium: "Graphite on paper",
+    image: "/gallery/commission-portrait-formal.jpg",
   },
 ];
 

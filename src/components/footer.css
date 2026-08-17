@@ -31,8 +31,10 @@
 .footer-social a {
   color: var(--paper-soft);
   opacity: 0.85;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .footer-social a:hover {
   opacity: 1;
+  color: var(--sienna-soft);
 }

@@ -1,25 +1,39 @@
 /* ============================================================
-   DK ARTS — DESIGN TOKENS
-   A sketchbook-inspired identity: warm aged paper, graphite ink,
-   a Prussian-blue wash accent (a real pigment name, not a generic
-   "brand blue") and a burnt-sienna accent for calls to action.
+   DK ARTS — DESIGN TOKENS (CINEMATIC / DARK)
+   A moody, screening-room identity: near-black sets, a warm gold
+   spotlight accent (the sienna pigment, brightened for contrast
+   on black), a deep night-blue secondary accent, and light "film
+   still" text. Artwork photos keep their own paper tones, so they
+   read like illuminated stills against a dark backdrop.
    ============================================================ */
 
 :root {
-  /* Color */
-  --paper: #eae4d6;
-  --paper-soft: #f4f0e6;
-  --paper-deep: #ddd3ba;
-  --ink: #262220;
+  /* Backgrounds */
+  --paper: #0a0908;        /* page background — near-black */
+  --paper-deep: #141210;   /* elevated dark surface (cards, inputs) */
+  --ink: #050403;          /* deepest black (footer) */
+
+  /* Text-on-accent (kept light/cream — used on colored buttons/badges) */
+  --paper-soft: #f2eee3;
+
+  /* Text on dark surfaces */
+  --fg: #f2eee3;
+  --fg-soft: #b7ae9c;
+  --fg-faint: #7d7566;
+
+  /* legacy names kept for a couple of narrow on-image uses */
   --ink-soft: #5b5349;
   --ink-faint: #8a8175;
-  --prussian: #1d3557;
-  --prussian-deep: #12233c;
-  --prussian-soft: #3a5478;
-  --sienna: #b5651d;
-  --sienna-soft: #d98a3d;
-  --line: rgba(38, 34, 32, 0.14);
-  --line-strong: rgba(38, 34, 32, 0.28);
+
+  /* Accents */
+  --prussian: #2c4a72;
+  --prussian-deep: #14243e;
+  --prussian-soft: #4d6e99;
+  --sienna: #d98a3d;
+  --sienna-soft: #f0aa5f;
+
+  --line: rgba(242, 238, 227, 0.14);
+  --line-strong: rgba(242, 238, 227, 0.27);
 
   /* Type */
   --font-display: "Fraunces", "Iowan Old Style", serif;
@@ -43,21 +57,22 @@ html {
 body {
   margin: 0;
   background: var(--paper);
-  color: var(--ink);
+  color: var(--fg);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Paper grain texture, applied once behind everything */
+/* Film-grain texture, applied once behind everything — "screen" blend
+   lifts grain out of the black instead of vanishing into it. */
 .grain {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
   opacity: 0.5;
-  mix-blend-mode: multiply;
+  mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
 }
 
@@ -74,7 +89,7 @@ h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 600;
   margin: 0;
-  color: var(--ink);
+  color: var(--fg);
   letter-spacing: -0.01em;
 }
 
@@ -120,13 +135,15 @@ button {
   font-size: 0.95rem;
   font-weight: 500;
   padding: 0.85rem 1.6rem;
-  border-radius: 3px;
+  border-radius: 2px;
   border: 1.5px solid transparent;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
   text-decoration: none;
-  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  letter-spacing: 0.01em;
+  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease,
+    border-color 0.18s ease, box-shadow 0.25s ease;
 }
 
 .btn:active {
@@ -134,35 +151,41 @@ button {
 }
 
 .btn-primary {
-  background: var(--prussian);
-  color: var(--paper-soft);
-  border-color: var(--prussian);
+  background: var(--sienna);
+  color: #1a1208;
+  border-color: var(--sienna);
+  font-weight: 600;
 }
 
 .btn-primary:hover {
-  background: var(--prussian-deep);
-  border-color: var(--prussian-deep);
+  background: var(--sienna-soft);
+  border-color: var(--sienna-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(217, 138, 61, 0.55);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--ink);
+  color: var(--fg);
   border-color: var(--line-strong);
 }
 
 .btn-outline:hover {
-  border-color: var(--ink);
+  border-color: var(--sienna);
+  color: var(--sienna-soft);
+  transform: translateY(-2px);
 }
 
 .btn-sienna {
-  background: var(--sienna);
-  color: var(--paper-soft);
+  background: transparent;
+  color: var(--sienna-soft);
   border-color: var(--sienna);
 }
 
 .btn-sienna:hover {
-  background: #98531a;
-  border-color: #98531a;
+  background: rgba(217, 138, 61, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -12px rgba(217, 138, 61, 0.4);
 }
 
 /* Deckled / torn paper edge divider used between sections */
@@ -243,9 +266,16 @@ section {
 
 .section-lede {
   margin-top: 1rem;
-  color: var(--ink-soft);
+  color: var(--fg-soft);
   font-size: 1.02rem;
   max-width: 54ch;
+}
+
+.section-chapter {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--fg-faint);
+  letter-spacing: 0.1em;
 }
 
 code {
@@ -276,4 +306,248 @@ code {
     animation: none;
     stroke-dashoffset: 0;
   }
+}
+
+/* ============================================================
+   MARQUEE — full-bleed scrolling ribbon
+   ============================================================ */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0.85rem 0;
+  transform: rotate(-1deg) scale(1.02);
+  z-index: 5;
+  position: relative;
+  border-top: 1px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.marquee-gold {
+  background: var(--sienna);
+  color: #1a1208;
+}
+
+.marquee-navy {
+  background: var(--prussian);
+  color: var(--paper-soft);
+}
+
+.marquee-track {
+  display: inline-flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track span {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0 1.5rem;
+}
+
+.marquee-track span::after {
+  content: "\2726";
+  margin-left: 1.5rem;
+  opacity: 0.6;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* ============================================================
+   ROTATING BADGE — "open for commissions" spinning stamp
+   ============================================================ */
+.spin-badge {
+  animation: spin 16s linear infinite;
+  transform-origin: center;
+}
+
+.spin-badge-wrap {
+  position: relative;
+}
+
+.spin-badge-logo {
+  position: absolute;
+  inset: 16%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--sienna);
+  box-shadow: 0 0 24px rgba(217, 138, 61, 0.35);
+}
+
+.spin-badge-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin-badge { animation: none; }
+}
+
+/* ============================================================
+   CURSOR ACCENT DOT (desktop, fine-pointer only)
+   ============================================================ */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--sienna-soft);
+  pointer-events: none;
+  z-index: 200;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+}
+
+.cursor-dot.visible {
+  opacity: 1;
+}
+
+.cursor-dot.active {
+  width: 50px;
+  height: 50px;
+  background: rgba(217, 138, 61, 0.16);
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-dot { display: none; }
+}
+
+/* ============================================================
+   WASHI TAPE STICKER — small decorative corner accent
+   ============================================================ */
+.tape {
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  background: linear-gradient(180deg, rgba(240, 170, 95, 0.9), rgba(217, 138, 61, 0.9));
+  opacity: 0.85;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   STAGGERED REVEAL — index-based delay for grids
+   ============================================================ */
+.stagger {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: var(--stagger-delay, 0s);
+}
+
+.stagger.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stagger {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   LETTERBOX BARS — widescreen film-frame edges (hero only)
+   ============================================================ */
+.letterbox {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: clamp(14px, 2.4vw, 26px);
+  background: #000;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.letterbox-top {
+  top: 0;
+}
+
+.letterbox-bottom {
+  bottom: 0;
+}
+
+/* ============================================================
+   INTRO TITLE CARD — brief cinematic opening slate
+   ============================================================ */
+.intro-card {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+  animation: introFade 2.1s ease forwards;
+}
+
+.intro-card-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--sienna-soft);
+  opacity: 0;
+  animation: introTextIn 0.8s ease forwards 0.3s;
+}
+
+.intro-card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  color: var(--fg);
+  letter-spacing: 0.02em;
+  opacity: 0;
+  animation: introTextIn 0.9s ease forwards 0.55s;
+}
+
+.intro-card-rule {
+  width: 70px;
+  height: 1.5px;
+  background: var(--sienna);
+  opacity: 0;
+  animation: introRuleIn 0.7s ease forwards 0.95s;
+}
+
+@keyframes introTextIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes introRuleIn {
+  from { opacity: 0; width: 0; }
+  to { opacity: 1; width: 70px; }
+}
+
+@keyframes introFade {
+  0% { opacity: 1; }
+  72% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-card { display: none; }
 }

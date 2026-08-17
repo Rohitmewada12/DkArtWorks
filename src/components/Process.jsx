@@ -5,11 +5,15 @@ import "./process.css";
 
 export default function Process() {
   const headingRef = useReveal();
+  const stepsRef = useReveal({ threshold: 0.1 });
+  const cardsRef = useReveal({ threshold: 0.1 });
 
   return (
     <section id="process" className="section process">
       <div className="wrap">
         <div ref={headingRef} className="reveal section-head">
+          <span className="section-chapter">Scene 02</span>
+          <br />
           <span className="eyebrow">Commissions</span>
           <h2>How a commission comes together</h2>
           <p className="section-lede">
@@ -19,7 +23,7 @@ export default function Process() {
           </p>
         </div>
 
-        <ol className="process-steps">
+        <ol ref={stepsRef} className="process-steps stagger-group">
           {site.process.map((step, i) => (
             <li key={step.title} className="process-step">
               <span className="process-num">{String(i + 1).padStart(2, "0")}</span>
@@ -31,7 +35,7 @@ export default function Process() {
           ))}
         </ol>
 
-        <div className="commission-types">
+        <div ref={cardsRef} className="commission-types stagger-group">
           {site.commissionTypes.map((c) => (
             <div key={c.title} className="commission-card">
               <h4>{c.title}</h4>
@@ -50,6 +54,7 @@ export default function Process() {
             target="_blank"
             rel="noreferrer"
             className="btn btn-sienna"
+            data-cursor="hover"
           >
             <Instagram size={16} strokeWidth={1.75} />
             Message on Instagram

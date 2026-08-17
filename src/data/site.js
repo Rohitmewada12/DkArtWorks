@@ -17,7 +17,7 @@ const site = {
 
   // Replace with a real contact email or leave the Instagram DM as the
   // primary channel and delete the email button in Contact.jsx.
-  contactEmail: "877deepakmewada@gmail.com",
+  contactEmail: "",
 
   location: "India",
 

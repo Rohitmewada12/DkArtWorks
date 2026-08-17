@@ -25,6 +25,8 @@ export default function Contact() {
     <section id="contact" className="section contact">
       <div className="wrap contact-inner">
         <div ref={ref} className="reveal contact-intro">
+          <span className="section-chapter">Final scene</span>
+          <br />
           <span className="eyebrow">Get in touch</span>
           <h2>Start a commission</h2>
           <p className="section-lede">
@@ -33,18 +35,20 @@ export default function Contact() {
           </p>
 
           <div className="contact-links">
-            <a href={site.instagramUrl} target="_blank" rel="noreferrer">
+            <a href={site.instagramUrl} target="_blank" rel="noreferrer" data-cursor="hover">
               <Instagram size={17} strokeWidth={1.75} />
               @{site.instagramHandle}
             </a>
-            <a href={site.youtubeUrl} target="_blank" rel="noreferrer">
+            <a href={site.youtubeUrl} target="_blank" rel="noreferrer" data-cursor="hover">
               <Youtube size={17} strokeWidth={1.75} />
               YouTube channel
             </a>
-            <a href={`mailto:${site.contactEmail}`}>
-              <Mail size={17} strokeWidth={1.75} />
-              {site.contactEmail}
-            </a>
+            {site.contactEmail && (
+              <a href={`mailto:${site.contactEmail}`} data-cursor="hover">
+                <Mail size={17} strokeWidth={1.75} />
+                {site.contactEmail}
+              </a>
+            )}
           </div>
         </div>
 
@@ -79,7 +83,7 @@ export default function Contact() {
               placeholder="Portrait, pet, size, occasion — anything helps."
             />
           </label>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary" data-cursor="hover">
             <Send size={15} strokeWidth={1.75} />
             Send enquiry
           </button>

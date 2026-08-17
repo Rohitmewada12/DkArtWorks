@@ -19,6 +19,23 @@
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease, background 0.2s ease;
+}
+
+.stagger-group.in-view .process-step {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-group.in-view .process-step:nth-child(1) { transition-delay: 0.05s; }
+.stagger-group.in-view .process-step:nth-child(2) { transition-delay: 0.15s; }
+.stagger-group.in-view .process-step:nth-child(3) { transition-delay: 0.25s; }
+.stagger-group.in-view .process-step:nth-child(4) { transition-delay: 0.35s; }
+
+.process-step:hover {
+  background: var(--paper-deep);
 }
 
 .process-num {
@@ -35,7 +52,7 @@
 .process-step p {
   margin-top: 0.5rem;
   font-size: 0.92rem;
-  color: var(--ink-soft);
+  color: var(--fg-soft);
   line-height: 1.55;
 }
 
@@ -48,9 +65,26 @@
 
 .commission-card {
   border: 1px solid var(--line);
-  border-top: 3px solid var(--prussian);
+  border-top: 3px solid var(--sienna);
   padding: 1.5rem;
-  background: var(--paper-soft);
+  background: var(--paper-deep);
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stagger-group.in-view .commission-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-group.in-view .commission-card:nth-child(1) { transition-delay: 0.05s; }
+.stagger-group.in-view .commission-card:nth-child(2) { transition-delay: 0.15s; }
+.stagger-group.in-view .commission-card:nth-child(3) { transition-delay: 0.25s; }
+
+.commission-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px -18px rgba(217, 138, 61, 0.25);
 }
 
 .commission-card h4 {
@@ -61,14 +95,14 @@
 .commission-medium {
   margin-top: 0.5rem;
   font-size: 0.9rem;
-  color: var(--ink-soft);
+  color: var(--fg-soft);
 }
 
 .commission-turnaround {
   margin-top: 0.75rem;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--ink-faint);
+  color: var(--fg-faint);
 }
 
 .process-cta {
@@ -80,7 +114,8 @@
   padding: 1.75rem 2rem;
   background: var(--prussian);
   color: var(--paper-soft);
-  border-radius: 4px;
+  border-radius: 2px;
+  border: 1px solid rgba(242, 238, 227, 0.1);
 }
 
 .process-cta p {

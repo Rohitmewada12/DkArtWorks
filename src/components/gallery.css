@@ -1,12 +1,19 @@
 .gallery {
-  background: var(--paper-soft);
+  background: var(--paper-deep);
+}
+
+.gallery-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
 }
 
 .gallery-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin-bottom: 2.25rem;
 }
 
 .filter-pill {
@@ -17,63 +24,92 @@
   border-radius: 999px;
   border: 1px solid var(--line-strong);
   background: transparent;
-  color: var(--ink-soft);
+  color: var(--fg-soft);
   transition: all 0.15s ease;
 }
 
 .filter-pill:hover {
-  border-color: var(--ink);
-  color: var(--ink);
+  border-color: var(--sienna);
+  color: var(--sienna-soft);
+  transform: translateY(-1px);
 }
 
 .filter-pill.active {
-  background: var(--prussian);
-  border-color: var(--prussian);
-  color: var(--paper-soft);
+  background: var(--sienna);
+  border-color: var(--sienna);
+  color: #1a1208;
+  font-weight: 600;
 }
 
+/* ============================================================
+   BENTO GRID — varied tile sizes for a dynamic, non-uniform wall
+   ============================================================ */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 130px;
+  grid-auto-flow: dense;
+  gap: 1.5rem;
 }
 
 .art-card {
   margin: 0;
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.span-big {
+  grid-column: span 2;
+  grid-row: span 3;
+}
+
+.span-wide {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.span-tall {
+  grid-column: span 1;
+  grid-row: span 3;
+}
+
+.span-normal {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+
+.art-card-inner {
   position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #000;
+  transition: transform 0.2s ease-out, box-shadow 0.25s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.art-card-inner:hover,
+.art-card-inner:focus-visible {
+  box-shadow: 0 0 46px -6px rgba(217, 138, 61, 0.28),
+    0 26px 50px -22px rgba(0, 0, 0, 0.8);
 }
 
 .art-card img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  height: 100%;
   object-fit: cover;
-  border-radius: 3px;
-  border: 1px solid var(--line);
+  display: block;
+  filter: brightness(0.82) saturate(0.96);
+  transition: transform 0.5s ease, filter 0.4s ease;
 }
 
-.art-placeholder {
-  aspect-ratio: 4 / 5;
-  border-radius: 3px;
-  border: 1.5px dashed var(--line-strong);
-  background:
-    repeating-linear-gradient(
-      calc(45deg + var(--rot, 0deg)),
-      transparent 0 8px,
-      rgba(38, 34, 32, var(--hatch, 0.3)) 8px 8.6px
-    ),
-    var(--paper);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  color: var(--ink-faint);
-}
-
-.art-placeholder span {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.05em;
+.art-card-inner:hover img,
+.art-card-inner:focus-visible img {
+  transform: scale(1.06);
+  filter: brightness(1) saturate(1.05);
 }
 
 .art-tag {
@@ -81,42 +117,98 @@
   top: 0.6rem;
   right: 0.6rem;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   letter-spacing: 0.05em;
-  background: var(--paper-soft);
-  color: var(--ink-soft);
+  background: rgba(5, 4, 3, 0.75);
+  color: var(--fg-soft);
   padding: 0.2rem 0.5rem;
   border-radius: 999px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
+  z-index: 2;
 }
 
-.art-card figcaption {
-  margin-top: 0.7rem;
+.art-overlay {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   gap: 0.15rem;
+  padding: 1rem;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  z-index: 1;
 }
 
-.art-title {
+.art-card-inner:hover .art-overlay,
+.art-card-inner:focus-visible .art-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Touch devices have no hover — keep the label visible so pieces are
+   still identifiable without a tap. */
+@media (hover: none) {
+  .art-overlay {
+    opacity: 1;
+    transform: translateY(0);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 55%,
+      rgba(0, 0, 0, 0.88) 100%
+    );
+  }
+}
+
+.art-overlay-title {
   font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--fg);
+  font-size: 1.05rem;
 }
 
-.art-medium {
-  font-size: 0.82rem;
-  color: var(--ink-faint);
+.art-overlay-medium {
+  font-size: 0.78rem;
+  color: var(--fg-soft);
+}
+
+.art-overlay-icon {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  color: var(--fg);
+  opacity: 0.9;
 }
 
 @media (max-width: 900px) {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 150px;
+  }
+  .span-big,
+  .span-wide {
+    grid-column: span 2;
+  }
+  .span-tall,
+  .span-normal {
+    grid-column: span 1;
   }
 }
 
 @media (max-width: 560px) {
   .gallery-grid {
     grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 130px;
     gap: 1rem;
+  }
+  .span-big {
+    grid-column: span 2;
+    grid-row: span 3;
   }
 }

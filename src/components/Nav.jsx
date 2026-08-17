@@ -16,14 +16,14 @@ export default function Nav() {
   return (
     <header className="nav">
       <div className="wrap nav-inner">
-        <a href="#top" className="nav-brand" onClick={() => setOpen(false)}>
-          <img src="./gallery/logo.jpeg" width="30" height="30" alt="Logo" style={{ borderRadius: "50%", objectFit: "cover" }}></img>
+        <a href="#top" className="nav-brand" onClick={() => setOpen(false)} data-cursor="hover">
+          <img src="/gallery/logo.jpg" width="30" height="30" alt="" className="nav-logo" />
           <span>{site.brandName}</span>
         </a>
 
         <nav className="nav-links">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href}>
+            <a key={l.href} href={l.href} data-cursor="hover">
               {l.label}
             </a>
           ))}
@@ -34,6 +34,7 @@ export default function Nav() {
           href={site.instagramUrl}
           target="_blank"
           rel="noreferrer"
+          data-cursor="hover"
         >
           <Instagram size={16} strokeWidth={1.75} />
           @{site.instagramHandle}
@@ -44,6 +45,7 @@ export default function Nav() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
+          data-cursor="hover"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>

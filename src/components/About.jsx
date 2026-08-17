@@ -12,15 +12,13 @@ export default function About() {
       <div className="wrap about-inner">
         <div className="about-portrait">
           <div className="about-frame">
-            <img
-              src="/gallery/Artist.jpeg"
-              alt=""
-              aria-hidden="true"
-            />
+            <img src="/gallery/artist.jpg" alt={site.fullName} />
           </div>
         </div>
 
         <div ref={ref} className="reveal about-copy">
+          <span className="section-chapter">Scene 03</span>
+          <br />
           <span className="eyebrow">About the artist</span>
           <h2>{site.fullName}</h2>
 

@@ -12,10 +12,10 @@ export default function Footer() {
           please don't reproduce without asking.
         </span>
         <div className="footer-social">
-          <a href={site.instagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram">
+          <a href={site.instagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram" data-cursor="hover">
             <Instagram size={17} strokeWidth={1.75} />
           </a>
-          <a href={site.youtubeUrl} target="_blank" rel="noreferrer" aria-label="YouTube">
+          <a href={site.youtubeUrl} target="_blank" rel="noreferrer" aria-label="YouTube" data-cursor="hover">
             <Youtube size={17} strokeWidth={1.75} />
           </a>
         </div>
