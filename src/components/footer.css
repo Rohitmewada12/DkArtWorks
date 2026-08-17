@@ -1,0 +1,38 @@
+.footer {
+  background: var(--ink);
+  color: var(--paper-soft);
+}
+
+.footer-inner {
+  padding-top: 2.25rem;
+  padding-bottom: 2.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: rgba(244, 240, 230, 0.65);
+}
+
+.footer-social {
+  display: flex;
+  gap: 0.9rem;
+}
+
+.footer-social a {
+  color: var(--paper-soft);
+  opacity: 0.85;
+}
+
+.footer-social a:hover {
+  opacity: 1;
+}
