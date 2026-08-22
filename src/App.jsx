@@ -4,7 +4,9 @@ import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
 import Marquee from "./components/Marquee.jsx";
 import Gallery from "./components/Gallery.jsx";
+import Reels from "./components/Reels.jsx";
 import Process from "./components/Process.jsx";
+import Pricing from "./components/Pricing.jsx";
 import About from "./components/About.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
@@ -21,7 +23,9 @@ export default function App() {
         <Hero />
         <Marquee tone="gold" />
         <Gallery />
+        <Reels />
         <Process />
+        <Pricing />
         <About />
         <Marquee
           tone="navy"

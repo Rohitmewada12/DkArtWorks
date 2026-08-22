@@ -12,7 +12,7 @@ export default function Process() {
     <section id="process" className="section process">
       <div className="wrap">
         <div ref={headingRef} className="reveal section-head">
-          <span className="section-chapter">Scene 02</span>
+          <span className="section-chapter">Scene 03</span>
           <br />
           <span className="eyebrow">Commissions</span>
           <h2>How a commission comes together</h2>

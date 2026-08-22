@@ -26,6 +26,22 @@
   background: transparent;
   color: var(--fg-soft);
   transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.filter-count {
+  font-size: 0.68rem;
+  color: var(--fg-faint);
+  background: rgba(242, 238, 227, 0.08);
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+}
+
+.filter-pill.active .filter-count {
+  color: #1a1208;
+  background: rgba(26, 18, 8, 0.18);
 }
 
 .filter-pill:hover {
@@ -42,53 +58,47 @@
 }
 
 /* ============================================================
-   BENTO GRID — varied tile sizes for a dynamic, non-uniform wall
+   UNIFORM GALLERY GRID — every tile the same size and the same
+   portrait orientation, regardless of the source photo's shape.
    ============================================================ */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 130px;
-  grid-auto-flow: dense;
   gap: 1.5rem;
 }
 
 .art-card {
   margin: 0;
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.span-big {
-  grid-column: span 2;
-  grid-row: span 3;
-}
-
-.span-wide {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.span-tall {
-  grid-column: span 1;
-  grid-row: span 3;
-}
-
-.span-normal {
-  grid-column: span 1;
-  grid-row: span 2;
 }
 
 .art-card-inner {
   position: relative;
   width: 100%;
-  height: 100%;
-  border-radius: 2px;
+  aspect-ratio: 4 / 5;
+  border-radius: 3px;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: #000;
+  background: linear-gradient(
+    115deg,
+    #100e0c 0%,
+    #1a1712 45%,
+    #100e0c 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
   transition: transform 0.2s ease-out, box-shadow 0.25s ease;
   will-change: transform;
   cursor: pointer;
+}
+
+.art-card-inner.is-loaded {
+  animation: none;
+  background: #000;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .art-card-inner:hover,
@@ -101,15 +111,35 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 22%;
   display: block;
   filter: brightness(0.82) saturate(0.96);
-  transition: transform 0.5s ease, filter 0.4s ease;
+  transition: transform 0.5s ease, filter 0.4s ease, opacity 0.5s ease;
+  opacity: 0;
+}
+
+.art-card-inner.is-loaded img {
+  opacity: 1;
 }
 
 .art-card-inner:hover img,
 .art-card-inner:focus-visible img {
   transform: scale(1.06);
   filter: brightness(1) saturate(1.05);
+}
+
+/* Per-tile vignette — unifies photos shot in very different lighting */
+.art-card-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 100% at 50% 100%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+  z-index: 1;
 }
 
 .art-tag {
@@ -186,29 +216,21 @@
   opacity: 0.9;
 }
 
+.gallery-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
 @media (max-width: 900px) {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 150px;
-  }
-  .span-big,
-  .span-wide {
-    grid-column: span 2;
-  }
-  .span-tall,
-  .span-normal {
-    grid-column: span 1;
   }
 }
 
 @media (max-width: 560px) {
   .gallery-grid {
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 130px;
     gap: 1rem;
-  }
-  .span-big {
-    grid-column: span 2;
-    grid-row: span 3;
   }
 }

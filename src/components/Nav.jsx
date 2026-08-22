@@ -5,7 +5,9 @@ import "./nav.css";
 
 const LINKS = [
   { href: "#gallery", label: "Gallery" },
+  { href: "#reels", label: "Reels" },
   { href: "#process", label: "Commissions" },
+  { href: "#pricing", label: "Pricing" },
   { href: "#about", label: "About" },
   { href: "#contact", label: "Contact" },
 ];

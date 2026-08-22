@@ -1,8 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 export default function Lightbox({ items, index, onClose, onNav }) {
   const art = items[index];
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(false);
+  }, [index]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -20,7 +26,7 @@ export default function Lightbox({ items, index, onClose, onNav }) {
 
   if (!art) return null;
 
-  return (
+  return createPortal(
     <div className="lightbox" onClick={onClose} role="dialog" aria-modal="true">
       <button className="lightbox-close" onClick={onClose} aria-label="Close">
         <X size={22} strokeWidth={1.75} />
@@ -38,7 +44,17 @@ export default function Lightbox({ items, index, onClose, onNav }) {
       </button>
 
       <div className="lightbox-stage" onClick={(e) => e.stopPropagation()}>
-        <img src={art.image} alt={art.title} />
+        <div className="lightbox-frame">
+          {art.thumb && (
+            <img className="lightbox-img lightbox-img-blur" src={art.thumb} alt="" aria-hidden="true" />
+          )}
+          <img
+            className={`lightbox-img ${loaded ? "is-loaded" : ""}`}
+            src={art.image}
+            alt={art.title}
+            onLoad={() => setLoaded(true)}
+          />
+        </div>
         <div className="lightbox-caption">
           <span className="lightbox-title">{art.title}</span>
           <span className="lightbox-medium">
@@ -60,6 +76,7 @@ export default function Lightbox({ items, index, onClose, onNav }) {
       >
         <ChevronRight size={26} strokeWidth={1.5} />
       </button>
-    </div>
+    </div>,
+    document.body
   );
 }

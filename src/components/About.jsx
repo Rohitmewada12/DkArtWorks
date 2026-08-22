@@ -17,7 +17,7 @@ export default function About() {
         </div>
 
         <div ref={ref} className="reveal about-copy">
-          <span className="section-chapter">Scene 03</span>
+          <span className="section-chapter">Scene 05</span>
           <br />
           <span className="eyebrow">About the artist</span>
           <h2>{site.fullName}</h2>

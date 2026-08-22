@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import artworks from "../data/artworks.js";
 import useReveal from "../useReveal.js";
 import ArtCard from "./ArtCard.jsx";
@@ -7,25 +8,15 @@ import "./gallery.css";
 import "./lightbox.css";
 
 const CATEGORIES = ["All", "Sketch", "Painting", "Commission"];
-
-// Bento span pattern applied by position in the (filtered) list, so the
-// grid always reads as an intentional, art-directed spread rather than
-// a uniform tile wall.
-const SPAN_PATTERN = [
-  "span-big",
-  "span-normal",
-  "span-normal",
-  "span-wide",
-  "span-tall",
-  "span-normal",
-];
+const PAGE_SIZE = 9;
 
 export default function Gallery() {
   const [filter, setFilter] = useState("All");
+  const [visible, setVisible] = useState(PAGE_SIZE);
   const [openIndex, setOpenIndex] = useState(null);
   const headingRef = useReveal();
 
-  const items = useMemo(
+  const filtered = useMemo(
     () =>
       filter === "All"
         ? artworks
@@ -33,12 +24,19 @@ export default function Gallery() {
     [filter]
   );
 
+  useEffect(() => {
+    setVisible(PAGE_SIZE);
+  }, [filter]);
+
+  const items = filtered.slice(0, visible);
+  const hasMore = visible < filtered.length;
+
   function openAt(art) {
-    setOpenIndex(items.findIndex((a) => a.id === art.id));
+    setOpenIndex(filtered.findIndex((a) => a.id === art.id));
   }
 
   function nav(dir) {
-    setOpenIndex((i) => (i === null ? null : (i + dir + items.length) % items.length));
+    setOpenIndex((i) => (i === null ? null : (i + dir + filtered.length) % filtered.length));
   }
 
   return (
@@ -57,37 +55,50 @@ export default function Gallery() {
           </div>
 
           <div className="gallery-filters" role="tablist" aria-label="Filter by category">
-            {CATEGORIES.map((c) => (
-              <button
-                key={c}
-                role="tab"
-                aria-selected={filter === c}
-                className={`filter-pill ${filter === c ? "active" : ""}`}
-                onClick={() => setFilter(c)}
-                data-cursor="hover"
-              >
-                {c}
-              </button>
-            ))}
+            {CATEGORIES.map((c) => {
+              const count =
+                c === "All"
+                  ? artworks.length
+                  : artworks.filter((a) => a.category === c).length;
+              return (
+                <button
+                  key={c}
+                  role="tab"
+                  aria-selected={filter === c}
+                  className={`filter-pill ${filter === c ? "active" : ""}`}
+                  onClick={() => setFilter(c)}
+                  data-cursor="hover"
+                >
+                  {c} <span className="filter-count">{count}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
         <div className="gallery-grid">
           {items.map((a, i) => (
-            <ArtCard
-              key={a.id}
-              art={a}
-              index={i}
-              span={SPAN_PATTERN[i % SPAN_PATTERN.length]}
-              onOpen={openAt}
-            />
+            <ArtCard key={a.id} art={a} index={i} onOpen={openAt} />
           ))}
         </div>
+
+        {hasMore && (
+          <div className="gallery-more">
+            <button
+              className="btn btn-outline"
+              onClick={() => setVisible((v) => v + PAGE_SIZE)}
+              data-cursor="hover"
+            >
+              <ChevronDown size={15} strokeWidth={1.75} />
+              Show more ({filtered.length - visible} left)
+            </button>
+          </div>
+        )}
       </div>
 
       {openIndex !== null && (
         <Lightbox
-          items={items}
+          items={filtered}
           index={openIndex}
           onClose={() => setOpenIndex(null)}
           onNav={nav}

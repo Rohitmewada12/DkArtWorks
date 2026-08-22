@@ -1,14 +1,11 @@
-# DK Arts — portfolio & commission site
+# DK Arts — cinematic portfolio & commission site
 
-A one-page portfolio site for an artist who does sketches, paintings and
-commission work, built with React + Vite. Theme: a warm "sketchbook" look —
-aged paper, graphite ink, a Prussian-blue accent, and hand-drawn line
-flourishes that draw themselves in as you scroll.
-
-Since I didn't have your brother's real name, artwork photos, or pricing,
-everything content-related is filled in with clearly-marked placeholders.
-The whole site is built so you only need to touch a couple of files to make
-it real — no design/CSS knowledge required for that part.
+A one-page portfolio site for Deepak Mewada (DK Arts) — sketches, paintings
+and commissioned portrait work — built with React + Vite. Theme: a dark,
+cinematic "screening room" look — near-black sets, a warm gold spotlight
+accent, letterbox framing in the hero, a brief opening title card, a
+full-screen lightbox for artwork, and a horizontal "reels" strip for short
+process videos.
 
 ## 1. Install & run
 
@@ -20,55 +17,79 @@ npm install
 npm run dev
 ```
 
-Open the URL it prints (usually `http://localhost:5173`) to see the site
-live. It updates automatically as you edit files.
+Open the URL it prints (usually `http://localhost:5173`).
 
-## 2. Personalize it — start here
+## 2. Personalize it
 
-**`src/data/site.js`** — the one file to edit first:
-- `fullName` — his real name
-- `tagline`, `bio` — short intro text
-- `instagramUrl` — already set to `instagram.com/dkarts_718`
-- `youtubeUrl` — replace with the real channel URL
-- `contactEmail` — a real email, or delete the email button in
-  `src/components/Contact.jsx` if Instagram DMs are the only channel
-- `commissionTypes` — the kinds of commissions offered and rough turnaround
-- `process` — the 4 steps shown in the "How a commission comes together"
-  section
+**`src/data/site.js`** — name, tagline, bio, Instagram/YouTube links,
+contact email, commission types and the 4-step process text.
 
-**`src/data/artworks.js`** — the gallery:
-- Each artwork is one entry with a title, category and medium.
-- Drop photos into `public/gallery/` and add an `image: "/gallery/your-file.jpg"`
-  field to the matching entry — the pencil-hatch placeholder tile is
-  automatically replaced with the real photo.
-- Add or remove entries freely; categories are `Sketch`, `Painting` or
-  `Commission` (these power the filter buttons).
+**`src/data/artworks.js`** — the gallery (31 pieces already wired in). Each
+entry has a title, category (`Sketch` / `Painting` / `Commission`), medium,
+and two image paths:
+- `image` — the full-size photo, used in the full-screen viewer
+- `thumb` — a small, fast-loading version, used in the grid
 
-**`src/components/About.jsx`** — replace the dashed placeholder frame with
-a real photo the same way: add an `<img>` there once you have one.
+To add a new piece: drop the photo in `public/gallery/`, make a small
+version in `public/gallery/thumbs/` (same filename), and add an entry here.
+Keeping a separate small "thumb" version is what keeps the gallery feeling
+fast — the grid never has to download full-resolution photos just to show
+a small tile.
 
-## 3. Build the production version
+**`src/data/videos.js`** — the "Process Reels" section. Leave it empty and
+the site shows tasteful "coming soon" cards linking to Instagram instead —
+it never looks broken. To add a real clip, drop an `.mp4` in
+`public/videos/` (see the README.txt in that folder) or link a YouTube
+video/short by ID, then add one line here. Full format examples are
+commented in the file itself.
+
+**`src/data/pricing.js`** — the new Pricing section. **Important: the
+prices in here are starter placeholders, not real numbers** — I set them
+to plausible defaults for a portrait artist so the section looks complete,
+but Deepak needs to go through and change every price to what he actually
+wants to charge. Also edit the "Add-ons" list and the "Also available"
+box (original artworks / prints / gift vouchers) — remove anything he
+doesn't actually want to offer, since right now they're just ideas for
+things worth selling alongside custom commissions.
+
+**`public/gallery/artist.jpg`** — the About-section photo.
+
+**`public/gallery/logo.jpg`** — the DK Arts logo, shown in the nav bar and
+in the center of the spinning "open for commissions" badge on the hero.
+
+## 3. What's cinematic about it
+
+- A brief opening title card (fades in the brand name, then fades away —
+  skippable with a click or any key press)
+- Letterbox bars and a slow "Ken Burns" zoom on the hero backdrop photo
+- Film-grain texture over the whole page, and a gold cursor-follow ring
+  on desktop
+- A bento-style, paginated gallery grid — click any piece for a full-screen
+  viewer with next/previous navigation (arrow keys work too), and a
+  blur-up transition from thumbnail to full image
+- A horizontal "reels" strip of short vertical video clips, opening in a
+  focused player on click
+- Scrolling marquee ribbons between sections
+
+All animations respect the "reduce motion" accessibility setting.
+
+## 4. Build for production
 
 ```bash
 npm run build
 ```
 
-This creates a `dist/` folder with the finished static site — this is what
-you upload to hosting.
+This creates a `dist/` folder — the finished static site, ready to upload
+to hosting.
 
-## 4. Put it online (free options)
-
-The easiest options for a static React/Vite site:
+## 5. Put it online (free options)
 
 - **Vercel** ([vercel.com](https://vercel.com)) — connect the project
-  folder (or a GitHub repo with it), it detects Vite automatically.
+  folder or a GitHub repo, it detects Vite automatically.
 - **Netlify** ([netlify.com](https://netlify.com)) — drag-and-drop the
-  `dist/` folder after running `npm run build`, or connect a repo.
-- **GitHub Pages** — works too, needs a small extra config step (`base` in
-  `vite.config.js`) — ask if you'd like this set up.
+  `dist/` folder after `npm run build`, or connect a repo.
 
-Any of these give a free `https://` link you can put straight in the
-Instagram bio.
+Either gives a free `https://` link to put in the Instagram bio.
 
 ## What's in the box
 
@@ -76,19 +97,12 @@ Instagram bio.
 src/
   data/
     site.js        ← name, socials, bio, commission types, process steps
-    artworks.js     ← gallery items
-  components/       ← each section of the page (Hero, Gallery, Process,
-                       About, Contact, Nav, Footer) with matching .css
-  index.css         ← shared design tokens (colors, type, spacing)
+    artworks.js     ← gallery items (31 real pieces already wired in)
+    videos.js       ← process reels (empty by default — see comments)
+  components/       ← each part of the page, with matching .css
+  index.css         ← shared design tokens (dark cinematic palette)
 public/
-  gallery/          ← put artwork photos here
+  gallery/          ← all artwork photos (full size) and the logo/artist photo
+  gallery/thumbs/    ← small fast-loading versions used in the grid
+  videos/           ← drop .mp4 clips here (see README.txt inside)
 ```
-
-## Notes
-
-- The contact form opens the visitor's email app with the message
-  pre-filled (no backend needed). If you'd rather have messages land in an
-  inbox directly without opening a mail app, that needs a small form
-  service (e.g. Formspree) — happy to wire that up if wanted.
-- All animations respect "reduce motion" accessibility settings.
-- The site is fully responsive (phone/tablet/desktop).

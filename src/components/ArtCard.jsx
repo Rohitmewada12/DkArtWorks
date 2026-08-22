@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Maximize2 } from "lucide-react";
 import useReveal from "../useReveal.js";
 
@@ -8,6 +8,7 @@ export default function ArtCard({ art, index, span = "", onOpen }) {
   const tapeRot = TILE_TAPE_ROT[index % TILE_TAPE_ROT.length];
   const ref = useReveal({ threshold: 0.1 });
   const cardRef = useRef(null);
+  const [loaded, setLoaded] = useState(false);
 
   function handleMove(e) {
     const el = cardRef.current;
@@ -31,7 +32,7 @@ export default function ArtCard({ art, index, span = "", onOpen }) {
     >
       <div
         ref={cardRef}
-        className="art-card-inner"
+        className={`art-card-inner ${loaded ? "is-loaded" : ""}`}
         data-cursor="hover"
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
@@ -44,7 +45,13 @@ export default function ArtCard({ art, index, span = "", onOpen }) {
           style={{ top: "-9px", left: "16px", transform: `rotate(${tapeRot}deg)` }}
           aria-hidden="true"
         />
-        <img src={art.image} alt={art.title} loading="lazy" />
+        <img
+          src={art.thumb || art.image}
+          alt={art.title}
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+        />
 
         <div className="art-overlay">
           <span className="art-overlay-title">{art.title}</span>

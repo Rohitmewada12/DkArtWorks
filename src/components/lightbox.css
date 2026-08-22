@@ -25,7 +25,14 @@
   max-height: 90vh;
 }
 
-.lightbox-stage img {
+.lightbox-frame {
+  position: relative;
+  max-width: 100%;
+  max-height: 74vh;
+  display: flex;
+}
+
+.lightbox-img {
   max-width: 100%;
   max-height: 74vh;
   width: auto;
@@ -33,6 +40,26 @@
   object-fit: contain;
   box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
   border: 1px solid rgba(242, 238, 227, 0.1);
+}
+
+.lightbox-img-blur {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(14px);
+  transform: scale(1.04);
+  opacity: 1;
+}
+
+.lightbox-frame img:not(.lightbox-img-blur) {
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.lightbox-frame img.is-loaded {
+  opacity: 1;
 }
 
 .lightbox-caption {
