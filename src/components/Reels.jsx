@@ -4,11 +4,13 @@ import { Clapperboard, Instagram, Play, X } from "lucide-react";
 import videos from "../data/videos.js";
 import site from "../data/site.js";
 import useReveal from "../useReveal.js";
+import useLang from "../LangContext.jsx";
 import "./reels.css";
 
 const PLACEHOLDER_COUNT = 3;
 
 export default function Reels() {
+  const { t } = useLang();
   const [openVideo, setOpenVideo] = useState(null);
   const headingRef = useReveal();
   const hasVideos = videos.length > 0;
@@ -17,13 +19,11 @@ export default function Reels() {
     <section id="reels" className="section reels">
       <div className="wrap">
         <div ref={headingRef} className="reveal section-head">
-          <span className="section-chapter">Scene 02</span>
+          <span className="section-chapter">{t("reels.chapter")}</span>
           <br />
-          <span className="eyebrow">In motion</span>
-          <h2>Process reels</h2>
-          <p className="section-lede">
-            Short clips of pieces coming together — pencil, brush and paper.
-          </p>
+          <span className="eyebrow">{t("reels.eyebrow")}</span>
+          <h2>{t("reels.heading")}</h2>
+          <p className="section-lede">{t("reels.lede")}</p>
         </div>
 
         <div className="reels-row">
@@ -32,7 +32,7 @@ export default function Reels() {
                 <ReelCard key={i} video={v} onPlay={() => setOpenVideo(v)} />
               ))
             : Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => (
-                <ReelPlaceholder key={i} />
+                <ReelPlaceholder key={i} comingSoon={t("reels.comingSoon")} />
               ))}
         </div>
       </div>
@@ -57,7 +57,8 @@ function ReelCard({ video, onPlay }) {
   );
 }
 
-function ReelPlaceholder() {
+function ReelPlaceholder({ comingSoon }) {
+  const [line1, line2] = comingSoon.split("\n");
   return (
     <a
       className="reel-card reel-placeholder"
@@ -68,9 +69,9 @@ function ReelPlaceholder() {
     >
       <Clapperboard size={26} strokeWidth={1.3} />
       <span className="reel-placeholder-text">
-        New reel
+        {line1}
         <br />
-        coming soon
+        {line2}
       </span>
       <span className="reel-placeholder-cta">
         <Instagram size={13} strokeWidth={1.75} />@{site.instagramHandle}

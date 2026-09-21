@@ -7,9 +7,11 @@ import Gallery from "./components/Gallery.jsx";
 import Reels from "./components/Reels.jsx";
 import Process from "./components/Process.jsx";
 import Pricing from "./components/Pricing.jsx";
+import Testimonials from "./components/Testimonials.jsx";
 import About from "./components/About.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
+import WhatsAppButton from "./components/WhatsAppButton.jsx";
 import site from "./data/site.js";
 
 export default function App() {
@@ -19,6 +21,7 @@ export default function App() {
       <div className="grain" aria-hidden="true" />
       <CursorDot />
       <Nav />
+      <WhatsAppButton />
       <main>
         <Hero />
         <Marquee tone="gold" />
@@ -26,6 +29,7 @@ export default function App() {
         <Reels />
         <Process />
         <Pricing />
+        <Testimonials />
         <About />
         <Marquee
           tone="navy"

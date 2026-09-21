@@ -40,7 +40,7 @@
 }
 
 .filter-pill.active .filter-count {
-  color: #1a1208;
+  color: var(--paper-soft);
   background: rgba(26, 18, 8, 0.18);
 }
 
@@ -51,9 +51,9 @@
 }
 
 .filter-pill.active {
-  background: var(--sienna);
-  border-color: var(--sienna);
-  color: #1a1208;
+  background: var(--seal);
+  border-color: var(--seal);
+  color: var(--paper-soft);
   font-weight: 600;
 }
 
@@ -103,8 +103,9 @@
 
 .art-card-inner:hover,
 .art-card-inner:focus-visible {
-  box-shadow: 0 0 46px -6px rgba(217, 138, 61, 0.28),
-    0 26px 50px -22px rgba(0, 0, 0, 0.8);
+  transform: translateY(-4px);
+  border-color: rgba(182, 64, 42, 0.5);
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8);
 }
 
 .art-card img {

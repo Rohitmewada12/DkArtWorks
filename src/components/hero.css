@@ -1,84 +1,65 @@
+/* ============================================================
+   HERO — "ledger spread": two facing pages, like an open
+   sketchbook. Left page carries the words, right page holds a
+   single framed portrait. A spine line runs down the centre.
+   ============================================================ */
 .hero {
   position: relative;
-  min-height: 92vh;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
+  padding-top: clamp(6rem, 12vw, 9rem);
   padding-bottom: clamp(3.5rem, 8vw, 6rem);
-  padding-top: clamp(3.5rem, 8vw, 6rem);
+  overflow: hidden;
 }
 
-.hero-bg {
+.hero-spread {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  position: relative;
+}
+
+.hero-spine {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 55%;
+  width: 1px;
+  background: var(--line);
   z-index: 0;
 }
 
-.hero-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 20%;
-  filter: grayscale(0.25) brightness(0.62) contrast(1.05);
-  animation: kenburns 24s ease-in-out infinite alternate;
-}
-
-@keyframes kenburns {
-  from { transform: scale(1.02) translateY(0); }
-  to { transform: scale(1.12) translateY(-1.5%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-bg img { animation: none; }
-}
-
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(5, 4, 3, 0.35) 0%,
-    rgba(5, 4, 3, 0.55) 45%,
-    rgba(5, 4, 3, 0.92) 100%
-  );
-}
-
-.hero-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    120% 90% at 50% 30%,
-    transparent 40%,
-    rgba(0, 0, 0, 0.55) 100%
-  );
-}
-
-.hero-inner {
+.hero-page {
   position: relative;
-  z-index: 2;
-  max-width: 760px;
+  z-index: 1;
 }
 
 .intro-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.74rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--sienna-soft);
+  letter-spacing: 0.18em;
+  color: var(--seal-soft);
 }
 
 .hero-title {
   margin-top: 1rem;
-  font-size: clamp(3rem, 7.5vw, 5.6rem);
-  line-height: 0.98;
+  font-size: clamp(2.6rem, 5.4vw, 4.2rem);
+  line-height: 1.02;
   color: var(--fg);
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hero-title .accent {
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: 1.15em;
+  color: var(--seal-soft);
+  display: inline-block;
+  transform: rotate(-2deg);
 }
 
 .hero-tagline {
-  margin-top: 1.4rem;
-  max-width: 42ch;
-  font-size: 1.15rem;
+  margin-top: 1.3rem;
+  max-width: 40ch;
+  font-size: 1.08rem;
   color: var(--fg-soft);
 }
 
@@ -86,13 +67,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
-  margin-top: 2.2rem;
+  margin-top: 2rem;
 }
 
 .hero-meta {
   display: flex;
   gap: 1.5rem;
-  margin-top: 1.9rem;
+  margin-top: 1.8rem;
 }
 
 .hero-meta a {
@@ -107,46 +88,85 @@
 }
 
 .hero-meta a:hover {
-  color: var(--sienna-soft);
+  color: var(--seal-soft);
+}
+
+.hero-scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--fg-faint);
+  text-decoration: none;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.hero-scroll:hover {
+  color: var(--seal-soft);
+  gap: 0.7rem;
+}
+
+/* The framed portrait — a single deliberate image instead of a
+   full-bleed background, with a torn/deckled corner as the one
+   ornamental flourish on the page. */
+.hero-frame {
+  position: relative;
+  border: 1px solid var(--line-strong);
+  padding: 0.6rem;
+  background: var(--paper-deep);
+  transform: rotate(1.3deg);
+}
+
+.hero-frame img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 20%;
+  filter: grayscale(0.35) contrast(1.03);
+  display: block;
+}
+
+.hero-frame-corner {
+  position: absolute;
+  top: -10px;
+  right: 22px;
+  width: 46px;
+  height: 46px;
+  background: var(--seal);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.35);
 }
 
 .hero-badge {
   position: absolute;
-  right: clamp(1rem, 4vw, 3.5rem);
-  bottom: clamp(4.5rem, 9vw, 7rem);
-  z-index: 3;
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
+  left: -20px;
+  bottom: -20px;
+  z-index: 2;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
 }
 
-.hero-scroll {
-  position: absolute;
-  left: 50%;
-  bottom: clamp(1.6rem, 4vw, 2.4rem);
-  transform: translateX(-50%);
-  z-index: 3;
-  display: flex;
-  color: var(--fg-faint);
-  animation: bob 2.2s ease-in-out infinite;
-}
-
-@keyframes bob {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(6px); }
+@media (max-width: 860px) {
+  .hero-spread {
+    grid-template-columns: 1fr;
+  }
+  .hero-spine {
+    display: none;
+  }
+  .hero-page-right {
+    order: -1;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .hero-badge {
+    left: auto;
+    right: -14px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-scroll { animation: none; }
-}
-
-@media (max-width: 640px) {
-  .hero {
-    min-height: 100vh;
-    align-items: flex-end;
-  }
-  .hero-badge {
-    display: none;
-  }
-  .hero-title {
-    font-size: clamp(2.4rem, 11vw, 3.2rem);
+  .hero-frame {
+    transform: none;
   }
 }

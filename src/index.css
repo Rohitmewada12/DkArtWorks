@@ -29,21 +29,71 @@
   --prussian: #2c4a72;
   --prussian-deep: #14243e;
   --prussian-soft: #4d6e99;
-  --sienna: #d98a3d;
-  --sienna-soft: #f0aa5f;
+  /* Seal red — the artist's stamp/signature ink, and now the site's one
+     bold color. Renamed from the old amber "sienna" tokens; kept as
+     aliases below so every existing reference repaints automatically. */
+  --seal: #b6402a;
+  --seal-soft: #d8674a;
+  --seal-deep: #7c2a1b;
+  --sienna: var(--seal);
+  --sienna-soft: var(--seal-soft);
 
   --line: rgba(242, 238, 227, 0.14);
   --line-strong: rgba(242, 238, 227, 0.27);
 
+  --nav-bg: rgba(6, 5, 4, 0.82);
+
   /* Type */
-  --font-display: "Fraunces", "Iowan Old Style", serif;
-  --font-body: "Work Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* Devanagari fallbacks are appended (not swapped) so the browser
+     picks the right glyph per character: Latin renders in Fraunces/
+     Work Sans as before, Hindi text in the same message renders in
+     the matching Noto weight automatically. */
+  --font-display: "Fraunces", "Noto Serif Devanagari", "Iowan Old Style", serif;
+  --font-body: "Work Sans", "Noto Sans Devanagari", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "Noto Sans Devanagari", ui-monospace, monospace;
+  --font-hand: "Caveat", "Noto Sans Devanagari", cursive;
 
   /* Layout */
   --page-max: 1180px;
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --section-pad: clamp(4rem, 9vw, 7.5rem);
+}
+
+/* ============================================================
+   LIGHT THEME — the same ledger/atelier identity on cream paper
+   instead of a dark room. Same seal-red ink, same type, same
+   structure; only the surface and text values flip.
+   ============================================================ */
+:root[data-theme="light"] {
+  --paper: #f4efe4;
+  --paper-deep: #e9e1d0;
+  --ink: #ffffff;
+  --paper-soft: #f4efe4;
+
+  --fg: #221d16;
+  --fg-soft: #5b5041;
+  --fg-faint: #8a7d68;
+
+  --ink-soft: #5b5349;
+  --ink-faint: #8a8175;
+
+  --line: rgba(34, 29, 22, 0.14);
+  --line-strong: rgba(34, 29, 22, 0.28);
+
+  --nav-bg: rgba(244, 239, 228, 0.86);
+}
+
+:root[data-theme="light"] .grain {
+  opacity: 0.18;
+}
+
+:root[data-theme="light"] .letterbox {
+  background: #14110c;
+}
+
+:root[data-theme="light"] .hero-title,
+:root[data-theme="light"] .intro-card-title {
+  text-shadow: none;
 }
 
 * {
@@ -62,6 +112,31 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Faint ledger rule-lines — the page reads as pages in an artist's
+   sketchbook, not a generic dark SaaS surface. Barely-there on purpose. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 37px,
+    rgba(242, 238, 227, 0.035) 38px
+  );
+}
+
+:root[data-theme="light"] body::before {
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 37px,
+    rgba(34, 29, 22, 0.05) 38px
+  );
 }
 
 /* Film-grain texture, applied once behind everything — "screen" blend
@@ -151,17 +226,18 @@ button {
 }
 
 .btn-primary {
-  background: var(--sienna);
-  color: #1a1208;
-  border-color: var(--sienna);
+  background: var(--seal);
+  color: var(--paper-soft);
+  border-color: var(--seal);
   font-weight: 600;
+  border-radius: 0;
 }
 
 .btn-primary:hover {
-  background: var(--sienna-soft);
-  border-color: var(--sienna-soft);
+  background: var(--seal-soft);
+  border-color: var(--seal-soft);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(217, 138, 61, 0.55);
+  box-shadow: 0 10px 24px -10px rgba(182, 64, 42, 0.55);
 }
 
 .btn-outline {
@@ -264,18 +340,21 @@ section {
   margin-top: 0.6rem;
 }
 
+/* Chapter mark — a small hand-inked tick that stands in for the eyebrow
+   label pattern, doubling as the site's recurring signature motif. */
+.section-chapter {
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--seal-soft);
+  letter-spacing: 0;
+}
+
 .section-lede {
   margin-top: 1rem;
   color: var(--fg-soft);
   font-size: 1.02rem;
   max-width: 54ch;
-}
-
-.section-chapter {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--fg-faint);
-  letter-spacing: 0.1em;
 }
 
 code {
@@ -324,7 +403,7 @@ code {
 
 .marquee-gold {
   background: var(--sienna);
-  color: #1a1208;
+  color: var(--paper-soft);
 }
 
 .marquee-navy {

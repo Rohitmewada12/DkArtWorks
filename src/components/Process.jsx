@@ -1,9 +1,11 @@
 import { Instagram } from "lucide-react";
 import site from "../data/site.js";
 import useReveal from "../useReveal.js";
+import useLang from "../LangContext.jsx";
 import "./process.css";
 
 export default function Process() {
+  const { t } = useLang();
   const headingRef = useReveal();
   const stepsRef = useReveal({ threshold: 0.1 });
   const cardsRef = useReveal({ threshold: 0.1 });
@@ -12,15 +14,11 @@ export default function Process() {
     <section id="process" className="section process">
       <div className="wrap">
         <div ref={headingRef} className="reveal section-head">
-          <span className="section-chapter">Scene 03</span>
+          <span className="section-chapter">{t("process.chapter")}</span>
           <br />
-          <span className="eyebrow">Commissions</span>
-          <h2>How a commission comes together</h2>
-          <p className="section-lede">
-            Four steps, start to finish. You approve the sketch before any
-            final work begins, so the piece stays true to what you had in
-            mind.
-          </p>
+          <span className="eyebrow">{t("process.eyebrow")}</span>
+          <h2>{t("process.heading")}</h2>
+          <p className="section-lede">{t("process.lede")}</p>
         </div>
 
         <ol ref={stepsRef} className="process-steps stagger-group">
@@ -41,14 +39,14 @@ export default function Process() {
               <h4>{c.title}</h4>
               <p className="commission-medium">{c.medium}</p>
               <p className="commission-turnaround">
-                Turnaround: {c.turnaround}
+                {t("process.turnaround")}: {c.turnaround}
               </p>
             </div>
           ))}
         </div>
 
         <div className="process-cta">
-          <p>Have an idea already? Start with a DM — reference photos help.</p>
+          <p>{t("process.ctaText")}</p>
           <a
             href={site.instagramUrl}
             target="_blank"
@@ -57,7 +55,7 @@ export default function Process() {
             data-cursor="hover"
           >
             <Instagram size={16} strokeWidth={1.75} />
-            Message on Instagram
+            {t("process.ctaButton")}
           </a>
         </div>
       </div>
