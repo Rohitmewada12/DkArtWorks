@@ -22,7 +22,7 @@ function nextCount(count, total) {
 
 export default function Gallery() {
   const { t } = useLang();
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState("Sketch");
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [openIndex, setOpenIndex] = useState(null);
   const headingRef = useReveal();
