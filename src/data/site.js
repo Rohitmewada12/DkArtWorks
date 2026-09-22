@@ -19,7 +19,23 @@ const site = {
   // primary channel and delete the email button in Contact.jsx.
   contactEmail: "dkartist28@gmail.com",
 
+  // WhatsApp number in international format, digits only (no +, spaces or
+  // dashes) — e.g. a number like +91 98765 43210 becomes "919876543210".
+  // Leave as "" to hide the WhatsApp button everywhere.
+  whatsappNumber: "8770414426",
+  // Pre-filled message people will see when they tap the WhatsApp button.
+  whatsappMessage: "Hi! I'd like to ask about a commission.",
+
   location: "India",
+
+  // Shown in the stats strip under the hero. Edit the numbers to match
+  // reality — keep them honest, they're a trust signal.
+  stats: [
+    { value: "150+", labelKey: "stats.commissions" },
+    { value: "4.9★", labelKey: "stats.rating" },
+    { value: "3", labelKey: "stats.years" },
+    { value: "24h", labelKey: "stats.replyTime" },
+  ],
 
   bio: [
     "I draw and paint people, pets, and moments worth keeping — mostly graphite, charcoal, ink and watercolour, worked from photos or from life.",

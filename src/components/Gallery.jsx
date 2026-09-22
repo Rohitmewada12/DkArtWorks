@@ -2,16 +2,29 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import artworks from "../data/artworks.js";
 import useReveal from "../useReveal.js";
+import useLang from "../LangContext.jsx";
 import ArtCard from "./ArtCard.jsx";
 import Lightbox from "./Lightbox.jsx";
 import "./gallery.css";
 import "./lightbox.css";
 
 const CATEGORIES = ["All", "Sketch", "Painting", "Commission"];
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 12;
+// Which tab is open when the page first loads.
+const DEFAULT_FILTER = "Sketch";
+// Grid runs 4-wide on desktop — if a page would leave a near-empty
+// dangling row (an amount less than one row), just show it instead
+// of making the person click "Show more" for one or two pieces.
+const ROW_WIDTH = 4;
+
+function nextCount(count, total) {
+  const next = count + PAGE_SIZE;
+  return total - next <= ROW_WIDTH ? total : next;
+}
 
 export default function Gallery() {
-  const [filter, setFilter] = useState("All");
+  const { t } = useLang();
+  const [filter, setFilter] = useState(DEFAULT_FILTER);
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [openIndex, setOpenIndex] = useState(null);
   const headingRef = useReveal();
@@ -25,7 +38,8 @@ export default function Gallery() {
   );
 
   useEffect(() => {
-    setVisible(PAGE_SIZE);
+    setVisible(nextCount(0, filtered.length));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   const items = filtered.slice(0, visible);
@@ -44,14 +58,11 @@ export default function Gallery() {
       <div className="wrap">
         <div ref={headingRef} className="reveal section-head gallery-head">
           <div>
-            <span className="section-chapter">Scene 01</span>
+            <span className="section-chapter">{t("gallery.chapter")}</span>
             <br />
-            <span className="eyebrow">Selected work</span>
-            <h2>The gallery</h2>
-            <p className="section-lede">
-              Studies, finished paintings and commissioned portraits — tap
-              any piece for a full-screen view.
-            </p>
+            <span className="eyebrow">{t("gallery.eyebrow")}</span>
+            <h2>{t("gallery.heading")}</h2>
+            <p className="section-lede">{t("gallery.lede")}</p>
           </div>
 
           <div className="gallery-filters" role="tablist" aria-label="Filter by category">
@@ -69,7 +80,7 @@ export default function Gallery() {
                   onClick={() => setFilter(c)}
                   data-cursor="hover"
                 >
-                  {c} <span className="filter-count">{count}</span>
+                  {t(`gallery.filter.${c}`)} <span className="filter-count">{count}</span>
                 </button>
               );
             })}
@@ -86,11 +97,11 @@ export default function Gallery() {
           <div className="gallery-more">
             <button
               className="btn btn-outline"
-              onClick={() => setVisible((v) => v + PAGE_SIZE)}
+              onClick={() => setVisible((v) => nextCount(v, filtered.length))}
               data-cursor="hover"
             >
               <ChevronDown size={15} strokeWidth={1.75} />
-              Show more ({filtered.length - visible} left)
+              {t("gallery.showMore")} ({filtered.length - visible} {t("gallery.left")})
             </button>
           </div>
         )}

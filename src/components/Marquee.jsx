@@ -14,11 +14,17 @@ const DEFAULT_ITEMS = [
 export default function Marquee({ items = DEFAULT_ITEMS, tone = "gold" }) {
   const loop = [...items, ...items];
   return (
-    <div className={`marquee marquee-${tone}`} aria-hidden="true">
-      <div className="marquee-track">
-        {loop.map((item, i) => (
-          <span key={i}>{item}</span>
-        ))}
+    // The clip wrapper contains the ribbon's slight rotation so it
+    // can't push the page into horizontal scroll — this has to live
+    // here (not on <body>), since overflow-x on an ancestor of the
+    // nav would break its position: sticky.
+    <div className="marquee-clip">
+      <div className={`marquee marquee-${tone}`} aria-hidden="true">
+        <div className="marquee-track">
+          {loop.map((item, i) => (
+            <span key={i}>{item}</span>
+          ))}
+        </div>
       </div>
     </div>
   );

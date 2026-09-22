@@ -9,9 +9,12 @@
 
 :root {
   /* Backgrounds */
-  --paper: #0a0908;        /* page background — near-black */
-  --paper-deep: #141210;   /* elevated dark surface (cards, inputs) */
-  --ink: #050403;          /* deepest black (footer) */
+  --paper: #0a0908;
+  /* page background — near-black */
+  --paper-deep: #141210;
+  /* elevated dark surface (cards, inputs) */
+  --ink: #050403;
+  /* deepest black (footer) */
 
   /* Text-on-accent (kept light/cream — used on colored buttons/badges) */
   --paper-soft: #f2eee3;
@@ -29,21 +32,81 @@
   --prussian: #2c4a72;
   --prussian-deep: #14243e;
   --prussian-soft: #4d6e99;
-  --sienna: #d98a3d;
-  --sienna-soft: #f0aa5f;
+  /* Seal red — the artist's stamp/signature ink, and now the site's one
+     bold color. Renamed from the old amber "sienna" tokens; kept as
+     aliases below so every existing reference repaints automatically. */
+  --seal: #b6402a;
+  --seal-soft: #d8674a;
+  --seal-deep: #7c2a1b;
+  --sienna: var(--seal);
+  --sienna-soft: var(--seal-soft);
 
   --line: rgba(242, 238, 227, 0.14);
   --line-strong: rgba(242, 238, 227, 0.27);
 
+  --nav-bg: rgba(6, 5, 4, 0.82);
+  --footer-bg: var(--ink);
+  --footer-fg: var(--paper-soft);
+  --footer-fg-soft: rgba(244, 240, 230, 0.65);
+
   /* Type */
-  --font-display: "Fraunces", "Iowan Old Style", serif;
-  --font-body: "Work Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* Devanagari fallbacks are appended (not swapped) so the browser
+     picks the right glyph per character: Latin renders in Fraunces/
+     Work Sans as before, Hindi text in the same message renders in
+     the matching Noto weight automatically. */
+  --font-display: "Fraunces", "Noto Serif Devanagari", "Iowan Old Style", serif;
+  --font-body: "Work Sans", "Noto Sans Devanagari", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "Noto Sans Devanagari", ui-monospace, monospace;
+  --font-hand: "Caveat", "Noto Sans Devanagari", cursive;
 
   /* Layout */
   --page-max: 1180px;
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --section-pad: clamp(4rem, 9vw, 7.5rem);
+}
+
+/* ============================================================
+   LIGHT THEME — the same ledger/atelier identity on cream paper
+   instead of a dark room. Same seal-red ink, same type, same
+   structure; only the surface and text values flip.
+   ============================================================ */
+:root[data-theme="light"] {
+  --paper: #f4efe4;
+  --paper-deep: #e9e1d0;
+  --ink: #ffffff;
+  --paper-soft: #f4efe4;
+
+  --fg: #221d16;
+  --fg-soft: #5b5041;
+  --fg-faint: #8a7d68;
+
+  --ink-soft: #5b5349;
+  --ink-faint: #8a8175;
+
+  --line: rgba(34, 29, 22, 0.14);
+  --line-strong: rgba(34, 29, 22, 0.28);
+
+  --nav-bg: rgba(244, 239, 228, 0.86);
+
+  /* Footer follows the light theme too: a slightly deeper paper tone
+     with dark ink text, same as the rest of the page — not a leftover
+     dark bar. */
+  --footer-bg: #e9e1d0;
+  --footer-fg: #221d16;
+  --footer-fg-soft: rgba(34, 29, 22, 0.62);
+}
+
+:root[data-theme="light"] .grain {
+  opacity: 0.18;
+}
+
+:root[data-theme="light"] .letterbox {
+  background: #14110c;
+}
+
+:root[data-theme="light"] .hero-title,
+:root[data-theme="light"] .intro-card-title {
+  text-shadow: none;
 }
 
 * {
@@ -54,6 +117,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Note: overflow-x must NOT be set on html/body — it disables
+   position: sticky for every descendant (including the nav) in most
+   browsers. The marquee ribbon's slight rotation is contained at its
+   own wrapper instead — see .marquee-clip below. */
+
 body {
   margin: 0;
   background: var(--paper);
@@ -62,6 +130,27 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Faint ledger rule-lines — the page reads as pages in an artist's
+   sketchbook, not a generic dark SaaS surface. Barely-there on purpose. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(180deg,
+      transparent 0,
+      transparent 37px,
+      rgba(242, 238, 227, 0.035) 38px);
+}
+
+:root[data-theme="light"] body::before {
+  background-image: repeating-linear-gradient(180deg,
+      transparent 0,
+      transparent 37px,
+      rgba(34, 29, 22, 0.05) 38px);
 }
 
 /* Film-grain texture, applied once behind everything — "screen" blend
@@ -85,7 +174,10 @@ a {
   color: inherit;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-display);
   font-weight: 600;
   margin: 0;
@@ -151,17 +243,18 @@ button {
 }
 
 .btn-primary {
-  background: var(--sienna);
-  color: #1a1208;
-  border-color: var(--sienna);
+  background: var(--seal);
+  color: var(--paper-soft);
+  border-color: var(--seal);
   font-weight: 600;
+  border-radius: 0;
 }
 
 .btn-primary:hover {
-  background: var(--sienna-soft);
-  border-color: var(--sienna-soft);
+  background: var(--seal-soft);
+  border-color: var(--seal-soft);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(217, 138, 61, 0.55);
+  box-shadow: 0 10px 24px -10px rgba(182, 64, 42, 0.55);
 }
 
 .btn-outline {
@@ -229,11 +322,13 @@ button {
     transition: none;
     stroke-dashoffset: 0;
   }
+
   .reveal {
     transition: none;
     opacity: 1;
     transform: none;
   }
+
   html {
     scroll-behavior: auto;
   }
@@ -264,18 +359,21 @@ section {
   margin-top: 0.6rem;
 }
 
+/* Chapter mark — a small hand-inked tick that stands in for the eyebrow
+   label pattern, doubling as the site's recurring signature motif. */
+.section-chapter {
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--seal-soft);
+  letter-spacing: 0;
+}
+
 .section-lede {
   margin-top: 1rem;
   color: var(--fg-soft);
   font-size: 1.02rem;
   max-width: 54ch;
-}
-
-.section-chapter {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--fg-faint);
-  letter-spacing: 0.1em;
 }
 
 code {
@@ -311,6 +409,11 @@ code {
 /* ============================================================
    MARQUEE — full-bleed scrolling ribbon
    ============================================================ */
+.marquee-clip {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 .marquee {
   overflow: hidden;
   white-space: nowrap;
@@ -324,7 +427,7 @@ code {
 
 .marquee-gold {
   background: var(--sienna);
-  color: #1a1208;
+  color: var(--paper-soft);
 }
 
 .marquee-navy {
@@ -355,12 +458,19 @@ code {
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
+  .marquee-track {
+    animation: none;
+  }
 }
 
 /* ============================================================
@@ -391,11 +501,15 @@ code {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .spin-badge { animation: none; }
+  .spin-badge {
+    animation: none;
+  }
 }
 
 /* ============================================================
@@ -427,8 +541,12 @@ code {
   background: rgba(217, 138, 61, 0.16);
 }
 
-@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .cursor-dot { display: none; }
+@media (hover: none),
+(pointer: coarse),
+(prefers-reduced-motion: reduce) {
+  .cursor-dot {
+    display: none;
+  }
 }
 
 /* ============================================================
@@ -534,21 +652,46 @@ code {
 }
 
 @keyframes introTextIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes introRuleIn {
-  from { opacity: 0; width: 0; }
-  to { opacity: 1; width: 70px; }
+  from {
+    opacity: 0;
+    width: 0;
+  }
+
+  to {
+    opacity: 1;
+    width: 70px;
+  }
 }
 
 @keyframes introFade {
-  0% { opacity: 1; }
-  72% { opacity: 1; }
-  100% { opacity: 0; visibility: hidden; }
+  0% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .intro-card { display: none; }
+  .intro-card {
+    display: none;
+  }
 }

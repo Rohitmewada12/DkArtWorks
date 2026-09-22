@@ -1,10 +1,12 @@
 import site from "../data/site.js";
 import useReveal from "../useReveal.js";
+import useLang from "../LangContext.jsx";
 import "./about.css";
 
 const TOOLS = ["Graphite", "Charcoal", "Ink", "Watercolour", "Acrylic", "Coloured pencil"];
 
 export default function About() {
+  const { t } = useLang();
   const ref = useReveal();
 
   return (
@@ -17,9 +19,9 @@ export default function About() {
         </div>
 
         <div ref={ref} className="reveal about-copy">
-          <span className="section-chapter">Scene 05</span>
+          <span className="section-chapter">{t("about.chapter")}</span>
           <br />
-          <span className="eyebrow">About the artist</span>
+          <span className="eyebrow">{t("about.eyebrow")}</span>
           <h2>{site.fullName}</h2>
 
           {site.bio.map((p, i) => (

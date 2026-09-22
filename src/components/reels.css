@@ -78,7 +78,7 @@
   height: 46px;
   border-radius: 50%;
   background: rgba(217, 138, 61, 0.92);
-  color: #1a1208;
+  color: var(--paper-soft);
   display: flex;
   align-items: center;
   justify-content: center;

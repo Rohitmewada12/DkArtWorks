@@ -34,15 +34,20 @@
 .stagger-group.in-view .price-card:nth-child(3) { transition-delay: 0.25s; }
 
 .price-card-featured {
-  border-color: var(--sienna);
-  box-shadow: 0 24px 48px -28px rgba(217, 138, 61, 0.3);
+  border-color: var(--seal);
+  box-shadow: 0 24px 48px -28px rgba(182, 64, 42, 0.3);
+}
+
+.price-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--seal);
 }
 
 .price-badge {
   position: absolute;
   top: -0.7rem;
   left: 1.5rem;
-  background: var(--sienna);
+  background: var(--seal);
   color: var(--paper-soft);
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -96,7 +101,7 @@
   font-family: var(--font-mono);
   font-size: 0.92rem;
   font-weight: 600;
-  color: var(--sienna);
+  color: var(--seal);
   white-space: nowrap;
 }
 
