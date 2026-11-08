@@ -318,7 +318,7 @@ export default function Process() {
                     {t("process.startCommission")}
                   </button>
                   <a
-                    href={site.instagramUrl}
+                    href={site.instagramDmUrl || site.instagramUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="process-cta-secondary-btn"

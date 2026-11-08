@@ -101,13 +101,109 @@ export function formatBookingSummary(formData, prefillContext = {}) {
 }
 
 /**
+ * Returns phone number in E.164 international format for WhatsApp (digits only).
+ * If a 10-digit Indian phone number is passed, automatically prepends the "91" country code.
+ */
+export function getSanitizedWhatsAppNumber(rawNumber = site.whatsappNumber) {
+  let clean = (rawNumber || "").toString().replace(/\D/g, "");
+  if (!clean) return "";
+  // 10-digit Indian mobile number missing country code -> prepend 91
+  if (clean.length === 10) {
+    clean = `91${clean}`;
+  } else if (clean.length === 11 && clean.startsWith("0")) {
+    // 0 followed by 10 digits
+    clean = `91${clean.slice(1)}`;
+  }
+  return clean;
+}
+
+/**
+ * Direct Message link to start a conversation directly with Deepak Mewada on Instagram.
+ * Uses Meta's universal ig.me deep link that launches the Instagram app DM directly on mobile.
+ */
+export function getInstagramDmUrl() {
+  const handle = site.instagramHandle ? site.instagramHandle.replace(/^@/, "") : "dkarts_718";
+  return site.instagramDmUrl || `https://ig.me/m/${handle}`;
+}
+
+/**
+ * Universal deep link opener optimized for both mobile and desktop.
+ * - On Mobile (iOS Safari & Android Chrome): Uses direct navigation (window.location.href)
+ *   so universal links (wa.me, ig.me) trigger native mobile apps (WhatsApp, Instagram)
+ *   without being blocked by mobile popup blockers or opening dead blank tabs.
+ * - On Desktop: Uses window.open with a new tab to keep the portfolio active.
+ */
+export function openDeepLink(url) {
+  if (typeof window === "undefined" || !url) return;
+
+  const isMobile = typeof navigator !== "undefined" &&
+    /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent || "");
+
+  if (isMobile) {
+    // Direct location assignment cleanly triggers the OS universal link prompt / app intent
+    window.location.href = url;
+  } else {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+}
+
+/**
+ * Reliable clipboard copy function with iOS Safari selection range fallback.
+ * Synchronous and instant so the mobile touch gesture context is never lost.
+ */
+export function copyTextToClipboard(text) {
+  if (!text || typeof document === "undefined") return false;
+  let copied = false;
+
+  // Modern Async API (fire immediately)
+  if (navigator?.clipboard?.writeText && window.isSecureContext) {
+    navigator.clipboard.writeText(text).catch(() => {});
+    copied = true;
+  }
+
+  // Synchronous DOM selection fallback (essential for iOS Safari, WebViews & older Android)
+  try {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    textArea.style.top = "-9999px";
+    textArea.style.fontSize = "16px"; // Prevents iOS Safari from zooming the viewport
+    textArea.setAttribute("readonly", "");
+    document.body.appendChild(textArea);
+
+    if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+      const range = document.createRange();
+      range.selectNodeContents(textArea);
+      const sel = window.getSelection();
+      sel?.removeAllRanges();
+      sel?.addRange(range);
+      textArea.setSelectionRange(0, 999999);
+    } else {
+      textArea.select();
+    }
+
+    const execResult = document.execCommand("copy");
+    if (execResult) copied = true;
+    document.body.removeChild(textArea);
+  } catch (err) {
+    console.warn("DOM copy fallback error:", err);
+  }
+
+  return copied;
+}
+
+/**
  * Option 1: WhatsApp Submission
+ * Opens WhatsApp with full pre-filled booking message directly to Deepak Mewada.
+ * Works seamlessly on mobile (native app) and desktop (WhatsApp Web).
  */
 export function sendViaWhatsApp(formData, prefillContext = {}) {
   const message = formatBookingSummary(formData, prefillContext);
-  const number = site.whatsappNumber.replace(/\D/g, "");
+  const number = getSanitizedWhatsAppNumber(site.whatsappNumber);
   const whatsappUrl = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  openDeepLink(whatsappUrl);
+  return { number, message, whatsappUrl };
 }
 
 /**
@@ -118,40 +214,21 @@ export function sendViaEmail(formData, prefillContext = {}) {
   const body = formatBookingSummary(formData, prefillContext);
   const mailtoUrl = `mailto:${site.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = mailtoUrl;
+  return { subject, body, mailtoUrl };
 }
 
 /**
  * Option 3: Instagram DM Submission
- * Copies formatted booking summary to clipboard, and opens Instagram profile
+ * Automatically copies formatted booking summary to clipboard, and opens Instagram DM directly.
+ * Works seamlessly on mobile (native Instagram app) and desktop.
  */
-export async function sendViaInstagram(formData, prefillContext = {}) {
+export function sendViaInstagram(formData, prefillContext = {}) {
   const message = formatBookingSummary(formData, prefillContext);
+  const copied = copyTextToClipboard(message);
+  const dmUrl = getInstagramDmUrl();
 
-  let copied = false;
-  try {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(message);
-      copied = true;
-    } else {
-      // Fallback for older browsers
-      const textArea = document.createElement("textarea");
-      textArea.value = message;
-      textArea.style.position = "fixed";
-      textArea.style.left = "-999999px";
-      textArea.style.top = "-999999px";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      copied = document.execCommand("copy");
-      textArea.remove();
-    }
-  } catch (err) {
-    console.warn("Could not copy to clipboard:", err);
-    copied = false;
-  }
+  // Open direct message conversation in Instagram (ig.me/m/dkarts_718)
+  openDeepLink(dmUrl);
 
-  // Open Instagram profile in new tab
-  window.open(site.instagramUrl, "_blank", "noopener,noreferrer");
-
-  return { copied, message };
+  return { copied, message, dmUrl };
 }

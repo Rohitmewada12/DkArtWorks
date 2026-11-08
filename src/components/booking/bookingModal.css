@@ -989,6 +989,221 @@
   gap: 0.65rem;
 }
 
+/* Instagram Direct Message Active Guidance Panel */
+.bk-instagram-active-panel {
+  background: #FFFDF9;
+  border: 1.5px solid #E65312;
+  border-radius: 12px;
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 6px 22px rgba(230, 83, 18, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bk-ig-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.bk-ig-icon-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(221, 42, 123, 0.25);
+}
+
+.bk-ig-header-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.bk-ig-title {
+  margin: 0;
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #291B12;
+  letter-spacing: -0.01em;
+}
+
+.bk-ig-subtitle {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  color: #765F49;
+}
+
+.bk-ig-instruction-box {
+  background: #FAF3EA;
+  border: 1px dashed #D8C0A5;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.bk-ig-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #3F3025;
+}
+
+.bk-ig-step-item code {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  color: #C9470B;
+}
+
+.bk-ig-step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #D8C0A5;
+  color: #291B12;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.bk-ig-step-item.bk-ig-highlight {
+  background: rgba(230, 83, 18, 0.08);
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  margin: 0 -0.5rem;
+  color: #291B12;
+}
+
+.bk-ig-step-item.bk-ig-highlight .bk-ig-step-num {
+  background: #E65312;
+  color: #FFFFFF;
+}
+
+.bk-ig-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.bk-ig-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.bk-ig-btn-copy {
+  background: #291B12;
+  color: #F8F0E5;
+}
+
+.bk-ig-btn-copy:hover {
+  background: #E65312;
+  transform: translateY(-1px);
+}
+
+.bk-ig-btn-reopen {
+  background: #FFFFFF;
+  border-color: #D8C0A5;
+  color: #291B12;
+}
+
+.bk-ig-btn-reopen:hover {
+  border-color: #E65312;
+  color: #E65312;
+  background: #FFFDF9;
+}
+
+.bk-ig-whatsapp-alt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: #EAF7ED;
+  border: 1px solid #A5D6A7;
+  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.8rem;
+  color: #1B5E20;
+}
+
+.bk-ig-wa-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #25D366;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.bk-ig-wa-pill-btn:hover {
+  background: #1EBE5D;
+  transform: translateY(-1px);
+}
+
+.bk-ig-details-accordion {
+  border-top: 1px solid #EAD8C3;
+  padding-top: 0.5rem;
+}
+
+.bk-ig-details-accordion summary {
+  font-size: 0.78rem;
+  color: #765F49;
+  cursor: pointer;
+  user-select: none;
+}
+
+.bk-ig-details-accordion summary:hover {
+  color: #E65312;
+}
+
+.bk-ig-message-preview {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: #F4EAE0;
+  border: 1px solid #D8C0A5;
+  border-radius: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: #291B12;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
 /* Handoff Disclaimer */
 .bk-handoff-disclaimer {
   background: rgba(248, 240, 229, 0.7);
@@ -1259,5 +1474,47 @@
   .bk-btn-cancel {
     padding: 0.6rem 1rem;
     font-size: 0.82rem;
+  }
+
+  .bk-instagram-active-panel {
+    padding: 1rem;
+    gap: 0.85rem;
+  }
+
+  .bk-ig-header {
+    gap: 0.65rem;
+  }
+
+  .bk-ig-icon-badge {
+    width: 36px;
+    height: 36px;
+  }
+
+  .bk-ig-title {
+    font-size: 0.95rem;
+  }
+
+  .bk-ig-step-item {
+    font-size: 0.78rem;
+  }
+
+  .bk-ig-actions-row {
+    flex-direction: column;
+  }
+
+  .bk-ig-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bk-ig-whatsapp-alt {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .bk-ig-wa-pill-btn {
+    justify-content: center;
   }
 }

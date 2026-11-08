@@ -1,5 +1,6 @@
 import site from "../data/site.js";
 import useLang from "../LangContext.jsx";
+import { getSanitizedWhatsAppNumber } from "../utils/bookingSubmission.js";
 import "./whatsapp.css";
 
 // Small inline brand mark — kept as SVG so it reads as "WhatsApp" at a
@@ -14,9 +15,10 @@ function WhatsAppIcon(props) {
 
 export default function WhatsAppButton() {
   const { t } = useLang();
-  if (!site.whatsappNumber) return null;
+  const cleanNumber = getSanitizedWhatsAppNumber(site.whatsappNumber);
+  if (!cleanNumber) return null;
 
-  const href = `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
+  const href = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(
     site.whatsappMessage || ""
   )}`;
 

@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Copy,
+  ExternalLink,
   Gift,
   HelpCircle,
   Image as ImageIcon,
@@ -30,6 +31,9 @@ import {
   sendViaWhatsApp,
   sendViaEmail,
   sendViaInstagram,
+  getInstagramDmUrl,
+  copyTextToClipboard,
+  formatBookingSummary,
 } from "../../utils/bookingSubmission.js";
 import { GIFT_PACKAGES, OCCASIONS } from "../../data/giftPackages.js";
 
@@ -99,6 +103,8 @@ export default function ArtworkBookingForm() {
   const [errors, setErrors] = useState({});
   const [copiedNotice, setCopiedNotice] = useState(false);
   const [submittingChannel, setSubmittingChannel] = useState(null);
+  const [instagramActive, setInstagramActive] = useState(false);
+  const [copyFeedback, setCopyFeedback] = useState(false);
   const fileInputRef = useRef(null);
 
   // Field IDs for accessibility
@@ -201,18 +207,28 @@ export default function ArtworkBookingForm() {
     }
   }
 
-  async function handleInstagramSubmit() {
+  function handleInstagramSubmit() {
     if (!validateStep(1) || !validateStep(2)) {
       setStep(1);
       return;
     }
     setSubmittingChannel("instagram");
     try {
-      await sendViaInstagram(formData, prefillContext);
-      setCopiedNotice(true);
-      setTimeout(() => setCopiedNotice(false), 8000);
+      sendViaInstagram(formData, prefillContext);
+      setInstagramActive(true);
+      setCopyFeedback(true);
+      setTimeout(() => setCopyFeedback(false), 3500);
     } finally {
-      setTimeout(() => setSubmittingChannel(null), 1000);
+      setTimeout(() => setSubmittingChannel(null), 800);
+    }
+  }
+
+  function handleManualCopy() {
+    const text = formatBookingSummary(formData, prefillContext);
+    const success = copyTextToClipboard(text);
+    if (success) {
+      setCopyFeedback(true);
+      setTimeout(() => setCopyFeedback(false), 3500);
     }
   }
 
@@ -832,7 +848,7 @@ export default function ArtworkBookingForm() {
                 </div>
                 <div className="bk-btn-channel-text">
                   <strong>Send Booking via WhatsApp</strong>
-                  <span>Opens WhatsApp with complete booking pre-filled</span>
+                  <span>Opens WhatsApp chat directly with all details pre-filled</span>
                 </div>
                 <span className="bk-btn-channel-arrow">→</span>
               </button>
@@ -867,19 +883,94 @@ export default function ArtworkBookingForm() {
                   <Instagram size={22} strokeWidth={2.2} />
                 </div>
                 <div className="bk-btn-channel-text">
-                  <strong>Send Booking via Instagram</strong>
-                  <span>Copies booking to clipboard &amp; opens Instagram DM</span>
+                  <strong>Send via Instagram DM</strong>
+                  <span>Opens DM chat with @dkarts_718 &amp; copies all details</span>
                 </div>
                 <span className="bk-btn-channel-arrow">→</span>
               </button>
             </div>
 
-            {/* Instagram Copy Toast Feedback */}
-            {copiedNotice && (
+            {/* DIRECT INSTAGRAM DM GUIDANCE PANEL */}
+            {instagramActive && (
+              <div className="bk-instagram-active-panel bk-fade-in" role="region" aria-label="Instagram Direct Message instructions">
+                <div className="bk-ig-header">
+                  <div className="bk-ig-icon-badge">
+                    <Instagram size={22} strokeWidth={2.2} />
+                  </div>
+                  <div className="bk-ig-header-text">
+                    <h5 className="bk-ig-title">Chat Opened Directly with @dkarts_718</h5>
+                    <p className="bk-ig-subtitle">All your booking details are ready on your clipboard</p>
+                  </div>
+                </div>
+
+                <div className="bk-ig-instruction-box">
+                  <div className="bk-ig-step-item">
+                    <span className="bk-ig-step-num">1</span>
+                    <span>Direct chat opened in Instagram: <code>ig.me/m/dkarts_718</code></span>
+                  </div>
+                  <div className="bk-ig-step-item">
+                    <span className="bk-ig-step-num">2</span>
+                    <span>All booking specifications &amp; contact details are copied.</span>
+                  </div>
+                  <div className="bk-ig-step-item bk-ig-highlight">
+                    <span className="bk-ig-step-num">3</span>
+                    <span>👉 <strong>Simply paste (Ctrl+V / Long-press &amp; Paste)</strong> into the chat box with Deepak and hit Send!</span>
+                  </div>
+                </div>
+
+                <div className="bk-ig-actions-row">
+                  <button
+                    type="button"
+                    onClick={handleManualCopy}
+                    className="bk-ig-action-btn bk-ig-btn-copy"
+                    data-cursor="hover"
+                  >
+                    {copyFeedback ? <Check size={16} /> : <Copy size={16} />}
+                    <span>{copyFeedback ? "✓ Copied to Clipboard!" : "Copy Details Again"}</span>
+                  </button>
+
+                  <a
+                    href={getInstagramDmUrl()}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="bk-ig-action-btn bk-ig-btn-reopen"
+                    data-cursor="hover"
+                  >
+                    <ExternalLink size={16} />
+                    <span>Re-Open Instagram DM</span>
+                  </a>
+                </div>
+
+                {/* Instant WhatsApp Switch */}
+                <div className="bk-ig-whatsapp-alt">
+                  <span>Prefer 1-click automatic text pre-fill without pasting?</span>
+                  <button
+                    type="button"
+                    onClick={handleWhatsAppSubmit}
+                    className="bk-ig-wa-pill-btn"
+                    data-cursor="hover"
+                  >
+                    <MessageCircle size={15} />
+                    <span>Send via WhatsApp (+91 87704 14426)</span>
+                  </button>
+                </div>
+
+                {/* Formatted Text Preview */}
+                <details className="bk-ig-details-accordion">
+                  <summary>
+                    <span>View copied booking text</span>
+                  </summary>
+                  <pre className="bk-ig-message-preview">{formatBookingSummary(formData, prefillContext)}</pre>
+                </details>
+              </div>
+            )}
+
+            {/* Copied Toast Notice (quick copy feedback) */}
+            {copyFeedback && !instagramActive && (
               <div className="bk-copied-toast bk-fade-in" role="alert">
-                <Copy size={16} />
+                <Check size={16} />
                 <span>
-                  <strong>Booking details copied!</strong> Paste them directly into your Instagram DM with <strong>@dkarts_718</strong>.
+                  <strong>Booking details copied!</strong> Ready to paste into your chat.
                 </span>
               </div>
             )}

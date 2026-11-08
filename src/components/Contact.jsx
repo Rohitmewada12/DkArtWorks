@@ -4,6 +4,7 @@ import site from "../data/site.js";
 import useReveal from "../useReveal.js";
 import useLang from "../LangContext.jsx";
 import { useBooking } from "../context/BookingContext.jsx";
+import { getSanitizedWhatsAppNumber } from "../utils/bookingSubmission.js";
 import "./contact.css";
 
 export default function Contact() {
@@ -134,7 +135,7 @@ export default function Contact() {
             {/* BUTTON 01 — WHATSAPP */}
             {site.whatsappNumber && (
               <a
-                href={`https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
+                href={`https://wa.me/${getSanitizedWhatsAppNumber(site.whatsappNumber)}?text=${encodeURIComponent(
                   site.whatsappMessage || ""
                 )}`}
                 target="_blank"
