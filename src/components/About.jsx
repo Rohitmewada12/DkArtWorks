@@ -1,7 +1,9 @@
 import React from "react";
+import { Sparkles } from "lucide-react";
 import site from "../data/site.js";
 import useReveal from "../useReveal.js";
 import useLang from "../LangContext.jsx";
+import { useBooking } from "../context/BookingContext.jsx";
 import "./about.css";
 
 const TOOLS = [
@@ -16,6 +18,7 @@ const TOOLS = [
 export default function About() {
   const { t } = useLang();
   const ref = useReveal();
+  const { openBooking } = useBooking();
 
   return (
     <section id="about" className="section about-studio" aria-label="DK Arts — The Artist Behind the Artwork">
@@ -180,7 +183,19 @@ export default function About() {
             <h3 className="about-tools-heading">TOOLS &amp; MEDIUMS:</h3>
             <div className="about-tools-grid">
               {TOOLS.map((tool) => (
-                <div key={tool.id} className="about-tool-item">
+                <div
+                  key={tool.id}
+                  className="about-tool-item"
+                  onClick={() =>
+                    openBooking({
+                      medium: tool.label,
+                      sourceTitle: `${tool.label} Medium`,
+                      source: `About Tools — ${tool.label}`,
+                    })
+                  }
+                  data-cursor="hover"
+                  title={`Book artwork in ${tool.label}`}
+                >
                   <div className="about-tool-illus-wrap">
                     <img
                       src={tool.img}
@@ -200,27 +215,39 @@ export default function About() {
 
           {/* Artist Signature & Studio Designation */}
           <div className="about-signature-box">
-            <div className="about-signature-name-wrap">
-              <span className="about-signature-hand">Deepak Mewada</span>
-              <svg
-                className="about-signature-underline"
-                viewBox="0 0 200 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M4 6C45 2 110 2 196 5C140 7 70 7 12 6"
-                  stroke="#E65312"
-                  strokeWidth="2.4"
-                  strokeLinecap="round"
-                />
-              </svg>
+            <div className="about-signature-left">
+              <div className="about-signature-name-wrap">
+                <span className="about-signature-hand">Deepak Mewada</span>
+                <svg
+                  className="about-signature-underline"
+                  viewBox="0 0 200 10"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4 6C45 2 110 2 196 5C140 7 70 7 12 6"
+                    stroke="#E65312"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+              <span className="about-signature-designation">
+                ARTIST &amp; REALIST, DK ARTS
+              </span>
             </div>
-            <span className="about-signature-designation">
-              ARTIST &amp; REALIST, DK ARTS
-            </span>
+
+            <button
+              type="button"
+              className="about-book-commission-btn"
+              onClick={() => openBooking({ source: "About Section Signature" })}
+              data-cursor="hover"
+            >
+              <Sparkles size={15} />
+              <span>Book a Commission</span>
+            </button>
           </div>
         </div>
       </div>

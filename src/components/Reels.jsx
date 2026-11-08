@@ -7,6 +7,7 @@ import {
   Instagram,
   Pause,
   Play,
+  Sparkles,
   Volume2,
   VolumeX,
   X,
@@ -15,6 +16,7 @@ import videos from "../data/videos.js";
 import site from "../data/site.js";
 import useReveal from "../useReveal.js";
 import useLang from "../LangContext.jsx";
+import { useBooking } from "../context/BookingContext.jsx";
 import "./reels.css";
 
 export default function Reels() {
@@ -23,6 +25,7 @@ export default function Reels() {
   const [activeIndex, setActiveIndex] = useState(0);
   const headingRef = useReveal();
   const scrollRef = useRef(null);
+  const { openBooking } = useBooking();
 
   // Track active slide based on horizontal scroll
   const handleScroll = () => {
@@ -329,7 +332,6 @@ function ReelVideoCard({ video, counter, onPlay }) {
           src={video.poster}
           alt={video.title}
           loading="eager"
-          fetchPriority="high"
           className="reel-card-img"
         />
 
@@ -444,6 +446,7 @@ function ReelPlayerModal({
   onNext,
   onClose,
 }) {
+  const { openBooking } = useBooking();
   const videoRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -603,16 +606,39 @@ function ReelPlayerModal({
             {video.medium && <p className="video-modal-medium">{video.medium}</p>}
           </div>
 
-          <a
-            href={site.instagramUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="video-modal-ig-btn"
-            data-cursor="hover"
-          >
-            <Instagram size={15} strokeWidth={2} />
-            <span>Open in Instagram</span>
-          </a>
+          <div className="video-modal-actions-group">
+            <button
+              type="button"
+              className="video-modal-book-btn"
+              onClick={() => {
+                onClose();
+                openBooking({
+                  sourceTitle: video.title,
+                  sourceType: "Process Reel",
+                  artworkType: video.title?.toLowerCase().includes("painting") ? "Custom Painting" : "Portrait",
+                  subject: video.title,
+                  medium: video.medium,
+                  artworkImage: video.poster,
+                  source: `Reel — ${video.title}`,
+                });
+              }}
+              data-cursor="hover"
+            >
+              <Sparkles size={15} />
+              <span>Create Something Like This</span>
+            </button>
+
+            <a
+              href={site.instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="video-modal-ig-btn"
+              data-cursor="hover"
+            >
+              <Instagram size={15} strokeWidth={2} />
+              <span>Instagram</span>
+            </a>
+          </div>
         </div>
       </div>
 

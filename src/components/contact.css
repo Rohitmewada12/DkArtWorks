@@ -543,3 +543,23 @@
   color: #C9470B;
 }
 
+/* Contact Central Booking Button */
+.contact-book-main-btn {
+  background: #FFFDF9;
+  border: 1.5px solid #E65312;
+  box-shadow: 0 4px 14px rgba(230, 83, 18, 0.14);
+}
+
+.contact-book-main-btn:hover {
+  background: #FBF3E8;
+  border-color: #E65312;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(230, 83, 18, 0.25);
+}
+
+.bk-accent-icon {
+  background: #FDF1EA;
+  color: #E65312;
+}
+
+

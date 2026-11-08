@@ -3,6 +3,7 @@ import { ArrowRight, Check, Image, Layers, Pencil, Sparkles } from "lucide-react
 import beforeAfter from "../data/beforeAfter.js";
 import useReveal from "../useReveal.js";
 import useLang from "../LangContext.jsx";
+import { useBooking } from "../context/BookingContext.jsx";
 import "./beforeafter.css";
 
 const PROCESS_STEPS = [
@@ -36,6 +37,7 @@ export default function BeforeAfter() {
   const { t } = useLang();
   const headingRef = useReveal();
   const contentRef = useReveal({ threshold: 0.1 });
+  const { openBooking } = useBooking();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
@@ -336,6 +338,26 @@ export default function BeforeAfter() {
                     {currentIndex + 1} / {beforeAfter.length}
                   </span>
                 </div>
+
+                <button
+                  type="button"
+                  className="ba-commission-btn"
+                  onClick={() =>
+                    openBooking({
+                      sourceTitle: currentItem.title,
+                      sourceType: "From Photo to Portrait",
+                      artworkType: "Portrait",
+                      subject: currentItem.title,
+                      medium: currentItem.medium,
+                      artworkImage: currentItem.after,
+                      source: `Transformation — ${currentItem.title}`,
+                    })
+                  }
+                  data-cursor="hover"
+                >
+                  <Sparkles size={14} />
+                  <span>Request Similar Portrait</span>
+                </button>
               </div>
             )}
           </div>

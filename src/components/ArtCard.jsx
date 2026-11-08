@@ -1,10 +1,34 @@
 import { useState } from "react";
-import { ExternalLink, Maximize2 } from "lucide-react";
+import { ExternalLink, Maximize2, Sparkles } from "lucide-react";
 import useReveal from "../useReveal.js";
+import { useBooking } from "../context/BookingContext.jsx";
+
+function mapCategoryToArtworkType(cat) {
+  if (!cat) return "Portrait";
+  const lower = cat.toLowerCase();
+  if (lower.includes("painting")) return "Custom Painting";
+  if (lower.includes("anime")) return "Anime / Cartoon Art";
+  if (lower.includes("pet")) return "Pet Portrait";
+  return "Portrait";
+}
 
 export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
   const ref = useReveal({ threshold: 0.05 });
   const [loaded, setLoaded] = useState(false);
+  const { openBooking } = useBooking();
+
+  const handleBookSimilar = (e) => {
+    e.stopPropagation();
+    openBooking({
+      sourceTitle: art.title,
+      sourceType: art.category,
+      artworkType: mapCategoryToArtworkType(art.category),
+      subject: art.title,
+      medium: art.medium,
+      artworkImage: art.image || art.thumb,
+      source: `Gallery — ${art.title}`,
+    });
+  };
 
   if (viewMode === "list") {
     // Eagerly fetch initial visible items to eliminate loading delay
@@ -27,7 +51,6 @@ export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
             className={`art-list-img ${loaded ? "is-loaded" : ""}`}
             loading={isPriority ? "eager" : "lazy"}
             decoding="async"
-            fetchPriority={index < 3 ? "high" : "auto"}
             onLoad={() => setLoaded(true)}
             onError={() => setLoaded(true)}
           />
@@ -45,6 +68,16 @@ export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
         </div>
 
         <div className="art-list-controls">
+          <button
+            type="button"
+            className="art-list-book-btn"
+            onClick={handleBookSimilar}
+            aria-label={`Book similar to ${art.title}`}
+          >
+            <Sparkles size={14} />
+            <span>Book Similar</span>
+          </button>
+
           <button
             type="button"
             className="art-list-view-btn"
@@ -93,12 +126,24 @@ export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
             <p className="art-card-medium">{art.medium}</p>
           </div>
 
-          <span
-            className="art-card-expand-icon"
-            aria-hidden="true"
-          >
-            <Maximize2 size={16} strokeWidth={1.8} />
-          </span>
+          <div className="art-card-actions-wrap">
+            <button
+              type="button"
+              className="art-card-quick-book"
+              onClick={handleBookSimilar}
+              aria-label={`Book similar to ${art.title}`}
+              title="Book similar artwork"
+            >
+              <span>Book Similar</span>
+            </button>
+
+            <span
+              className="art-card-expand-icon"
+              aria-hidden="true"
+            >
+              <Maximize2 size={16} strokeWidth={1.8} />
+            </span>
+          </div>
         </div>
       </div>
     </figure>

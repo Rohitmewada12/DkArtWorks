@@ -1,10 +1,13 @@
 import React from "react";
+import { Sparkles } from "lucide-react";
 import site from "../data/site.js";
 import useLang from "../LangContext.jsx";
+import { useBooking } from "../context/BookingContext.jsx";
 import "./footer.css";
 
 export default function Footer() {
   const { t } = useLang();
+  const { openBooking } = useBooking();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -202,6 +205,18 @@ export default function Footer() {
             </div>
 
             <div className="footer-connect-body">
+              {/* Prominent Book Artwork CTA */}
+              <button
+                type="button"
+                className="footer-book-cta-btn"
+                onClick={() => openBooking({ source: "Footer CTA" })}
+                data-cursor="hover"
+              >
+                <Sparkles size={16} />
+                <span>Book Your Artwork</span>
+                <span className="footer-book-arrow" aria-hidden="true">→</span>
+              </button>
+
               <div className="footer-connect-buttons">
                 {/* Instagram Social Card */}
                 <a

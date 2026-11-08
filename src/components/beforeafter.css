@@ -628,6 +628,29 @@
   transform: translateX(4px);
 }
 
+.ba-commission-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: transparent;
+  border: 1px solid #D6C9B4;
+  border-radius: 999px;
+  padding: 0.5rem 1.15rem;
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #3A2E24;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.ba-commission-btn:hover {
+  background: #FFFDF9;
+  border-color: #E65312;
+  color: #E65312;
+  transform: translateY(-1px);
+}
+
 /* ============================================================
    RESPONSIVE DESIGN (TABLET & MOBILE)
    Exact Recreation of Mobile Transformation UI

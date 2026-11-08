@@ -14,11 +14,13 @@ import About from "./components/About.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import WhatsAppButton from "./components/WhatsAppButton.jsx";
+import { BookingProvider } from "./context/BookingContext.jsx";
+import BookingModal from "./components/booking/BookingModal.jsx";
 import site from "./data/site.js";
 
 export default function App() {
   return (
-    <>
+    <BookingProvider>
       <IntroTitleCard />
       <div className="grain" aria-hidden="true" />
       <CursorDot />
@@ -42,6 +44,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
-    </>
+      <BookingModal />
+    </BookingProvider>
   );
 }

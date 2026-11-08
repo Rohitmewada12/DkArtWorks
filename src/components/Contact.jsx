@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
+import { Sparkles } from "lucide-react";
 import site from "../data/site.js";
 import useReveal from "../useReveal.js";
 import useLang from "../LangContext.jsx";
+import { useBooking } from "../context/BookingContext.jsx";
 import "./contact.css";
 
 export default function Contact() {
   const { t } = useLang();
   const ref = useReveal();
+  const { openBooking } = useBooking();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [giftAddon, setGiftAddon] = useState(null);
 
@@ -112,6 +115,22 @@ export default function Contact() {
 
           {/* Four Vertically Stacked Contact Buttons */}
           <div className="contact-links-list">
+            {/* PRIMARY CENTRAL BOOKING BUTTON */}
+            <button
+              type="button"
+              className="contact-link-btn contact-book-main-btn"
+              onClick={() => openBooking({ source: "Contact Section" })}
+              data-cursor="hover"
+            >
+              <div className="contact-link-icon-wrap bk-accent-icon">
+                <Sparkles size={18} />
+              </div>
+              <span className="contact-link-label">
+                <strong>Book Artwork Directly</strong> (5-Step Form)
+              </span>
+              <span className="contact-link-arrow" aria-hidden="true">→</span>
+            </button>
+
             {/* BUTTON 01 — WHATSAPP */}
             {site.whatsappNumber && (
               <a

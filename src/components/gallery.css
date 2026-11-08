@@ -1018,3 +1018,55 @@
     font-size: 0.84rem;
   }
 }
+
+/* ============================================================
+   ARTWORK BOOKING BUTTONS IN GALLERY
+   ============================================================ */
+.art-list-book-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: var(--orange, #E65312);
+  color: #FFFFFF;
+  border: 1px solid var(--orange, #E65312);
+  border-radius: 6px;
+  padding: 0.55rem 0.95rem;
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.art-list-book-btn:hover {
+  background: #C9420C;
+  border-color: #C9420C;
+  transform: translateY(-1px);
+}
+
+.art-card-actions-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.art-card-quick-book {
+  background: rgba(230, 83, 18, 0.9);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 4px;
+  padding: 0.28rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.art-card-quick-book:hover {
+  background: #E65312;
+  transform: scale(1.04);
+}
+

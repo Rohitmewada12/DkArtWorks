@@ -1,8 +1,9 @@
-import { Instagram, Languages, Menu, Moon, Sun, X } from "lucide-react";
+import { Instagram, Languages, Menu, Moon, Sparkles, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import site from "../data/site.js";
 import useTheme from "../useTheme.js";
 import useLang from "../LangContext.jsx";
+import { useBooking } from "../context/BookingContext.jsx";
 import "./nav.css";
 
 const LINKS = [
@@ -20,6 +21,7 @@ export default function Nav() {
   const [activeSection, setActiveSection] = useState("#gallery");
   const [theme, toggleTheme] = useTheme();
   const { lang, t, toggle: toggleLang } = useLang();
+  const { openBooking } = useBooking();
 
   useEffect(() => {
     const sectionIds = ["gallery", "reels", "process", "pricing", "testimonials", "about", "contact"];
@@ -106,6 +108,16 @@ export default function Nav() {
           </a>
 
           <button
+            type="button"
+            className="nav-book-btn"
+            onClick={() => openBooking({ source: "Header Navigation" })}
+            data-cursor="hover"
+          >
+            <Sparkles size={14} />
+            <span>Book Artwork</span>
+          </button>
+
+          <button
             className="nav-toggle"
             aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
             aria-expanded={open}
@@ -120,6 +132,17 @@ export default function Nav() {
       {open && (
         <div className="nav-mobile">
           <div className="nav-mobile-links">
+            <button
+              type="button"
+              className="nav-mobile-book-btn"
+              onClick={() => {
+                setOpen(false);
+                openBooking({ source: "Mobile Navigation Menu" });
+              }}
+            >
+              <Sparkles size={16} />
+              <span>Book Your Artwork</span>
+            </button>
             {LINKS.map((l) => (
               <a
                 key={l.href}

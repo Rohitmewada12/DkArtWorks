@@ -957,3 +957,34 @@
     transform: none;
   }
 }
+
+/* Modal Booking Button */
+.video-modal-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.video-modal-book-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #E65312;
+  color: #FFFFFF;
+  border: 1px solid #E65312;
+  border-radius: 999px;
+  padding: 0.55rem 1.15rem;
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(230, 83, 18, 0.35);
+}
+
+.video-modal-book-btn:hover {
+  background: #C9420C;
+  transform: translateY(-2px);
+}
+

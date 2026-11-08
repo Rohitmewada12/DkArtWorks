@@ -2,10 +2,12 @@ import { useState, useId } from "react";
 import { Check, Gift, Star, User } from "lucide-react";
 import { GIFT_PACKAGES, OCCASIONS } from "../data/giftPackages.js";
 import useReveal from "../useReveal.js";
+import { useBooking } from "../context/BookingContext.jsx";
 import "./giftWrapping.css";
 
 export default function GiftWrapping({ onSelectGift }) {
   const ref = useReveal({ threshold: 0.08 });
+  const { openBooking } = useBooking();
   const [enabled, setEnabled] = useState(false);
   const [selectedPackageId, setSelectedPackageId] = useState("premium");
   const [occasion, setOccasion] = useState("Birthday");
@@ -59,6 +61,18 @@ export default function GiftWrapping({ onSelectGift }) {
           enabled: false,
         };
 
+    // Open central booking modal with all gift wrap details prefilled
+    openBooking({
+      sourceTitle: `Gift Commission (${selectedPackage.name})`,
+      sourceType: "Gift Packaging Add-on",
+      occasion: occasion || "Personal Gift",
+      giftWrapping: enabled,
+      giftPackage: enabled ? `${selectedPackage.name} (${selectedPackage.priceDisplay})` : "None",
+      giftRecipient: recipientName.trim(),
+      giftMessage: personalMessage.trim(),
+      source: `Gift Wrapping — ${selectedPackage.name}`,
+    });
+
     // Notify parent or dispatch custom window event for Contact form integration
     if (onSelectGift) {
       onSelectGift(giftDetails);
@@ -68,12 +82,6 @@ export default function GiftWrapping({ onSelectGift }) {
       window.dispatchEvent(
         new CustomEvent("dkarts:gift_selected", { detail: giftDetails })
       );
-
-      // Smooth scroll to contact / commission enquiry section
-      const contactEl = document.getElementById("contact");
-      if (contactEl) {
-        contactEl.scrollIntoView({ behavior: "smooth" });
-      }
     }
   }
 

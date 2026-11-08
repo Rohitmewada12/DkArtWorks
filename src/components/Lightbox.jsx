@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles, X } from "lucide-react";
+import { useBooking } from "../context/BookingContext.jsx";
+
+function mapCategoryToArtworkType(cat) {
+  if (!cat) return "Portrait";
+  const lower = cat.toLowerCase();
+  if (lower.includes("painting")) return "Custom Painting";
+  if (lower.includes("anime")) return "Anime / Cartoon Art";
+  if (lower.includes("pet")) return "Pet Portrait";
+  return "Portrait";
+}
 
 export default function Lightbox({ items, index, onClose, onNav }) {
   const art = items[index];
   const [loaded, setLoaded] = useState(false);
+  const { openBooking } = useBooking();
 
   useEffect(() => {
     setLoaded(false);
@@ -67,6 +78,28 @@ export default function Lightbox({ items, index, onClose, onNav }) {
           {art.description && (
             <p className="lightbox-desc">{art.description}</p>
           )}
+
+          <div className="lightbox-booking-row">
+            <button
+              type="button"
+              className="lightbox-book-btn"
+              onClick={() => {
+                onClose();
+                openBooking({
+                  sourceTitle: art.title,
+                  sourceType: art.category,
+                  artworkType: mapCategoryToArtworkType(art.category),
+                  subject: art.title,
+                  medium: art.medium,
+                  artworkImage: art.image || art.thumb,
+                  source: `Lightbox — ${art.title}`,
+                });
+              }}
+            >
+              <Sparkles size={15} />
+              <span>Commission Similar Artwork</span>
+            </button>
+          </div>
 
           <span className="lightbox-count">
             Piece {index + 1} of {items.length}

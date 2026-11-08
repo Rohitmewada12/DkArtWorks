@@ -4,10 +4,12 @@ import site from "../data/site.js";
 import useReveal from "../useReveal.js";
 import useLang from "../LangContext.jsx";
 import GiftWrapping from "./GiftWrapping.jsx";
+import { useBooking } from "../context/BookingContext.jsx";
 import "./process.css";
 
 export default function Process() {
   const { t } = useLang();
+  const { openBooking } = useBooking();
   const headingRef = useReveal();
   const stepsRef = useReveal({ threshold: 0.1 });
   const cardsRef = useReveal({ threshold: 0.1 });
@@ -230,21 +232,28 @@ export default function Process() {
                       </div>
                     </div>
 
-                    <a
-                      href={
-                        site.whatsappNumber
-                          ? `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
-                              `Hi Deepak! I'd like to request a ${c.title} commission.`
-                            )}`
-                          : "#contact"
+                    <button
+                      type="button"
+                      onClick={() =>
+                        openBooking({
+                          sourceTitle: c.title,
+                          sourceType: "Commission Service",
+                          artworkType: c.title.includes("Pet")
+                            ? "Pet Portrait"
+                            : c.title.includes("Painting")
+                            ? "Custom Painting"
+                            : "Portrait",
+                          subject: c.title,
+                          medium: c.medium,
+                          artworkImage: c.image,
+                          source: `Commission Studio — ${c.title}`,
+                        })
                       }
-                      target={site.whatsappNumber ? "_blank" : undefined}
-                      rel={site.whatsappNumber ? "noreferrer" : undefined}
                       className="commission-request-btn"
                       data-cursor="hover"
                     >
                       {t("process.requestBtn")}
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -300,9 +309,14 @@ export default function Process() {
                 <p className="process-cta-banner-lede">{t("process.memoryLede")}</p>
 
                 <div className="process-cta-banner-actions">
-                  <a href="#contact" className="process-cta-primary-btn" data-cursor="hover">
+                  <button
+                    type="button"
+                    onClick={() => openBooking({ source: "Commission Studio Banner" })}
+                    className="process-cta-primary-btn"
+                    data-cursor="hover"
+                  >
                     {t("process.startCommission")}
-                  </a>
+                  </button>
                   <a
                     href={site.instagramUrl}
                     target="_blank"

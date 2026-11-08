@@ -9,15 +9,18 @@ import {
   Layers,
   Gift,
   Instagram,
+  Sparkles,
 } from "lucide-react";
 import { pricingTiers, addOns, alsoAvailable } from "../data/pricing.js";
 import site from "../data/site.js";
 import useReveal from "../useReveal.js";
 import useLang from "../LangContext.jsx";
+import { useBooking } from "../context/BookingContext.jsx";
 import "./pricing.css";
 
 export default function Pricing() {
   const { t } = useLang();
+  const { openBooking } = useBooking();
   const headingRef = useReveal();
   const tiersRef = useReveal({ threshold: 0.1 });
   const extraRef = useReveal({ threshold: 0.1 });
@@ -226,30 +229,81 @@ export default function Pricing() {
                     </div>
 
                     <div className="pricing-rows-box">
-                      {tier.sizes.map((s) => (
-                        <div key={s.label} className="pricing-size-row">
-                          <span className="pricing-size-label">{s.label}</span>
-                          <span className="pricing-dotted-leader" aria-hidden="true" />
-                          <span className="pricing-size-price">{s.price}</span>
-                        </div>
-                      ))}
+                      {tier.sizes.map((s) => {
+                        const sizeCode = s.label.startsWith("A5")
+                          ? "A5"
+                          : s.label.startsWith("A4")
+                          ? "A4"
+                          : s.label.startsWith("A3")
+                          ? "A3"
+                          : "Custom Size";
+
+                        return (
+                          <div
+                            key={s.label}
+                            className="pricing-size-row"
+                            onClick={() =>
+                              openBooking({
+                                sourceTitle: `${tier.title} (${s.label})`,
+                                sourceType: "Pricing Tier Size",
+                                artworkType:
+                                  tier.id === "pet-portrait"
+                                    ? "Pet Portrait"
+                                    : tier.id === "colour-painting"
+                                    ? "Custom Painting"
+                                    : "Portrait",
+                                medium:
+                                  tier.id === "colour-painting"
+                                    ? "Watercolour"
+                                    : tier.id === "pet-portrait"
+                                    ? "Colour Pencil"
+                                    : "Graphite / Pencil",
+                                size: sizeCode,
+                                price: s.price,
+                                source: `Pricing Size — ${tier.title} ${s.label}`,
+                              })
+                            }
+                            data-cursor="hover"
+                            title={`Book ${tier.title} in ${s.label}`}
+                          >
+                            <span className="pricing-size-label">{s.label}</span>
+                            <span className="pricing-dotted-leader" aria-hidden="true" />
+                            <span className="pricing-size-price">{s.price}</span>
+                          </div>
+                        );
+                      })}
                     </div>
 
-                    <a
-                      href={
-                        site.whatsappNumber
-                          ? `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
-                              `Hi Deepak! I'd like to request a quote for ${tier.title}.`
-                            )}`
-                          : "#contact"
+                    <button
+                      type="button"
+                      onClick={() =>
+                        openBooking({
+                          sourceTitle: tier.title,
+                          sourceType: "Pricing Tier",
+                          artworkType:
+                            tier.id === "pet-portrait"
+                              ? "Pet Portrait"
+                              : tier.id === "colour-painting"
+                              ? "Custom Painting"
+                              : "Portrait",
+                          medium:
+                            tier.id === "colour-painting"
+                              ? "Watercolour"
+                              : tier.id === "pet-portrait"
+                              ? "Colour Pencil"
+                              : "Graphite / Pencil",
+                          budget:
+                            tier.id === "colour-painting"
+                              ? "₹2,500 – ₹5,000"
+                              : "₹1,000 – ₹2,500",
+                          source: `Pricing Card — ${tier.title}`,
+                        })
                       }
-                      target={site.whatsappNumber ? "_blank" : undefined}
-                      rel={site.whatsappNumber ? "noreferrer" : undefined}
                       className="pricing-card-btn"
                       data-cursor="hover"
                     >
                       {t("pricing.requestQuote")}
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -381,16 +435,15 @@ export default function Pricing() {
 
               {/* Right Action: Get a Custom Quote Button */}
               <div className="pricing-cta-banner-action">
-                <a
-                  href={site.instagramUrl}
-                  target="_blank"
-                  rel="noreferrer"
+                <button
+                  type="button"
+                  onClick={() => openBooking({ source: "Pricing Bottom Banner" })}
                   className="pricing-cta-btn"
                   data-cursor="hover"
                 >
-                  <Instagram size={18} strokeWidth={2} />
+                  <Sparkles size={18} />
                   <span>{t("pricing.ctaButton")}</span>
-                </a>
+                </button>
               </div>
 
               {/* Far Right Corner Burnt-Orange Dry-Brush Accent */}

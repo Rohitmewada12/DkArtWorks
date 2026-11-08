@@ -195,3 +195,32 @@
     display: none;
   }
 }
+
+/* Commission Similar Button in Lightbox */
+.lightbox-booking-row {
+  margin: 0.85rem 0 0.5rem 0;
+}
+
+.lightbox-book-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #E65312;
+  color: #FFFFFF;
+  border: 1px solid #E65312;
+  border-radius: 999px;
+  padding: 0.55rem 1.25rem;
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 14px rgba(230, 83, 18, 0.35);
+}
+
+.lightbox-book-btn:hover {
+  background: #C9420C;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(230, 83, 18, 0.45);
+}
+

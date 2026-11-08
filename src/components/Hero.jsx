@@ -2,10 +2,12 @@ import { ArrowDown, Instagram, Pencil, Sparkles, Youtube } from "lucide-react";
 import site from "../data/site.js";
 import SpinBadge from "./SpinBadge.jsx";
 import useLang from "../LangContext.jsx";
+import { useBooking } from "../context/BookingContext.jsx";
 import "./hero.css";
 
 export default function Hero() {
   const { t } = useLang();
+  const { openBooking } = useBooking();
 
   return (
     <section id="top" className="hero">
@@ -63,13 +65,18 @@ export default function Hero() {
           <p className="hero-description">{t("hero.description")}</p>
 
           <div className="hero-actions">
-            <a href="#gallery" className="btn btn-brush-orange" data-cursor="hover">
-              <span>{t("hero.exploreGallery")}</span>
-            </a>
+            <button
+              type="button"
+              onClick={() => openBooking({ source: "Hero Book Button" })}
+              className="btn btn-brush-orange"
+              data-cursor="hover"
+            >
+              <Sparkles size={16} />
+              <span>Book Your Artwork</span>
+            </button>
 
-            <a href="#contact" className="btn btn-studio-outline" data-cursor="hover">
-              <Pencil size={15} strokeWidth={2} />
-              <span>{t("hero.commissionArtwork")}</span>
+            <a href="#gallery" className="btn btn-studio-outline" data-cursor="hover">
+              <span>{t("hero.exploreGallery")}</span>
             </a>
           </div>
 
