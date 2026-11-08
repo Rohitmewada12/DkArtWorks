@@ -1,0 +1,252 @@
+/* ============================================================
+   DK ARTS — CINEMATIC INTRO VIDEO OVERLAY
+   Plays /videos/reel-3.mp4 on website entry as an artist intro
+   ============================================================ */
+
+.intro-video-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #0c0a08;
+  background-image:
+    radial-gradient(circle at 50% 30%, rgba(40, 30, 22, 0.45) 0%, rgba(12, 10, 8, 0.95) 75%, #0c0a08 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s ease;
+  user-select: none;
+}
+
+.intro-video-overlay.is-exiting {
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+/* ============================================================
+   TOP BAR (BRANDING & SKIP BUTTON)
+   ============================================================ */
+.intro-top-bar {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.intro-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.intro-brand-dk {
+  font-family: var(--font-hand, cursive);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #c94a29;
+  line-height: 1;
+}
+
+.intro-brand-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro-brand-name {
+  font-family: var(--font-display, serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #f1e4d2;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+.intro-brand-sub {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #bdae9b;
+}
+
+.intro-skip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(201, 74, 41, 0.18);
+  border: 1px solid #c94a29;
+  color: #ffffff;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(201, 74, 41, 0.25);
+  transition: all 0.22s ease;
+}
+
+.intro-skip-btn:hover {
+  background: #c94a29;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(201, 74, 41, 0.45);
+}
+
+.intro-skip-arrow {
+  transition: transform 0.2s ease;
+}
+
+.intro-skip-btn:hover .intro-skip-arrow {
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   MAIN CINEMATIC VIDEO STAGE
+   ============================================================ */
+.intro-stage-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+/* Ambient backlight glow */
+.intro-ambient-glow {
+  position: absolute;
+  width: clamp(280px, 45vw, 520px);
+  height: clamp(380px, 65vh, 640px);
+  background: radial-gradient(
+    circle at center,
+    rgba(201, 74, 41, 0.22) 0%,
+    rgba(185, 72, 31, 0.1) 45%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Centered cinematic frame */
+.intro-video-frame {
+  position: relative;
+  z-index: 1;
+  height: clamp(380px, 75vh, 720px);
+  aspect-ratio: 9 / 16;
+  max-width: 90vw;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000000;
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(200, 187, 169, 0.18),
+    0 0 24px rgba(201, 74, 41, 0.12);
+}
+
+.intro-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000000;
+}
+
+/* Floating Sound Toggle Button */
+.intro-sound-btn {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(16, 13, 10, 0.78);
+  border: 1px solid rgba(241, 228, 210, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #f1e4d2;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.intro-sound-btn:hover {
+  background: rgba(16, 13, 10, 0.95);
+  border-color: #c94a29;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Progress track at bottom of video */
+.intro-progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.18);
+  z-index: 6;
+}
+
+.intro-progress-bar {
+  height: 100%;
+  background: #c94a29;
+  box-shadow: 0 0 8px #c94a29;
+  transition: width 0.12s linear;
+}
+
+/* ============================================================
+   BOTTOM HINT
+   ============================================================ */
+.intro-bottom-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #8c7f70;
+  text-transform: uppercase;
+}
+
+.intro-bottom-hint kbd {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  margin: 0 0.25rem;
+  font-family: inherit;
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+  color: #f1e4d2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .intro-top-bar {
+    padding: 0.25rem 0.5rem;
+  }
+  .intro-brand-info {
+    display: none;
+  }
+  .intro-video-frame {
+    height: 74vh;
+    border-radius: 8px;
+  }
+  .intro-bottom-hint {
+    display: none;
+  }
+}

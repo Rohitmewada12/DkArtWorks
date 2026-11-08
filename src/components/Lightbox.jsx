@@ -28,8 +28,8 @@ export default function Lightbox({ items, index, onClose, onNav }) {
 
   return createPortal(
     <div className="lightbox" onClick={onClose} role="dialog" aria-modal="true">
-      <button className="lightbox-close" onClick={onClose} aria-label="Close">
-        <X size={22} strokeWidth={1.75} />
+      <button className="lightbox-close" onClick={onClose} aria-label="Close viewer">
+        <X size={22} strokeWidth={2} />
       </button>
 
       <button
@@ -38,9 +38,9 @@ export default function Lightbox({ items, index, onClose, onNav }) {
           e.stopPropagation();
           onNav(-1);
         }}
-        aria-label="Previous piece"
+        aria-label="Previous artwork"
       >
-        <ChevronLeft size={26} strokeWidth={1.5} />
+        <ChevronLeft size={28} strokeWidth={2} />
       </button>
 
       <div className="lightbox-stage" onClick={(e) => e.stopPropagation()}>
@@ -55,13 +55,21 @@ export default function Lightbox({ items, index, onClose, onNav }) {
             onLoad={() => setLoaded(true)}
           />
         </div>
+
         <div className="lightbox-caption">
-          <span className="lightbox-title">{art.title}</span>
-          <span className="lightbox-medium">
-            {art.medium} · {art.category}
-          </span>
+          <div className="lightbox-heading-row">
+            <h3 className="lightbox-title">{art.title}</h3>
+            <span className="lightbox-category-tag">{art.category}</span>
+          </div>
+
+          <p className="lightbox-medium">{art.medium}</p>
+
+          {art.description && (
+            <p className="lightbox-desc">{art.description}</p>
+          )}
+
           <span className="lightbox-count">
-            {index + 1} / {items.length}
+            Piece {index + 1} of {items.length}
           </span>
         </div>
       </div>
@@ -72,9 +80,9 @@ export default function Lightbox({ items, index, onClose, onNav }) {
           e.stopPropagation();
           onNav(1);
         }}
-        aria-label="Next piece"
+        aria-label="Next artwork"
       >
-        <ChevronRight size={26} strokeWidth={1.5} />
+        <ChevronRight size={28} strokeWidth={2} />
       </button>
     </div>,
     document.body

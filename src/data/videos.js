@@ -19,6 +19,28 @@
 //     title: "Time-lapse: Radha Krishna" }
 // ============================================================
 
-const videos = [];
+const videos = [
+  {
+    type: "file",
+    src: "/videos/reel-1.mp4",
+    poster: "/gallery/Carton.jpg",
+    title: "Sukuna — Anime Drawing",
+    medium: "COLOR PENCIL & INK",
+  },
+  {
+    type: "file",
+    src: "/videos/reel-2.mp4",
+    poster: "/gallery/painting-hanuman.jpg",
+    title: "Panchmukhi Hanuman",
+    medium: "COLOR PENCIL ON PAPER",
+  },
+  {
+    type: "file",
+    src: "/videos/reel-4.mp4",
+    poster: "/gallery/painting-radha-krishna-1.jpg",
+    title: "Radha Krishna Time-lapse",
+    medium: "COLOR PENCIL & GRAPHITE",
+  },
+];
 
 export default videos;

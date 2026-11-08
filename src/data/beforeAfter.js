@@ -1,28 +1,40 @@
 // ============================================================
-// BEFORE / AFTER — pairs of (reference photo, finished piece) for
-// the "See the transformation" section. This is the single most
-// persuasive section for a commission artist, so it's worth filling
-// in with 3–6 real pairs once you have client-approved reference
-// photos to show alongside the finished artwork.
-//
-// Add photos to /public/gallery/before/ and /public/gallery/ (or
-// reuse existing finished-piece images), then list them here:
-//
-// {
-//   before: "/gallery/before/example-ref.jpg",
-//   after: "/gallery/commission-soldier-1.jpg",
-//   title: "Portrait, graphite",
-// }
-//
-// Leave the array empty to show a friendly "coming soon" placeholder
-// instead of broken images.
+// BEFORE / AFTER — Real pairs of (reference photo, finished piece)
 // ============================================================
 
 const beforeAfter = [
   {
+    id: 1,
+    before: "/gallery/before/client-ref-2.jpg",
+    after: "/gallery/commission-portrait-colour.jpg",
+    title: "Portrait, Colour",
+    medium: "Coloured pencil & graphite",
+    description: "Vibrant custom portrait capturing warm skin tones and detailed ceremonial attire.",
+  },
+  {
+    id: 2,
     before: "/gallery/before/client-ref-1.jpg",
     after: "/gallery/commission-soldier-1.jpg",
-    title: "Portrait, graphite",
+    title: "Portrait, Graphite",
+    medium: "Graphite on 300gsm paper",
+    description: "Commissioned tribute portrait of an armed forces officer created from a client's formal photograph.",
+  },
+  {
+    id: 3,
+    before: "/gallery/before/client-ref-3.jpg",
+    after: "/gallery/Carton.jpg",
+    title: "Sukuna — Anime Split Artwork",
+    medium: "Color pencil & graphite",
+    description: "Detailed hand-drawn split portrait of Ryomen Sukuna created from reference photo.",
+  },
+  {
+    id: 4,
+    before: "/gallery/before/client-ref-4.jpg",
+    after: "/gallery/commission-wedding-couple.jpg",
+    title: "Commission — Wedding Couple",
+    medium: "Graphite on paper (Framed)",
+    description: "Hand-drawn commemorative wedding portrait of bride and groom in ceremonial attire.",
+    aspect: "landscape",
   },
 ];
 

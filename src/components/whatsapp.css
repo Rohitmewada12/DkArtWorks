@@ -1,41 +1,46 @@
+/* ============================================================
+   DK ARTS — FLOATING WHATSAPP BUTTON
+   ============================================================ */
+
 .whatsapp-fab {
   position: fixed;
-  right: clamp(1.1rem, 3vw, 1.75rem);
-  bottom: clamp(1.1rem, 3vw, 1.75rem);
-  z-index: 40;
+  right: clamp(1.2rem, 3.5vw, 2rem);
+  bottom: clamp(1.2rem, 3.5vw, 2rem);
+  z-index: 95;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
   background: #25d366;
-  color: #0a0908;
+  color: #ffffff;
   text-decoration: none;
-  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(37, 211, 102, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .whatsapp-fab:hover {
-  transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 16px 34px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), 0 0 28px rgba(37, 211, 102, 0.5);
 }
 
 .whatsapp-fab-tooltip {
   position: absolute;
-  right: calc(100% + 0.7rem);
+  right: calc(100% + 0.8rem);
   top: 50%;
   transform: translateY(-50%) translateX(6px);
   background: var(--paper-deep);
   color: var(--fg);
-  border: 1px solid var(--line);
-  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.85rem;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   white-space: nowrap;
-  border-radius: 3px;
+  border-radius: 4px;
   opacity: 0;
   pointer-events: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -46,8 +51,8 @@
 
 @media (max-width: 640px) {
   .whatsapp-fab {
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
   }
   .whatsapp-fab-tooltip {
     display: none;

@@ -7,6 +7,7 @@
 
 const translations = {
   en: {
+    "nav.home": "Home",
     "nav.gallery": "Gallery",
     "nav.reels": "Reels",
     "nav.commissions": "Commissions",
@@ -24,10 +25,14 @@ const translations = {
     "hero.eyebrow": "A commissioned artist",
     "hero.titleLine1": "Drawn by hand,",
     "hero.titleAccent": "made for you.",
-    "hero.viewGallery": "View the gallery",
+    "hero.description":
+      "Realistic sketches, portraits and handmade artwork that turn your memories into timeless pieces.",
+    "hero.exploreGallery": "Explore Gallery →",
+    "hero.commissionArtwork": "✎ Commission Artwork",
+    "hero.viewGallery": "Explore Gallery →",
     "hero.followInstagram": "Follow on Instagram",
     "hero.youtube": "YouTube",
-    "hero.scroll": "Scroll the gallery",
+    "hero.scroll": "Scroll to explore",
 
     "stats.commissions": "Commissions completed",
     "stats.rating": "Average rating",
@@ -112,6 +117,7 @@ const translations = {
   },
 
   hi: {
+    "nav.home": "होम",
     "nav.gallery": "गैलरी",
     "nav.reels": "रील्स",
     "nav.commissions": "कमीशन",
@@ -129,10 +135,14 @@ const translations = {
     "hero.eyebrow": "एक कमीशन कलाकार",
     "hero.titleLine1": "हाथ से बनाया गया,",
     "hero.titleAccent": "आपके लिए।",
-    "hero.viewGallery": "गैलरी देखें",
+    "hero.description":
+      "यथार्थवादी रेखाचित्र, पोर्ट्रेट और हस्तनिर्मित कलाकृतियां जो आपकी यादों को चिरस्थायी बनाती हैं।",
+    "hero.exploreGallery": "गैलरी देखें →",
+    "hero.commissionArtwork": "✎ कमीशन कलाकृति",
+    "hero.viewGallery": "गैलरी देखें →",
     "hero.followInstagram": "इंस्टाग्राम पर फॉलो करें",
     "hero.youtube": "यूट्यूब",
-    "hero.scroll": "गैलरी की ओर स्क्रॉल करें",
+    "hero.scroll": "देखने के लिए स्क्रॉल करें",
 
     "stats.commissions": "पूरे किए गए कमीशन",
     "stats.rating": "औसत रेटिंग",

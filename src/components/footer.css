@@ -1,52 +1,150 @@
+/* ============================================================
+   DK ARTS — FOOTER (DARK ARTIST ATELIER)
+   ============================================================ */
+
 .footer {
   background: var(--footer-bg);
-  color: var(--footer-fg);
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--border);
+  padding: 4.5rem 0 2.5rem;
+  position: relative;
+  z-index: 10;
 }
 
-.footer-inner {
-  padding-top: 2.25rem;
-  padding-bottom: 2.25rem;
+.footer-content {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 3.5rem;
 }
 
-.footer-brand {
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.4fr 1.6fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.footer-brand-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.footer-brand-title .brand-dk {
+  font-family: var(--font-hand);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--orange);
+  line-height: 1;
+}
+
+.footer-brand-title .brand-arts {
   font-family: var(--font-display);
+  font-size: 1.8rem;
   font-weight: 600;
+  color: var(--fg);
+  letter-spacing: 0.02em;
 }
 
-.footer-copy {
-  font-size: 0.8rem;
-  color: var(--footer-fg-soft);
+.footer-brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-top: 0.35rem;
+}
+
+.footer-tagline {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--fg-soft);
+  margin-top: 0.85rem;
+  max-width: 32ch;
+  line-height: 1.6;
+}
+
+.footer-col-title {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  margin-bottom: 1.25rem;
+}
+
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.7rem 1.5rem;
+}
+
+.footer-links-grid a {
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--fg-soft);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-links-grid a:hover {
+  color: var(--orange);
+  transform: translateX(3px);
 }
 
 .footer-social {
   display: flex;
+  flex-direction: column;
   gap: 0.75rem;
 }
 
 .footer-social-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1.5px solid var(--footer-fg-soft);
-  color: var(--footer-fg);
-  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease,
-    background 0.2s ease, box-shadow 0.2s ease;
+  gap: 0.65rem;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--fg);
+  background: var(--paper-deep);
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.95rem;
+  border-radius: 4px;
+  width: fit-content;
+  transition: all 0.2s ease;
 }
 
-.footer-social-btn:hover,
-.footer-social-btn:focus-visible {
-  border-color: var(--seal);
-  background: var(--seal);
-  color: var(--paper-soft);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 22px -10px rgba(182, 64, 42, 0.55);
+.footer-social-btn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: rgba(230, 106, 36, 0.12);
+  transform: translateY(-2px);
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(87, 72, 58, 0.45);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--fg-faint);
+}
+
+.footer-copy {
+  color: var(--fg-soft);
+}
+
+.footer-author {
+  color: var(--orange);
+  opacity: 0.85;
+}
+
+@media (max-width: 860px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
 }

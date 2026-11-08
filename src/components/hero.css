@@ -1,172 +1,648 @@
 /* ============================================================
-   HERO — "ledger spread": two facing pages, like an open
-   sketchbook. Left page carries the words, right page holds a
-   single framed portrait. A spine line runs down the centre.
+   DK ARTS — HERO (DARK CINEMATIC ARTIST STUDIO)
    ============================================================ */
+
 .hero {
   position: relative;
-  padding-top: clamp(6rem, 12vw, 9rem);
-  padding-bottom: clamp(3.5rem, 8vw, 6rem);
+  min-height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: clamp(2rem, 5vw, 4rem);
+  padding-bottom: 2rem;
+  overflow: hidden;
+  background-color: var(--paper);
+}
+
+/* ============================================================
+   BACKGROUND MONOCHROMATIC PENCIL DRAWING BLEND
+   ============================================================ */
+.hero-bg-art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
   overflow: hidden;
 }
 
+.hero-bg-sketch {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 75% 25%;
+  filter: grayscale(1) contrast(1.15) brightness(0.65);
+  opacity: 0.09;
+  mix-blend-mode: luminosity;
+  transform: scale(1.05);
+  transition: transform 10s ease;
+}
+
+.hero:hover .hero-bg-sketch {
+  transform: scale(1.08);
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 70% 40%,
+    rgba(16, 13, 10, 0.4) 0%,
+    rgba(16, 13, 10, 0.85) 60%,
+    #100d0a 100%
+  );
+}
+
+/* ============================================================
+   VERTICAL MARGIN LABEL
+   ============================================================ */
+.hero-vertical-label {
+  position: absolute;
+  left: 1.5rem;
+  top: 48%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center center;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  color: var(--border);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.hero-vertical-label .v-dot {
+  color: var(--orange);
+  opacity: 0.8;
+}
+
+/* ============================================================
+   HERO TWO-SIDED SPREAD
+   ============================================================ */
 .hero-spread {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.18fr 0.92fr;
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: center;
+  margin: auto 0;
   position: relative;
+  z-index: 2;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
 }
 
-.hero-spine {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 55%;
-  width: 1px;
-  background: var(--line);
-  z-index: 0;
+/* ============================================================
+   LEFT CONTENT
+   ============================================================ */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  max-width: 620px;
 }
 
-.hero-page {
-  position: relative;
-  z-index: 1;
+.hero-eyebrow-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-.intro-eyebrow {
+.hero-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 10px var(--orange);
+  animation: pulseDot 2.5s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.5;
+  }
+}
+
+.hero-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.74rem;
-  letter-spacing: 0.18em;
-  color: var(--seal-soft);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 500;
 }
 
-.hero-title {
-  margin-top: 1rem;
-  font-size: clamp(2.6rem, 5.4vw, 4.2rem);
+.hero-heading {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
   line-height: 1.02;
+}
+
+.hero-line-serif {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(3.2rem, 6.2vw, 5.4rem);
   color: var(--fg);
+  letter-spacing: -0.015em;
 }
 
-.hero-title .accent {
+.hero-line-brush {
+  position: relative;
   font-family: var(--font-hand);
-  font-weight: 600;
-  font-size: 1.15em;
-  color: var(--seal-soft);
+  font-weight: 700;
+  font-size: clamp(3.6rem, 7.2vw, 6.2rem);
+  color: var(--orange);
+  line-height: 0.96;
   display: inline-block;
-  transform: rotate(-2deg);
+  width: fit-content;
+  transform: rotate(-1.5deg);
+  margin-top: 0.35rem;
+  text-shadow: 0 2px 14px rgba(230, 106, 36, 0.25);
 }
 
-.hero-tagline {
-  margin-top: 1.3rem;
-  max-width: 40ch;
-  font-size: 1.08rem;
+.hero-brush-underline {
+  position: absolute;
+  left: -2%;
+  bottom: -10px;
+  width: 104%;
+  height: 22px;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 8px rgba(230, 106, 36, 0.4));
+}
+
+.hero-description {
+  font-family: var(--font-body);
+  font-size: clamp(1.02rem, 1.3vw, 1.16rem);
+  line-height: 1.65;
   color: var(--fg-soft);
+  max-width: 44ch;
+  margin-top: 0.2rem;
 }
 
 .hero-actions {
   display: flex;
+  align-items: center;
+  gap: 1rem;
   flex-wrap: wrap;
-  gap: 0.9rem;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 }
 
-.hero-meta {
+.btn-brush-orange {
+  background: var(--orange);
+  color: #100d0a !important;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.98rem;
+  padding: 0.9rem 1.8rem;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(230, 106, 36, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn-brush-orange:hover {
+  background: #f27732;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(230, 106, 36, 0.5);
+}
+
+.btn-studio-outline {
+  background: rgba(16, 13, 10, 0.5);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.88rem 1.65rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-studio-outline:hover {
+  border-color: var(--fg-soft);
+  color: var(--fg);
+  background: rgba(241, 228, 210, 0.05);
+  transform: translateY(-2px);
+}
+
+.hero-social-strip {
   display: flex;
-  gap: 1.5rem;
-  margin-top: 1.8rem;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin-top: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
 }
 
-.hero-meta a {
+.hero-social-link {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
   color: var(--fg-faint);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.hero-meta a:hover {
-  color: var(--seal-soft);
+.hero-social-link:hover {
+  color: var(--orange);
 }
 
-.hero-scroll {
+.hero-social-divider {
+  color: var(--border);
+  opacity: 0.6;
+}
+
+.hero-artist-tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: clamp(2.5rem, 6vw, 4rem);
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  color: var(--fg-faint);
-  text-decoration: none;
-  transition: color 0.2s ease, gap 0.2s ease;
+  gap: 0.35rem;
+  color: var(--fg-soft);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
 }
 
-.hero-scroll:hover {
-  color: var(--seal-soft);
-  gap: 0.7rem;
+.hero-sparkle {
+  color: var(--orange);
 }
 
-/* The framed portrait — a single deliberate image instead of a
-   full-bleed background, with a torn/deckled corner as the one
-   ornamental flourish on the page. */
-.hero-frame {
+/* ============================================================
+   RIGHT ARTWORK COMPOSITION (LAYERED TORN PAPER)
+   ============================================================ */
+.hero-artwork-area {
   position: relative;
-  border: 1px solid var(--line-strong);
-  padding: 0.6rem;
-  background: var(--paper-deep);
-  transform: rotate(1.3deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.hero-frame img {
+.hero-composition {
+  position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  max-width: 440px;
+}
+
+/* Layer 0: Orange Brushstroke / Paint Wash Glow */
+.art-brush-stroke {
+  position: absolute;
+  inset: -15% -12% -18% -15%;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(28px);
+  transform: rotate(8deg);
+  opacity: 0.9;
+}
+
+.art-brush-stroke svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Layer 1: Back Under-Sheet (Parchment with Offset Tilt) */
+.art-paper-layer-back {
+  position: absolute;
+  inset: -6px -12px -14px -8px;
+  background: #c8b99d;
+  transform: rotate(-3.2deg);
+  z-index: 2;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
+  clip-path: polygon(
+    1% 3%, 12% 1%, 25% 2%, 38% 0%, 54% 2%, 70% 1%, 86% 3%, 99% 1%,
+    98% 15%, 100% 28%, 98% 42%, 99% 59%, 98% 74%, 100% 88%, 98% 98%,
+    88% 97%, 72% 99%, 56% 98%, 41% 100%, 26% 98%, 12% 99%, 1% 97%,
+    2% 84%, 0% 70%, 2% 52%, 0% 36%, 2% 20%
+  );
+}
+
+/* Layer 2: Main Torn Beige Paper Mount */
+.art-paper-mount {
+  position: relative;
+  z-index: 3;
+  background: #ede3ce;
+  background-image:
+    radial-gradient(#d3c3a7 0.8px, transparent 0.8px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(200, 185, 160, 0.15) 100%);
+  background-size: 14px 14px, 100% 100%;
+  transform: rotate(1.6deg);
+  padding: 1.1rem 1.1rem 1.5rem 1.1rem;
+  box-shadow: 0 22px 50px -10px rgba(0, 0, 0, 0.85);
+  clip-path: polygon(
+    0% 2%, 14% 0%, 28% 2%, 44% 1%, 62% 2%, 79% 0%, 93% 2%, 100% 1%,
+    99% 16%, 100% 31%, 98% 47%, 100% 63%, 98% 79%, 100% 92%, 99% 99%,
+    86% 98%, 70% 100%, 53% 98%, 37% 99%, 21% 98%, 7% 100%, 0% 98%,
+    1% 83%, 0% 66%, 2% 49%, 0% 33%, 1% 17%
+  );
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hero-composition:hover .art-paper-mount {
+  transform: rotate(0.8deg) translateY(-4px);
+  box-shadow: 0 28px 60px -8px rgba(0, 0, 0, 0.9);
+}
+
+.art-paper-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.2rem 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: #7b6d5b;
+}
+
+/* Portrait Image Wrap */
+.art-portrait-wrap {
+  position: relative;
+  overflow: hidden;
+  background: #14100c;
+  border: 1px solid rgba(87, 72, 58, 0.4);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.35);
+}
+
+.art-portrait-img {
+  width: 100%;
+  aspect-ratio: 4 / 4.8;
   object-fit: cover;
-  object-position: 50% 20%;
-  filter: grayscale(0.35) contrast(1.03);
+  object-position: 50% 18%;
+  filter: grayscale(0.2) contrast(1.06);
   display: block;
 }
 
-.hero-frame-corner {
+/* Photo Corners (Deckled/Tape Feel) */
+.art-photo-corner {
   position: absolute;
-  top: -10px;
-  right: 22px;
-  width: 46px;
-  height: 46px;
-  background: var(--seal);
-  clip-path: polygon(0 0, 100% 0, 100% 100%);
-  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.35);
-}
-
-.hero-badge {
-  position: absolute;
-  left: -20px;
-  bottom: -20px;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--orange);
   z-index: 2;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+  pointer-events: none;
 }
 
-@media (max-width: 860px) {
+.art-photo-corner.top-left {
+  top: 8px;
+  left: 8px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.art-photo-corner.bottom-right {
+  bottom: 8px;
+  right: 8px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Paper Footer: Signature & Stamp */
+.art-paper-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0.8rem 0.4rem 0.2rem;
+}
+
+.art-signature-block {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.art-hand-signature {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: #241c16;
+  letter-spacing: -0.01em;
+}
+
+.art-sig-sub {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7a6a57;
+}
+
+.art-seal-stamp {
+  width: 44px;
+  height: 44px;
+  border: 1.5px dashed var(--orange-deep);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-12deg);
+  opacity: 0.85;
+}
+
+.seal-round {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--orange-deep);
+}
+
+/* Realistic Wooden Artist Pencil across Lower Right */
+.art-pencil-illustration {
+  position: absolute;
+  bottom: -16px;
+  right: -32px;
+  z-index: 10;
+  transform: rotate(-16deg);
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.65));
+  pointer-events: none;
+  transition: transform 0.3s ease;
+}
+
+.hero-composition:hover .art-pencil-illustration {
+  transform: rotate(-13deg) translateY(-2px);
+}
+
+/* Spinning Seal Badge */
+.hero-spinning-badge {
+  position: absolute;
+  left: -28px;
+  bottom: 24px;
+  z-index: 8;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.6));
+}
+
+/* ============================================================
+   BOTTOM SCROLL INDICATOR STRIP
+   ============================================================ */
+.hero-scroll-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 640px;
+  margin: 1.5rem auto 0;
+  position: relative;
+  z-index: 4;
+}
+
+.scroll-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.hero-scroll-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: var(--fg-soft);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-scroll-btn:hover {
+  color: var(--orange);
+  transform: translateY(2px);
+}
+
+.mouse-indicator {
+  width: 18px;
+  height: 28px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.mouse-wheel {
+  width: 3px;
+  height: 5px;
+  background: var(--orange);
+  border-radius: 2px;
+  animation: mouseWheelMove 1.8s infinite ease-in-out;
+}
+
+@keyframes mouseWheelMove {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(8px);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.scroll-arrow {
+  color: var(--orange);
+  animation: arrowBounce 1.8s infinite ease-in-out;
+}
+
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ============================================================ */
+@media (max-width: 1024px) {
   .hero-spread {
     grid-template-columns: 1fr;
+    gap: 3.5rem;
   }
-  .hero-spine {
+
+  .hero-vertical-label {
     display: none;
   }
-  .hero-page-right {
-    order: -1;
-    max-width: 320px;
+
+  .hero-content {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .hero-composition {
+    max-width: 380px;
     margin: 0 auto;
   }
-  .hero-badge {
-    left: auto;
-    right: -14px;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .hero-spread {
+    gap: 2.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    justify-content: center;
+  }
+
+  .hero-composition {
+    max-width: 320px;
+  }
+
+  .hero-spinning-badge {
+    left: -12px;
+    bottom: 10px;
+    transform: scale(0.85);
+  }
+
+  .art-pencil-illustration {
+    right: -18px;
+    bottom: -10px;
+    transform: scale(0.8) rotate(-16deg);
+  }
+
+  .hero-scroll-bar {
+    margin-top: 1rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-frame {
+  .art-paper-mount,
+  .hero-bg-sketch,
+  .mouse-wheel,
+  .scroll-arrow,
+  .hero-badge-dot {
+    animation: none;
     transform: none;
   }
 }

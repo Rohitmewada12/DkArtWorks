@@ -1,65 +1,105 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Maximize2 } from "lucide-react";
 import useReveal from "../useReveal.js";
 
-const TILE_TAPE_ROT = [-8, 6, -5, 9, -7, 5, -4, 8];
-
-export default function ArtCard({ art, index, span = "", onOpen }) {
-  const tapeRot = TILE_TAPE_ROT[index % TILE_TAPE_ROT.length];
-  const ref = useReveal({ threshold: 0.1 });
-  const cardRef = useRef(null);
+export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
+  const ref = useReveal({ threshold: 0.05 });
   const [loaded, setLoaded] = useState(false);
 
-  function handleMove(e) {
-    const el = cardRef.current;
-    if (!el || window.matchMedia("(pointer: coarse)").matches) return;
-    const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    el.style.transform = `rotateY(${px * 6}deg) rotateX(${-py * 6}deg) translateY(-4px)`;
-  }
+  if (viewMode === "list") {
+    // Eagerly fetch initial visible items to eliminate loading delay
+    const isPriority = index < 6;
 
-  function handleLeave() {
-    const el = cardRef.current;
-    if (el) el.style.transform = "rotateY(0deg) rotateX(0deg) translateY(0)";
+    return (
+      <div
+        ref={ref}
+        className="art-list-item in-view"
+        onClick={() => onOpen && onOpen(art)}
+        role="button"
+        tabIndex={0}
+        data-cursor="hover"
+        aria-label={`View ${art.title}`}
+      >
+        <div className={`art-list-media ${loaded ? "is-loaded" : ""}`}>
+          <img
+            src={art.thumb || art.image}
+            alt={art.title}
+            className={`art-list-img ${loaded ? "is-loaded" : ""}`}
+            loading={isPriority ? "eager" : "lazy"}
+            decoding="async"
+            fetchPriority={index < 3 ? "high" : "auto"}
+            onLoad={() => setLoaded(true)}
+            onError={() => setLoaded(true)}
+          />
+        </div>
+
+        <div className="art-list-content">
+          <div className="art-list-header">
+            <span className="art-list-category">{art.category}</span>
+            <h3 className="art-list-title">{art.title}</h3>
+          </div>
+          <p className="art-list-medium">{art.medium}</p>
+          {art.description && (
+            <p className="art-list-desc">{art.description}</p>
+          )}
+        </div>
+
+        <div className="art-list-controls">
+          <button
+            type="button"
+            className="art-list-view-btn"
+            aria-label={`Open ${art.title} in full screen`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpen && onOpen(art);
+            }}
+          >
+            <span>View Artwork</span>
+            <Maximize2 size={14} strokeWidth={1.8} />
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
     <figure
       ref={ref}
-      className={`art-card stagger ${span}`}
-      style={{ "--stagger-delay": `${(index % 6) * 0.07}s` }}
+      className="art-card stagger"
+      style={{ "--stagger-delay": `${(index % 8) * 0.04}s` }}
     >
       <div
-        ref={cardRef}
         className={`art-card-inner ${loaded ? "is-loaded" : ""}`}
         data-cursor="hover"
-        onMouseMove={handleMove}
-        onMouseLeave={handleLeave}
         onClick={() => onOpen && onOpen(art)}
         role={onOpen ? "button" : undefined}
         tabIndex={onOpen ? 0 : undefined}
+        aria-label={`View ${art.title}`}
       >
-        <span
-          className="tape"
-          style={{ top: "-9px", left: "16px", transform: `rotate(${tapeRot}deg)` }}
-          aria-hidden="true"
-        />
         <img
           src={art.thumb || art.image}
           alt={art.title}
           loading="lazy"
           decoding="async"
+          className="art-card-img"
           onLoad={() => setLoaded(true)}
         />
 
-        <div className="art-overlay">
-          <span className="art-overlay-title">{art.title}</span>
-          <span className="art-overlay-medium">{art.medium}</span>
-          <Maximize2 size={15} strokeWidth={1.75} className="art-overlay-icon" />
-        </div>
+        <div className="art-card-scrim" aria-hidden="true" />
 
-        <span className="art-tag">{art.category}</span>
+        <div className="art-card-info">
+          <div className="art-card-meta">
+            <h3 className="art-card-title">{art.title}</h3>
+            <p className="art-card-medium">{art.medium}</p>
+          </div>
+
+          <span
+            className="art-card-expand-icon"
+            aria-hidden="true"
+          >
+            <Maximize2 size={16} strokeWidth={1.8} />
+          </span>
+        </div>
       </div>
     </figure>
   );

@@ -1,27 +1,48 @@
+/* ============================================================
+   DK ARTS — COMMISSION PROCESS (EDITORIAL TIMELINE)
+   ============================================================ */
+
 .process {
   background: var(--paper);
+  position: relative;
+  border-bottom: 1px solid var(--border);
 }
 
 .process-steps {
   list-style: none;
-  margin: 0 0 3.5rem;
+  margin: 0 0 4rem;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  gap: 1.5rem;
+  position: relative;
+}
+
+.process-steps::before {
+  content: "";
+  position: absolute;
+  top: 36px;
+  left: 2rem;
+  right: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), var(--orange), var(--border));
+  opacity: 0.5;
+  z-index: 0;
 }
 
 .process-step {
-  background: var(--paper);
-  padding: 1.9rem 1.6rem;
+  position: relative;
+  z-index: 1;
+  background: var(--paper-deep);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2rem 1.6rem;
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 1rem;
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 0.6s ease, transform 0.6s ease, background 0.2s ease;
+  transition: opacity 0.6s ease, transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .stagger-group.in-view .process-step {
@@ -35,42 +56,53 @@
 .stagger-group.in-view .process-step:nth-child(4) { transition-delay: 0.35s; }
 
 .process-step:hover {
-  background: var(--paper-deep);
+  transform: translateY(-4px);
+  border-color: var(--orange);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 16px rgba(230, 106, 36, 0.2);
 }
 
 .process-num {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--sienna);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--orange);
+  letter-spacing: -0.02em;
 }
 
 .process-step h3 {
-  font-size: 1.05rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
   font-weight: 600;
+  color: var(--fg);
+  line-height: 1.25;
 }
 
 .process-step p {
   margin-top: 0.5rem;
+  font-family: var(--font-body);
   font-size: 0.92rem;
   color: var(--fg-soft);
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
+/* Commission Types Cards */
 .commission-types {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 3rem;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
 }
 
 .commission-card {
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--sienna);
-  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--orange);
+  border-radius: 4px;
+  padding: 1.75rem 1.6rem;
   background: var(--paper-deep);
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 0.6s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: opacity 0.6s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .stagger-group.in-view .commission-card {
@@ -84,57 +116,71 @@
 
 .commission-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 34px -18px rgba(217, 138, 61, 0.25);
+  border-color: var(--orange);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 16px rgba(230, 106, 36, 0.2);
 }
 
 .commission-card h4 {
-  font-size: 1.05rem;
+  font-family: var(--font-display);
+  font-size: 1.28rem;
   font-weight: 600;
+  color: var(--fg);
 }
 
 .commission-medium {
   margin-top: 0.5rem;
-  font-size: 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
   color: var(--fg-soft);
 }
 
 .commission-turnaround {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--fg-faint);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--orange);
+  text-transform: uppercase;
 }
 
+/* Call to Action */
 .process-cta {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1.25rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
   padding: 1.75rem 2rem;
-  background: var(--prussian);
-  color: var(--paper-soft);
-  border-radius: 2px;
-  border: 1px solid rgba(242, 238, 227, 0.1);
+  border-radius: 4px;
+  background: var(--paper-deep);
+  border: 1px solid var(--border);
 }
 
 .process-cta p {
   font-family: var(--font-display);
   font-size: 1.15rem;
-  max-width: 32ch;
+  color: var(--fg);
+  max-width: 50ch;
 }
 
 @media (max-width: 900px) {
   .process-steps {
     grid-template-columns: repeat(2, 1fr);
   }
+  .process-steps::before {
+    display: none;
+  }
   .commission-types {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 580px) {
   .process-steps {
     grid-template-columns: 1fr;
+  }
+  .process-cta {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
