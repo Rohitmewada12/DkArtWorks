@@ -1,104 +1,475 @@
 /* ============================================================
-   DK ARTS — REVIEWS & TESTIMONIALS (DARK CINEMATIC EDITORIAL)
+   DK ARTS — CLIENT STORIES & REVIEWS (EXACT REFERENCE RECREATION)
+   Plate 05 — REVIEWS
+   ============================================================
+   Exact Palette:
+   - Main background:    #F8F0E5 (Warm handmade drawing paper)
+   - Card background:    #FFF5E8 (Warm ivory deckled paper sheet)
+   - Primary text:       #291B12 (Dark espresso charcoal)
+   - Secondary text:     #715C49 (Warm walnut)
+   - Accent orange:      #E65312 (Vivid burnt orange)
+   - Deep orange:        #C9470B (Deep cadmium orange)
+   - Border:             #D9C1A5 (Warm paper rule)
+   - Muted beige:        #C5AA8D (Muted paper grain fiber)
    ============================================================ */
 
-.testimonials {
-  background: var(--paper-deep);
+.reviews-section {
   position: relative;
-  border-bottom: 1px solid var(--border);
+  background-color: #F8F0E5;
+  background-image:
+    radial-gradient(#C5AA8D 0.8px, transparent 0.8px),
+    radial-gradient(rgba(113, 92, 73, 0.08) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(243, 230, 212, 0.5) 100%);
+  background-size: 16px 16px, 28px 28px, 100% 100%;
+  color: #291B12;
+  padding-top: clamp(4.5rem, 8vw, 7rem);
+  padding-bottom: clamp(4.5rem, 8vw, 7.5rem);
+  overflow: hidden;
+  border-bottom: 1px solid #D9C1A5;
 }
 
-.testimonial-grid {
+/* ============================================================
+   TEXTURED BACKGROUND & ARTISTIC DECORATIVE LAYERS
+   ============================================================ */
+.reviews-bg-decorations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Organic Paper Grain & Fiber Noise Overlay */
+.reviews-texture-noise {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(41, 27, 18, 0.04) 1px, transparent 0);
+  background-size: 3px 3px;
+  opacity: 0.65;
+  mix-blend-mode: multiply;
+}
+
+/* Soft Warm Paper Vignette */
+.reviews-texture-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, transparent 55%, rgba(217, 193, 165, 0.32) 100%);
+}
+
+/* Upper-Left Burnt-Orange Dry-Brush Stroke */
+.reviews-brush-topleft {
+  position: absolute;
+  top: -10px;
+  left: -20px;
+  width: clamp(170px, 20vw, 280px);
+  height: clamp(110px, 14vw, 190px);
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 2px 8px rgba(230, 83, 18, 0.32));
+}
+
+/* Lower-Right Burnt-Orange Dry-Brush Stroke */
+.reviews-brush-bottomright {
+  position: absolute;
+  bottom: -15px;
+  right: -25px;
+  width: clamp(220px, 26vw, 360px);
+  height: clamp(140px, 18vw, 240px);
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 -2px 10px rgba(230, 83, 18, 0.35));
+}
+
+.reviews-brush-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Upper-Right Faint Graphite Portrait Illustration */
+.reviews-pencil-decor {
+  position: absolute;
+  top: 0;
+  right: clamp(10px, 3.5vw, 60px);
+  width: clamp(250px, 30vw, 420px);
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+  opacity: 0.92;
+  mask-image: radial-gradient(ellipse at 75% 35%, black 65%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse at 75% 35%, black 65%, transparent 100%);
+}
+
+.reviews-pencil-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ============================================================
+   INNER WRAPPER & CONTAINER
+   ============================================================ */
+.reviews-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1360px;
+}
+
+/* ============================================================
+   SECTION INTRODUCTION
+   ============================================================ */
+.reviews-header {
+  max-width: 680px;
+  margin-bottom: 2.75rem;
+}
+
+/* Small Orange Handwritten Label + Uppercase Monospace */
+.reviews-plate-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
+}
+
+.reviews-plate-num {
+  font-family: var(--font-hand);
+  font-size: 1.65rem;
+  line-height: 1;
+  color: #E65312;
+  font-weight: 700;
+}
+
+.reviews-plate-dash {
+  color: #E65312;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.reviews-plate-label {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  color: #E65312;
+  text-transform: uppercase;
+}
+
+/* Large Elegant Serif Title with Hand-Painted Orange Underline */
+.reviews-title-box {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.reviews-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: #291B12;
+  margin: 0;
+}
+
+.reviews-title-underline {
+  position: absolute;
+  left: 0;
+  bottom: -9px;
+  width: 90%;
+  height: 12px;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 3px rgba(230, 83, 18, 0.3));
+}
+
+/* Editorial Description */
+.reviews-lede {
+  font-family: var(--font-body);
+  font-size: clamp(0.92rem, 1.2vw, 1.02rem);
+  line-height: 1.6;
+  color: #715C49;
+  margin: 0;
+  max-width: 66ch;
+}
+
+/* ============================================================
+   THREE TORN-PAPER TESTIMONIAL CARDS (DESKTOP TRACK)
+   ============================================================ */
+.reviews-cards-track {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.8rem;
+  gap: 1.6rem;
+  margin-bottom: 2.75rem;
+  align-items: stretch;
 }
 
-.testimonial-card {
-  margin: 0;
+.testimonial-card-wrap {
   position: relative;
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 2.2rem 1.8rem 1.8rem;
+  filter: drop-shadow(0 6px 18px rgba(41, 27, 18, 0.08)) drop-shadow(0 1px 4px rgba(41, 27, 18, 0.05));
+  transition: transform 0.25s ease, filter 0.25s ease;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.6s ease, transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.stagger-group.in-view .testimonial-card {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.stagger-group.in-view .testimonial-card:nth-child(1) { transition-delay: 0.05s; }
-.stagger-group.in-view .testimonial-card:nth-child(2) { transition-delay: 0.15s; }
-.stagger-group.in-view .testimonial-card:nth-child(3) { transition-delay: 0.25s; }
-
-.testimonial-card:hover {
+.testimonial-card-wrap:hover {
   transform: translateY(-4px);
-  border-color: var(--orange);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 20px rgba(230, 106, 36, 0.2);
+  filter: drop-shadow(0 12px 28px rgba(41, 27, 18, 0.14)) drop-shadow(0 3px 8px rgba(41, 27, 18, 0.08));
+}
+
+/* Center Featured Card Styling */
+.testimonial-card-featured {
+  filter: drop-shadow(0 8px 22px rgba(230, 83, 18, 0.16)) drop-shadow(0 2px 6px rgba(41, 27, 18, 0.06));
+}
+
+.testimonial-card-featured .testimonial-card {
+  border-color: #E65312;
+  border-width: 1.5px;
+}
+
+/* Top Center Badge: ★ VERIFIED COMMISSION */
+.testimonial-card-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #E65312;
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.32rem 0.95rem;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 3px 8px rgba(230, 83, 18, 0.38);
+  z-index: 4;
+  white-space: nowrap;
+}
+
+/* Deckled Torn-Paper Card Surface */
+.testimonial-card {
+  position: relative;
+  background-color: #FFF5E8;
+  background-image:
+    radial-gradient(#D9C1A5 0.6px, transparent 0.6px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(243, 230, 212, 0.35) 100%);
+  background-size: 14px 14px, 100% 100%;
+  border: 1px solid #D9C1A5;
+  padding: 1.75rem 1.65rem 1.5rem 1.65rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  box-sizing: border-box;
+  clip-path: polygon(
+    0.5% 2%, 14% 0.5%, 30% 1.8%, 48% 0.4%, 66% 1.6%, 84% 0.6%, 99.4% 1.8%,
+    100% 18%, 98.8% 36%, 100% 54%, 99% 72%, 100% 90%, 99.2% 98.6%,
+    86% 99.4%, 68% 98.4%, 50% 99.6%, 32% 98.8%, 16% 99.5%, 0.8% 98.8%,
+    0% 82%, 1% 64%, 0.2% 46%, 1% 28%, 0.4% 14%
+  );
+}
+
+/* Large Orange Quotation Mark */
+.testimonial-quote-box {
+  margin-bottom: 0.5rem;
 }
 
 .testimonial-quote-mark {
-  color: var(--orange);
-  opacity: 0.95;
-  filter: drop-shadow(0 0 8px rgba(230, 106, 36, 0.35));
-}
-
-.testimonial-card blockquote {
-  margin: 0;
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 2.85rem;
+  line-height: 0.8;
+  color: #E65312;
+  font-weight: 700;
+  display: block;
+}
+
+/* Review Text in Italic Serif */
+.testimonial-review-text {
+  font-family: var(--font-display);
   font-style: italic;
-  line-height: 1.65;
-  color: var(--fg);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: #291B12;
+  margin: 0 0 1.25rem 0;
+  flex: 1;
 }
 
-.testimonial-stars {
+/* 5 Orange Star Icons */
+.testimonial-stars-row {
   display: flex;
-  gap: 0.25rem;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
 }
 
-.star-filled {
-  color: var(--orange);
-  fill: var(--orange);
+.testimonial-star-icon {
+  color: #E65312;
 }
 
-.star-empty {
-  color: var(--border);
+/* Thin Horizontal Divider Hairline */
+.testimonial-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #D9C1A5;
+  margin-bottom: 1.15rem;
 }
 
-.testimonial-card figcaption {
-  margin-top: auto;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(87, 72, 58, 0.45);
+/* Bottom Client Info Row */
+.testimonial-client-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+/* Circular Avatar with Burnt-Orange Border */
+.testimonial-avatar-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid #E65312;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(230, 83, 18, 0.25);
+}
+
+.testimonial-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Thin Vertical Divider Hairline */
+.testimonial-client-divider {
+  width: 1px;
+  height: 28px;
+  background-color: #D9C1A5;
+  flex-shrink: 0;
+}
+
+/* Client Details */
+.testimonial-client-info {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.15rem;
+  min-width: 0;
 }
 
-.testimonial-name {
+.testimonial-client-name {
   font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.92rem;
-  color: var(--fg);
-  letter-spacing: 0.01em;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #291B12;
+  line-height: 1.2;
 }
 
-.testimonial-detail {
+.testimonial-client-commission {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--orange);
-  letter-spacing: 0.03em;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: #E65312;
+  text-transform: uppercase;
+  line-height: 1.2;
 }
 
-@media (max-width: 900px) {
-  .testimonial-grid {
-    grid-template-columns: 1fr;
+/* ============================================================
+   CAROUSEL CONTROLS & PAGINATION
+   ============================================================ */
+.reviews-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.reviews-nav-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid #D9C1A5;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #291B12;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.reviews-nav-btn:hover {
+  border-color: #E65312;
+  color: #E65312;
+  transform: scale(1.05);
+}
+
+.reviews-dots-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reviews-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background-color: #C5AA8D;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.65;
+  transition: width 0.25s ease, background-color 0.25s ease, opacity 0.25s ease, border-radius 0.25s ease;
+}
+
+.reviews-dot.is-active {
+  width: 22px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: #E65312;
+  opacity: 1;
+}
+
+/* ============================================================
+   RESPONSIVE LAYOUT & MEDIA QUERIES
+   ============================================================ */
+@media (max-width: 1080px) {
+  .reviews-cards-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 1rem;
+    gap: 1.5rem;
+  }
+
+  .reviews-cards-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial-card-wrap {
+    flex: 0 0 calc(50% - 0.75rem);
+    scroll-snap-align: start;
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 680px) {
+  .testimonial-card-wrap {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+
+  .reviews-pencil-decor {
+    width: 220px;
+    opacity: 0.6;
+  }
+
+  .testimonial-card {
+    padding: 1.5rem 1.25rem;
   }
 }

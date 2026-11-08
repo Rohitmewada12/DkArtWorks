@@ -1,186 +1,793 @@
 /* ============================================================
-   DK ARTS — COMMISSION PROCESS (EDITORIAL TIMELINE)
+   DK ARTS — THE COMMISSION STUDIO (EXACT REFERENCE RECREATION)
+   Plate 03 — COMMISSIONS
+   ============================================================
+   Exact Palette:
+   - Main background:    #F8F0E5 (Warm handmade drawing paper)
+   - Card background:    #F1E5D3 (Deckled paper sheet)
+   - Primary text:       #291B11 (Dark espresso charcoal)
+   - Secondary text:     #705C49 (Warm muted walnut)
+   - Accent orange:      #E65312 (Vivid burnt orange)
+   - Dark orange:        #C9420C (Deep cadmium orange)
+   - Border:             #D8C2A8 (Paper contour rule)
+   - Muted beige:        #BBA58C (Paper grain fiber)
    ============================================================ */
 
-.process {
-  background: var(--paper);
+.process-studio {
   position: relative;
-  border-bottom: 1px solid var(--border);
+  background-color: #F8F0E5;
+  background-image:
+    radial-gradient(#BBA58C 0.8px, transparent 0.8px),
+    radial-gradient(rgba(112, 92, 73, 0.08) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(241, 229, 211, 0.5) 100%);
+  background-size: 16px 16px, 28px 28px, 100% 100%;
+  color: #291B11;
+  padding-top: clamp(4rem, 7vw, 6.5rem);
+  padding-bottom: clamp(4.5rem, 8vw, 7rem);
+  overflow: hidden;
+  border-bottom: 1px solid #D8C2A8;
 }
 
-.process-steps {
-  list-style: none;
-  margin: 0 0 4rem;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  position: relative;
-}
-
-.process-steps::before {
-  content: "";
+/* ============================================================
+   TEXTURED BACKGROUND & ARTISTIC DECORATIVE LAYERS
+   ============================================================ */
+.process-bg-decorations {
   position: absolute;
-  top: 36px;
-  left: 2rem;
-  right: 2rem;
-  height: 1px;
-  background: linear-gradient(90deg, var(--border), var(--orange), var(--border));
-  opacity: 0.5;
+  inset: 0;
+  pointer-events: none;
   z-index: 0;
+  overflow: hidden;
 }
 
-.process-step {
-  position: relative;
+/* Organic Paper Grain & Fiber Noise Overlay */
+.process-texture-noise {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(41, 27, 17, 0.04) 1px, transparent 0);
+  background-size: 3px 3px;
+  opacity: 0.65;
+  mix-blend-mode: multiply;
+}
+
+/* Soft Warm Paper Vignette */
+.process-texture-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, transparent 55%, rgba(216, 194, 168, 0.32) 100%);
+}
+
+/* Upper-Left Burnt-Orange Dry-Brush Stroke */
+.process-brush-topleft {
+  position: absolute;
+  top: -10px;
+  left: -20px;
+  width: clamp(170px, 20vw, 280px);
+  height: clamp(110px, 14vw, 190px);
+  pointer-events: none;
   z-index: 1;
-  background: var(--paper-deep);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 2rem 1.6rem;
+  filter: drop-shadow(0 2px 8px rgba(230, 83, 18, 0.32));
+}
+
+/* Lower-Right Burnt-Orange Dry-Brush Stroke */
+.process-brush-bottomright {
+  position: absolute;
+  bottom: -15px;
+  right: -25px;
+  width: clamp(220px, 26vw, 360px);
+  height: clamp(140px, 18vw, 240px);
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 -2px 10px rgba(230, 83, 18, 0.35));
+}
+
+.process-brush-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Upper-Right Pencil Sketch Illustration with Curled Shavings */
+.process-pencil-decor {
+  position: absolute;
+  top: 15px;
+  right: clamp(10px, 3.5vw, 60px);
+  width: clamp(210px, 25vw, 340px);
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+  opacity: 0.95;
+  mask-image: radial-gradient(ellipse at 75% 35%, black 65%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse at 75% 35%, black 65%, transparent 100%);
+}
+
+.process-pencil-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ============================================================
+   INNER WRAPPER & CONTAINER
+   ============================================================ */
+.process-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   SECTION INTRODUCTION
+   ============================================================ */
+.process-header {
+  max-width: 660px;
+  margin-bottom: 2.75rem;
+}
+
+/* Small Orange Handwritten Label + Uppercase Monospace */
+.process-plate-row {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.6s ease, transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
 }
 
-.stagger-group.in-view .process-step {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.stagger-group.in-view .process-step:nth-child(1) { transition-delay: 0.05s; }
-.stagger-group.in-view .process-step:nth-child(2) { transition-delay: 0.15s; }
-.stagger-group.in-view .process-step:nth-child(3) { transition-delay: 0.25s; }
-.stagger-group.in-view .process-step:nth-child(4) { transition-delay: 0.35s; }
-
-.process-step:hover {
-  transform: translateY(-4px);
-  border-color: var(--orange);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 16px rgba(230, 106, 36, 0.2);
-}
-
-.process-num {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 2.2rem;
+.process-plate-num {
+  font-family: var(--font-hand);
+  font-size: 1.65rem;
   line-height: 1;
-  color: var(--orange);
-  letter-spacing: -0.02em;
+  color: #E65312;
+  font-weight: 700;
 }
 
-.process-step h3 {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--fg);
-  line-height: 1.25;
+.process-plate-dash {
+  color: #E65312;
+  font-size: 0.85rem;
+  opacity: 0.8;
 }
 
-.process-step p {
-  margin-top: 0.5rem;
-  font-family: var(--font-body);
-  font-size: 0.92rem;
-  color: var(--fg-soft);
-  line-height: 1.6;
-}
-
-/* Commission Types Cards */
-.commission-types {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 3.5rem;
-}
-
-.commission-card {
-  border: 1px solid var(--border);
-  border-top: 3px solid var(--orange);
-  border-radius: 4px;
-  padding: 1.75rem 1.6rem;
-  background: var(--paper-deep);
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.6s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-.stagger-group.in-view .commission-card {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.stagger-group.in-view .commission-card:nth-child(1) { transition-delay: 0.05s; }
-.stagger-group.in-view .commission-card:nth-child(2) { transition-delay: 0.15s; }
-.stagger-group.in-view .commission-card:nth-child(3) { transition-delay: 0.25s; }
-
-.commission-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--orange);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 16px rgba(230, 106, 36, 0.2);
-}
-
-.commission-card h4 {
-  font-family: var(--font-display);
-  font-size: 1.28rem;
-  font-weight: 600;
-  color: var(--fg);
-}
-
-.commission-medium {
-  margin-top: 0.5rem;
-  font-family: var(--font-body);
-  font-size: 0.92rem;
-  color: var(--fg-soft);
-}
-
-.commission-turnaround {
-  margin-top: 1rem;
+.process-plate-label {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  color: var(--orange);
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  color: #E65312;
   text-transform: uppercase;
 }
 
-/* Call to Action */
-.process-cta {
+/* Large Elegant Serif Title with Hand-Painted Orange Underline */
+.process-title-box {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.process-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: #291B11;
+  margin: 0;
+}
+
+.process-title-underline {
+  position: absolute;
+  left: 0;
+  bottom: -9px;
+  width: 95%;
+  height: 12px;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 3px rgba(230, 83, 18, 0.3));
+}
+
+/* Editorial Description */
+.process-lede {
+  font-family: var(--font-body);
+  font-size: clamp(0.92rem, 1.2vw, 1.02rem);
+  line-height: 1.6;
+  color: #705C49;
+  margin: 0;
+  max-width: 64ch;
+}
+
+/* ============================================================
+   FOUR ILLUSTRATED PROCESS STEPS (CONNECTED TIMELINE)
+   ============================================================ */
+.process-timeline-section {
+  margin-bottom: 3.25rem;
+}
+
+.process-timeline-wrap {
+  position: relative;
+}
+
+/* Continuous Horizontal Orange Timeline Guide Line */
+.process-timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 3rem;
+  right: 3rem;
+  height: 1.5px;
+  background: #E65312;
+  transform: translateY(-50%);
+  z-index: 0;
+  opacity: 0.85;
+}
+
+/* 4 Horizontal Steps Grid */
+.process-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.process-step-item {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+/* Circular Orange Timeline Marker (Between steps) */
+.process-timeline-node {
+  position: absolute;
+  right: -0.625rem;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E65312;
+  box-shadow: 0 0 0 3px #F8F0E5;
+  z-index: 3;
+}
+
+/* Step Card Wrapper with Drop-Shadow */
+.process-step-card-wrap {
+  width: 100%;
+  filter: drop-shadow(0 4px 14px rgba(41, 27, 17, 0.08)) drop-shadow(0 1px 3px rgba(41, 27, 17, 0.05));
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.process-step-card-wrap:hover {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 10px 22px rgba(41, 27, 17, 0.13)) drop-shadow(0 2px 5px rgba(41, 27, 17, 0.07));
+}
+
+/* Torn-Paper Deckled Card Surface */
+.process-step-card {
+  position: relative;
+  background-color: #F1E5D3;
+  background-image:
+    radial-gradient(#D8C2A8 0.6px, transparent 0.6px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(235, 220, 200, 0.35) 100%);
+  background-size: 14px 14px, 100% 100%;
+  border: 1px solid #D8C2A8;
+  padding: 1.25rem 1rem 1.25rem 1.15rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  padding: 1.75rem 2rem;
-  border-radius: 4px;
-  background: var(--paper-deep);
-  border: 1px solid var(--border);
+  gap: 0.65rem;
+  min-height: 135px;
+  height: 100%;
+  box-sizing: border-box;
+  clip-path: polygon(
+    0.5% 2%, 14% 0.5%, 30% 1.8%, 48% 0.4%, 66% 1.6%, 84% 0.6%, 99.4% 1.8%,
+    100% 18%, 98.8% 36%, 100% 54%, 99% 72%, 100% 90%, 99.2% 98.6%,
+    86% 99.4%, 68% 98.4%, 50% 99.6%, 32% 98.8%, 16% 99.5%, 0.8% 98.8%,
+    0% 82%, 1% 64%, 0.2% 46%, 1% 28%, 0.4% 14%
+  );
 }
 
-.process-cta p {
+.process-step-info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Large Orange Step Number */
+.process-step-num {
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  color: var(--fg);
-  max-width: 50ch;
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #E65312;
+  letter-spacing: -0.01em;
+  display: block;
+}
+
+/* Step Title in Elegant Serif */
+.process-step-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #291B11;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+/* Step Description in Readable Walnut */
+.process-step-desc {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: #705C49;
+  margin-top: 0.35rem;
+  margin-bottom: 0;
+}
+
+/* Small Illustrated Icon on Right of Card */
+.process-step-illus-box {
+  flex: 0 0 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.process-step-illus-img {
+  width: 100%;
+  max-width: 72px;
+  height: 84px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  display: block;
+}
+
+/* ============================================================
+   THREE LARGE ARTWORK SERVICE CARDS
+   ============================================================ */
+.commission-services-section {
+  margin-bottom: 3.25rem;
+}
+
+.commission-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.commission-service-card-wrap {
+  position: relative;
+  filter: drop-shadow(0 6px 16px rgba(41, 27, 17, 0.08)) drop-shadow(0 1px 4px rgba(41, 27, 17, 0.05));
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.commission-service-card-wrap:hover {
+  transform: translateY(-4px);
+  filter: drop-shadow(0 12px 28px rgba(41, 27, 17, 0.14)) drop-shadow(0 3px 8px rgba(41, 27, 17, 0.08));
+}
+
+/* Upper-Left Burnt-Orange Dry-Brush Corner Accent */
+.commission-service-corner-brush {
+  position: absolute;
+  top: -14px;
+  left: -14px;
+  width: 85px;
+  height: 60px;
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(0 2px 6px rgba(230, 83, 18, 0.32));
+}
+
+.commission-service-corner-brush svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Card Surface with Deckled Torn-Paper Edges */
+.commission-service-card {
+  position: relative;
+  background-color: #F1E5D3;
+  background-image:
+    radial-gradient(#D8C2A8 0.6px, transparent 0.6px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(235, 220, 200, 0.35) 100%);
+  background-size: 14px 14px, 100% 100%;
+  border: 1px solid #D8C2A8;
+  padding: 1.15rem;
+  display: flex;
+  align-items: stretch;
+  gap: 1.15rem;
+  height: 100%;
+  box-sizing: border-box;
+  clip-path: polygon(
+    0.4% 1.8%, 12% 0.5%, 26% 1.6%, 42% 0.4%, 58% 1.5%, 74% 0.4%, 90% 1.4%, 99.5% 0.8%,
+    100% 15%, 99.2% 32%, 100% 50%, 99.1% 68%, 100% 86%, 99.4% 99%,
+    88% 99.6%, 72% 98.6%, 56% 99.6%, 40% 98.8%, 24% 99.6%, 0.8% 98.8%,
+    0% 85%, 0.8% 68%, 0.1% 50%, 0.9% 34%, 0.2% 16%
+  );
+}
+
+/* Left Column: Artwork Image Mount */
+.commission-service-art {
+  flex: 0 0 46%;
+  max-width: 48%;
+  display: flex;
+  align-items: stretch;
+}
+
+.commission-service-art-mount {
+  width: 100%;
+  height: 100%;
+  min-height: 205px;
+  overflow: hidden;
+  filter: drop-shadow(0 3px 8px rgba(41, 27, 17, 0.12));
+  clip-path: polygon(
+    0.6% 2.2%, 16% 0.6%, 36% 1.8%, 56% 0.5%, 76% 1.8%, 94% 0.7%, 99.2% 2%,
+    100% 18%, 98.8% 38%, 100% 58%, 98.9% 78%, 99.4% 98%,
+    84% 99.4%, 64% 98.4%, 44% 99.6%, 24% 98.6%, 0.8% 99.2%,
+    0% 80%, 1.1% 60%, 0.1% 40%, 1.1% 20%
+  );
+}
+
+.commission-service-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.commission-service-card-wrap:hover .commission-service-img {
+  transform: scale(1.05);
+}
+
+/* Right Column: Title, Medium, Turnaround & Action */
+.commission-service-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.55rem;
+  padding: 0.25rem 0.25rem 0.25rem 0;
+}
+
+.commission-service-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #291B11;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.commission-service-medium {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #E65312;
+  text-transform: uppercase;
+  display: block;
+}
+
+.commission-service-turnaround {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.commission-turnaround-icon {
+  color: #291B11;
+  flex-shrink: 0;
+}
+
+.commission-turnaround-text {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.commission-turnaround-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: #705C49;
+  text-transform: uppercase;
+}
+
+.commission-turnaround-val {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #291B11;
+}
+
+/* Request Artwork Button */
+.commission-request-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.62rem 0.9rem;
+  background-color: #E65312;
+  color: #FFFFFF !important;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 6px rgba(230, 83, 18, 0.25);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.commission-request-btn:hover {
+  background-color: #C9420C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(230, 83, 18, 0.38);
+}
+
+/* ============================================================
+   PANORAMIC CALL-TO-ACTION BANNER
+   ============================================================ */
+.process-cta-banner-section {
+  position: relative;
+  z-index: 2;
+}
+
+.process-cta-banner-wrap {
+  width: 100%;
+  filter: drop-shadow(0 6px 18px rgba(41, 27, 17, 0.08)) drop-shadow(0 1px 4px rgba(41, 27, 17, 0.05));
+}
+
+.process-cta-banner {
+  position: relative;
+  background-color: #F1E5D3;
+  background-image:
+    radial-gradient(#D8C2A8 0.6px, transparent 0.6px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(235, 220, 200, 0.35) 100%);
+  background-size: 14px 14px, 100% 100%;
+  border: 1px solid #D8C2A8;
+  padding: 1.5rem 2.25rem 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  clip-path: polygon(
+    0.3% 2%, 8% 0.5%, 18% 1.8%, 30% 0.4%, 44% 1.6%, 58% 0.5%, 72% 1.7%, 86% 0.5%, 99.6% 1.5%,
+    100% 15%, 99.3% 35%, 100% 55%, 99.2% 75%, 100% 92%, 99.5% 99%,
+    86% 99.5%, 72% 98.4%, 58% 99.6%, 42% 98.6%, 26% 99.6%, 12% 98.5%, 0.6% 99.2%,
+    0% 84%, 0.8% 66%, 0.1% 48%, 0.9% 30%, 0.2% 14%
+  );
+}
+
+/* Left Column: Realistic Eye Drawing with Orange Dry-Brush Flare */
+.process-cta-banner-left {
+  flex: 0 0 32%;
+  max-width: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.process-cta-eye-img {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  display: block;
+}
+
+/* Center Hairline Divider */
+.process-cta-banner-divider {
+  flex: 0 0 1px;
+  width: 1px;
+  height: 95px;
+  background-color: #D8C2A8;
+}
+
+/* Right Column: Title, Lede & Actions */
+.process-cta-banner-right {
+  flex: 1;
+  padding-left: 0.5rem;
+}
+
+.process-cta-banner-title-box {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 0.35rem;
+}
+
+.process-cta-banner-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.2vw, 1.95rem);
+  font-weight: 600;
+  color: #291B11;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.process-cta-title-underline {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 80%;
+  height: 9px;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 2px rgba(230, 83, 18, 0.25));
+}
+
+.process-cta-banner-lede {
+  font-family: var(--font-body);
+  font-size: clamp(0.88rem, 1.1vw, 0.96rem);
+  color: #705C49;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+  margin-bottom: 1.15rem;
+}
+
+.process-cta-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Primary CTA Button */
+.process-cta-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.68rem 1.4rem;
+  background-color: #E65312;
+  color: #FFFFFF !important;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(230, 83, 18, 0.28);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.process-cta-primary-btn:hover {
+  background-color: #C9420C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(230, 83, 18, 0.38);
+}
+
+/* Secondary CTA Button (Outlined Instagram Button) */
+.process-cta-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border: 1.5px solid #291B11;
+  background-color: transparent;
+  color: #291B11 !important;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.process-cta-secondary-btn:hover {
+  background-color: #291B11;
+  color: #F8F0E5 !important;
+  transform: translateY(-1px);
+}
+
+/* Far-Right Corner Burnt-Orange Dry-Brush Accent */
+.process-cta-banner-corner {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  width: 130px;
+  height: 105px;
+  pointer-events: none;
+  z-index: 0;
+  filter: drop-shadow(-2px -2px 6px rgba(230, 83, 18, 0.25));
+}
+
+.process-cta-banner-corner svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============================================================
+   RESPONSIVE LAYOUT & MEDIA QUERIES
+   ============================================================ */
+@media (max-width: 1120px) {
+  .process-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .process-timeline-line {
+    display: none;
+  }
+
+  .process-timeline-node {
+    display: none;
+  }
+
+  .commission-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 900px) {
-  .process-steps {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .process-steps::before {
-    display: none;
-  }
-  .commission-types {
+  .commission-services-grid {
     grid-template-columns: 1fr;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .process-cta-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .process-cta-banner-left {
+    flex: initial;
+    max-width: 260px;
+  }
+
+  .process-cta-banner-divider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .process-cta-banner-right {
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .process-pencil-decor {
+    width: 200px;
+    opacity: 0.65;
   }
 }
 
-@media (max-width: 580px) {
-  .process-steps {
+@media (max-width: 620px) {
+  .process-steps-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
-  .process-cta {
+
+  .process-step-card {
+    padding: 1.15rem 1rem;
+    min-height: auto;
+  }
+
+  .commission-service-card {
     flex-direction: column;
-    align-items: flex-start;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .commission-service-art {
+    flex: initial;
+    max-width: 100%;
+  }
+
+  .commission-service-art-mount {
+    min-height: 220px;
+  }
+
+  .process-cta-banner-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .process-cta-primary-btn,
+  .process-cta-secondary-btn {
+    width: 100%;
   }
 }

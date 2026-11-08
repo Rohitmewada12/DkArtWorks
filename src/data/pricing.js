@@ -1,23 +1,15 @@
 // ============================================================
-// PRICING — EDIT ME
-// ------------------------------------------------------------
-// These are STARTER prices — reasonable defaults for a portrait
-// artist working in these mediums, so the section looks complete
-// from day one. They are NOT based on your actual rates. Go
-// through and change every number to what you actually want to
-// charge before this goes live for real.
-//
-// A simple way to price: figure out roughly how many hours each
-// size takes you, multiply by what your time is worth, then round
-// to a clean number. Cheaper/faster pieces (small pencil sketches)
-// bring people in the door; bigger colour pieces are where the
-// real margin is.
+// PRICING CATALOGUE DATA (DK ARTS — PREMIUM PRICING CATALOGUE)
+// Plate 04 — PRICE LIST
 // ============================================================
 
 const pricingTiers = [
   {
+    id: "pencil-charcoal",
     title: "Pencil & Charcoal",
     description: "Graphite or charcoal, worked from a clear reference photo.",
+    image: "/gallery/commission-graphite-portrait-enhanced.jpg",
+    hasCornerAccent: true,
     sizes: [
       { label: "A5 — face / bust", price: "₹799" },
       { label: "A4 — half body", price: "₹1,499" },
@@ -25,18 +17,25 @@ const pricingTiers = [
     ],
   },
   {
+    id: "colour-painting",
     title: "Colour Painting",
     description: "Watercolour, acrylic, or coloured pencil & marker.",
+    image: "/gallery/painting-radha-krishna-1.jpg",
+    featured: true,
+    badge: "MOST REQUESTED",
+    hasCornerAccent: false,
     sizes: [
       { label: "A5", price: "₹1,299" },
       { label: "A4", price: "₹2,499" },
       { label: "A3", price: "₹3,999" },
     ],
-    featured: true,
   },
   {
+    id: "pet-portrait",
     title: "Pet Portrait",
     description: "Graphite or colour — same sizes and process as above.",
+    image: "/gallery/commission-pet-portrait.jpg",
+    hasCornerAccent: false,
     sizes: [
       { label: "A5", price: "₹899" },
       { label: "A4", price: "₹1,699" },
@@ -45,26 +44,43 @@ const pricingTiers = [
 ];
 
 const addOns = [
-  { label: "Extra person or pet in one frame", price: "+ ₹500" },
-  { label: "Rush delivery (48–72 hrs)", price: "+ 25%" },
-  { label: "Ready-to-hang framing", price: "+ ₹799" },
-  { label: "High-resolution digital file", price: "+ ₹199" },
+  {
+    icon: "users",
+    label: "Extra person or pet in one frame",
+    price: "+ ₹500",
+  },
+  {
+    icon: "zap",
+    label: "Rush delivery (48–72 hrs)",
+    price: "+ 25%",
+  },
+  {
+    icon: "image",
+    label: "Ready-to-hang framing",
+    price: "+ ₹799",
+  },
+  {
+    icon: "download",
+    label: "High-resolution digital file",
+    price: "+ ₹199",
+  },
 ];
 
-// Other things worth offering alongside custom commissions — edit,
-// remove, or add to this list as your practice grows.
 const alsoAvailable = [
   {
-    title: "Original artworks",
-    body: "Select finished pieces from the gallery are available to purchase as-is — ask about a specific piece.",
+    icon: "palette",
+    title: "Original Artworks",
+    body: "Select finished pieces from the gallery for purchase as-is — ask about a specific piece.",
   },
   {
+    icon: "layers",
     title: "Prints",
-    body: "High-quality prints of select paintings, unframed or framed, for anyone who wants the piece but not the original.",
+    body: "High-quality prints of selected paintings, unframed or framed.",
   },
   {
-    title: "Gift vouchers",
-    body: "A voucher toward a future commission — a nice gift for someone whose portrait you can't take without them noticing.",
+    icon: "gift",
+    title: "Gift Vouchers",
+    body: "A voucher toward a future commission — a nice gift for someone who loves art.",
   },
 ];
 
