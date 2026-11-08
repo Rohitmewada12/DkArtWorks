@@ -38,11 +38,38 @@ export default function BeforeAfter() {
   const contentRef = useReveal({ threshold: 0.1 });
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
   const currentItem = beforeAfter[currentIndex] || beforeAfter[0];
   const isLandscape = currentItem?.aspect === "landscape";
 
   const nextTransformation = () => {
     setCurrentIndex((prev) => (prev + 1) % beforeAfter.length);
+  };
+
+  const prevTransformation = () => {
+    setCurrentIndex((prev) => (prev - 1 + beforeAfter.length) % beforeAfter.length);
+  };
+
+  const minSwipeDistance = 45;
+
+  const handleTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (distance > minSwipeDistance) {
+      nextTransformation(); // swiped left -> next
+    } else if (distance < -minSwipeDistance) {
+      prevTransformation(); // swiped right -> prev
+    }
   };
 
   return (
@@ -127,7 +154,12 @@ export default function BeforeAfter() {
         <div ref={contentRef} className="reveal ba-studio-grid">
           {/* Left Column: Direct Dual Reference & Sketch Showcase (~60% width) */}
           <div className="ba-comparison-col">
-            <div className="ba-paper-stack">
+            <div
+              className="ba-paper-stack"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
               {/* Back Layer: Burnt Orange Craft Sheet */}
               <div className="ba-layer-orange" aria-hidden="true" />
 
@@ -151,12 +183,19 @@ export default function BeforeAfter() {
                     </div>
                   </div>
 
-                  {/* Center Transformation Indicator */}
-                  <div className="ba-trans-indicator" aria-hidden="true">
+                  {/* Center Transformation Indicator Button */}
+                  <button
+                    type="button"
+                    className="ba-trans-indicator"
+                    onClick={nextTransformation}
+                    data-cursor="hover"
+                    aria-label="Next transformation"
+                    title="Next transformation"
+                  >
                     <div className="ba-indicator-circle">
                       <ArrowRight size={15} strokeWidth={2.5} />
                     </div>
-                  </div>
+                  </button>
 
                   {/* Right: Finished Handmade Sketch */}
                   <div className="ba-photo-card ba-card-sketch">
@@ -262,7 +301,13 @@ export default function BeforeAfter() {
 
             {/* Action Button: View More Transformations */}
             {beforeAfter.length > 1 && (
-              <div className="ba-action-area">
+              <div
+                className="ba-action-area"
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowRight") nextTransformation();
+                  if (e.key === "ArrowLeft") prevTransformation();
+                }}
+              >
                 <button
                   type="button"
                   className="ba-view-more-btn"
@@ -274,11 +319,13 @@ export default function BeforeAfter() {
                   <ArrowRight size={17} strokeWidth={2} className="ba-btn-arrow" />
                 </button>
 
-                <div className="ba-dots-row" aria-label="Transformation items">
+                <div className="ba-dots-row" role="tablist" aria-label="Transformation items">
                   {beforeAfter.map((item, idx) => (
                     <button
                       key={item.id}
                       type="button"
+                      role="tab"
+                      aria-selected={idx === currentIndex}
                       className={`ba-dot-pill ${idx === currentIndex ? "active" : ""}`}
                       onClick={() => setCurrentIndex(idx)}
                       aria-label={`View transformation ${idx + 1}: ${item.title}`}

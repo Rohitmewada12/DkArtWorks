@@ -327,14 +327,17 @@
   color: #ffffff;
 }
 
-/* Central Transformation Arrow Indicator */
+/* Central Transformation Arrow Indicator Button */
 .ba-trans-indicator {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  pointer-events: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .ba-indicator-circle {
@@ -627,35 +630,119 @@
 
 /* ============================================================
    RESPONSIVE DESIGN (TABLET & MOBILE)
+   Exact Recreation of Mobile Transformation UI
    ============================================================ */
 @media (max-width: 980px) {
   .ba-studio-grid {
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
   .ba-comparison-col {
+    order: 1;
+    width: 100%;
     max-width: 580px;
     margin: 0 auto;
-    width: 100%;
   }
 
+  /* Using display: contents elevates .ba-action-area to become
+     a direct flex child of .ba-studio-grid right below .ba-comparison-col */
   .ba-process-col {
-    max-width: 540px;
-    margin: 0 auto;
+    display: contents;
+  }
+
+  /* Move View More button and pagination immediately below comparison & caption */
+  .ba-action-area {
+    order: 2;
     width: 100%;
+    max-width: 580px;
+    margin: 1.25rem auto 0 auto;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.15rem;
+  }
+
+  .ba-view-more-btn {
+    width: 100%;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 0.95rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .ba-dots-row {
+    width: 100%;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .ba-dot-pill {
+    position: relative;
+  }
+
+  /* Expand touch target for touch screens */
+  .ba-dot-pill::before {
+    content: "";
+    position: absolute;
+    inset: -12px -6px;
+  }
+
+  .ba-count-badge {
+    font-size: 0.88rem;
+    margin-left: 0.4rem;
+  }
+
+  /* Hide the secondary duplicate timeline on mobile/tablet to match exact UI */
+  .ba-process-header,
+  .ba-timeline-container {
+    display: none;
   }
 }
 
 @media (max-width: 640px) {
+  .before-after {
+    padding-top: 3.25rem;
+    padding-bottom: 3.5rem;
+  }
+
   .ba-header {
-    margin-bottom: 2.25rem;
+    margin-bottom: 1.85rem;
+  }
+
+  .ba-eyebrow-row {
+    gap: 0.65rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .ba-plate-badge {
+    font-size: 1.45rem;
+  }
+
+  .ba-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+  }
+
+  .ba-title {
+    font-size: clamp(2.2rem, 7.5vw, 2.9rem);
+    line-height: 1.08;
+    margin: 0.15rem 0 0.65rem;
   }
 
   .ba-title-underline {
     display: none;
   }
 
+  .ba-lede {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  /* Paper Mount Stack */
   .ba-comparison-col {
     max-width: 100%;
   }
@@ -664,16 +751,28 @@
     max-width: 100%;
   }
 
+  /* Keep deckle effect without causing horizontal overflow on 360px */
+  .ba-layer-orange {
+    inset: -6px -8px -10px -6px;
+    transform: rotate(1.2deg);
+  }
+
+  .ba-layer-mount {
+    padding: 0.85rem;
+    transform: rotate(-0.8deg);
+  }
+
   .ba-direct-display {
-    gap: 0.5rem;
-    padding: 0.45rem;
+    gap: 0.45rem;
+    padding: 0.4rem;
   }
 
   .ba-card-badge {
-    font-size: 0.55rem;
-    padding: 0.22rem 0.5rem;
-    top: 0.45rem;
-    left: 0.45rem;
+    font-size: 0.52rem;
+    padding: 0.2rem 0.45rem;
+    top: 0.4rem;
+    left: 0.4rem;
+    letter-spacing: 0.08em;
   }
 
   .ba-indicator-circle {
@@ -681,27 +780,81 @@
     height: 28px;
   }
 
-  .ba-timeline-spine {
-    left: 15px;
+  .ba-indicator-circle svg {
+    width: 13px;
+    height: 13px;
   }
 
-  .ba-step-node {
-    left: 15px;
+  /* Caption Tag - tight, clean, centered below artwork */
+  .ba-caption-tag-row {
+    margin-top: 1.15rem;
+    gap: 0;
   }
 
-  .ba-step-icon-badge {
-    margin-left: 1.25rem;
-    width: 40px;
-    height: 40px;
+  .ba-paper-tag {
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    transform: rotate(-0.8deg);
+    box-shadow: 0 3px 12px rgba(33, 27, 21, 0.08);
   }
 
+  .ba-paper-tag::before {
+    width: 38px;
+    height: 10px;
+    top: -5px;
+    background: rgba(240, 170, 95, 0.6);
+  }
+
+  .ba-tag-text {
+    font-size: 1.38rem;
+  }
+
+  .ba-tag-medium {
+    font-size: 0.84rem;
+  }
+
+  .ba-tag-arrow-doodle {
+    display: none;
+  }
+
+  /* Action Area directly underneath caption */
   .ba-action-area {
-    padding-left: 0;
+    margin-top: 1.1rem;
+    gap: 0.95rem;
+    max-width: 100%;
+    padding: 0 0.25rem;
   }
 
   .ba-view-more-btn {
     width: 100%;
-    justify-content: center;
+    padding: 0.88rem 1.25rem;
+    border-radius: 12px;
+    font-size: 0.96rem;
+    letter-spacing: 0.01em;
+  }
+
+  .ba-dots-row {
+    gap: 0.48rem;
+  }
+
+  .ba-dot-pill {
+    width: 22px;
+    height: 6.5px;
+  }
+
+  .ba-dot-pill.active {
+    width: 32px;
+  }
+
+  .ba-count-badge {
+    font-size: 0.82rem;
+    margin-left: 0.3rem;
+  }
+
+  /* Bottom right corner tear accent */
+  .ba-bg-orange-tear {
+    width: 140px;
+    height: 80px;
   }
 }
 

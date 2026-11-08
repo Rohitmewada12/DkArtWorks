@@ -8,7 +8,7 @@ const beforeAfter = [
     before: "/gallery/before/client-ref-2.jpg",
     after: "/gallery/commission-portrait-colour.jpg",
     title: "Portrait, Colour",
-    medium: "Coloured pencil & graphite",
+    medium: "Coloured Pencil on Paper",
     description: "Vibrant custom portrait capturing warm skin tones and detailed ceremonial attire.",
   },
   {
