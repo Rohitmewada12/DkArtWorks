@@ -5,12 +5,12 @@ import useLang from "../LangContext.jsx";
 import "./about.css";
 
 const TOOLS = [
-  { id: "graphite", label: "Graphite", img: "/gallery/tool-graphite.png" },
-  { id: "charcoal", label: "Charcoal", img: "/gallery/tool-charcoal.png" },
-  { id: "ink", label: "Ink", img: "/gallery/tool-ink.png" },
-  { id: "watercolour", label: "Watercolour", img: "/gallery/tool-watercolour.png" },
-  { id: "acrylic", label: "Acrylic", img: "/gallery/tool-acrylic.png" },
-  { id: "coloured-pencil", label: "Coloured Pencil", img: "/gallery/tool-coloured-pencil.png" },
+  { id: "graphite", label: "Graphite", img: "/gallery/Graphite.png" },
+  { id: "charcoal", label: "Charcoal", img: "/gallery/Charcoal.png" },
+  { id: "ink", label: "Ink", img: "/gallery/Ink.png" },
+  { id: "watercolour", label: "Watercolour", img: "/gallery/Watercolour.png" },
+  { id: "acrylic", label: "Acrylic", img: "/gallery/Acrylic.png" },
+  { id: "coloured-pencil", label: "Coloured Pencil", img: "/gallery/Coloured-pencil.png" },
 ];
 
 export default function About() {
@@ -58,30 +58,17 @@ export default function About() {
 
         {/* Lower-Left Burnt-Orange Dry-Brush Accent */}
         <div className="about-brush-bottomleft">
-          <svg
-            viewBox="0 0 200 130"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="about-brush-svg"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M-15 140C30 105 100 68 190 25C135 40 68 76 -10 115"
-              fill="#E65312"
-              opacity="0.82"
-            />
-            <path
-              d="M-20 110C20 85 75 52 155 18C110 32 55 62 -12 92"
-              fill="#E65312"
-              opacity="0.6"
-            />
-          </svg>
+          <img
+            src="/gallery/brushstroke.png"
+            alt=""
+            className="about-brushstroke-img"
+          />
         </div>
 
         {/* Lower-Right Pencil Sketch Decoration with Curled Shavings */}
         <div className="about-pencil-decor">
           <img
-            src="/gallery/about-pencil-sketch-decor.png"
+            src="/gallery/pencil-shavings.png"
             alt=""
             className="about-pencil-img"
           />
@@ -94,8 +81,14 @@ export default function About() {
             ============================================================ */}
         <div className="about-portrait-col">
           <div className="about-paper-stack">
-            {/* Layer 1 (Bottom): Muted Beige Deckled Craft Sheet */}
-            <div className="about-paper-base" aria-hidden="true" />
+            {/* Layer 1 (Bottom): Muted Deckled Craft Sheet Frame */}
+            <div className="about-paper-base" aria-hidden="true">
+              <img
+                src="/gallery/polaroid-frame.png"
+                alt=""
+                className="about-polaroid-frame-asset"
+              />
+            </div>
 
             {/* Layer 2 (Middle): Cream Deckled Paper Sheet */}
             <div className="about-paper-middle" aria-hidden="true" />
@@ -121,7 +114,7 @@ export default function About() {
             {/* Circular Rubber Stamp: REALIST ARTIST */}
             <div className="about-stamp-wrap" aria-hidden="true">
               <img
-                src="/gallery/about-stamp-realist.png"
+                src="/gallery/realist-stamp.png"
                 alt="Realist Artist Stamp"
                 className="about-stamp-img"
               />

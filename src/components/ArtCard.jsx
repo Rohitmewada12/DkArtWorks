@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Maximize2 } from "lucide-react";
+import { ExternalLink, Maximize2 } from "lucide-react";
 import useReveal from "../useReveal.js";
 
 export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
@@ -55,7 +55,7 @@ export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
             }}
           >
             <span>View Artwork</span>
-            <Maximize2 size={14} strokeWidth={1.8} />
+            <ExternalLink size={15} strokeWidth={1.8} className="art-list-view-btn-icon" />
           </button>
         </div>
       </div>

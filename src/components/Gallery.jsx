@@ -9,9 +9,9 @@ import "./gallery.css";
 import "./lightbox.css";
 
 const CATEGORIES = [
-  { key: "Sketch", label: "Sketch", icon: Pencil },
   { key: "Painting", label: "Painting", icon: Image },
   { key: "Commission", label: "Commission", icon: User },
+  { key: "Sketch", label: "Sketch", icon: Pencil },
 ];
 
 const SORT_OPTIONS = [
@@ -22,7 +22,7 @@ const SORT_OPTIONS = [
 ];
 
 const PAGE_SIZE = 12;
-const DEFAULT_FILTER = "Sketch";
+const DEFAULT_FILTER = "Painting";
 
 export default function Gallery() {
   const { t } = useLang();
