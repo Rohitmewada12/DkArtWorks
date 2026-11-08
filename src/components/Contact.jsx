@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import site from "../data/site.js";
 import useReveal from "../useReveal.js";
 import useLang from "../LangContext.jsx";
@@ -8,6 +8,31 @@ export default function Contact() {
   const { t } = useLang();
   const ref = useReveal();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [giftAddon, setGiftAddon] = useState(null);
+
+  useEffect(() => {
+    function handleGiftSelected(e) {
+      if (e.detail && e.detail.enabled) {
+        setGiftAddon(e.detail);
+        // Pre-fill or append gift wrap info to the message if not already present
+        const giftSummary = `[Gift Wrapping: ${e.detail.packageName} (${e.detail.priceDisplay}) for ${e.detail.recipientName || "Recipient"} (${e.detail.occasion})${e.detail.personalMessage ? ` — Note: "${e.detail.personalMessage}"` : ""}]`;
+        setForm((prev) => {
+          if (!prev.message.includes("Gift Wrapping:")) {
+            return {
+              ...prev,
+              message: prev.message ? `${prev.message}\n\n${giftSummary}` : giftSummary,
+            };
+          }
+          return prev;
+        });
+      } else {
+        setGiftAddon(null);
+      }
+    }
+
+    window.addEventListener("dkarts:gift_selected", handleGiftSelected);
+    return () => window.removeEventListener("dkarts:gift_selected", handleGiftSelected);
+  }, []);
 
   function update(field) {
     return (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -15,7 +40,12 @@ export default function Contact() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const subject = encodeURIComponent(`Commission enquiry from ${form.name || "your website"}`);
+    const giftNotice = giftAddon && giftAddon.enabled
+      ? ` (+ ${giftAddon.packageName})`
+      : "";
+    const subject = encodeURIComponent(
+      `Commission enquiry from ${form.name || "your website"}${giftNotice}`
+    );
     const body = encodeURIComponent(
       `${form.message}\n\n— ${form.name}\n${form.email}`
     );
@@ -226,6 +256,31 @@ export default function Contact() {
                     className="contact-field-input"
                   />
                 </div>
+
+                {/* OPTIONAL GIFT WRAPPING ACTIVE BADGE */}
+                {giftAddon && giftAddon.enabled && (
+                  <div className="contact-gift-badge">
+                    <span className="contact-gift-badge-icon">🎁</span>
+                    <div className="contact-gift-badge-info">
+                      <strong>Gift Add-on:</strong> {giftAddon.packageName} ({giftAddon.priceDisplay}) for {giftAddon.recipientName || "Recipient"} ({giftAddon.occasion})
+                    </div>
+                    <button
+                      type="button"
+                      className="contact-gift-badge-remove"
+                      onClick={() => {
+                        setGiftAddon(null);
+                        setForm((prev) => ({
+                          ...prev,
+                          message: prev.message.replace(/\[Gift Wrapping:.*?\]\n*/gs, "").trim(),
+                        }));
+                      }}
+                      title="Remove gift wrap"
+                      aria-label="Remove gift wrap"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
 
                 {/* FIELD 03 — WHAT WOULD YOU LIKE MADE? */}
                 <div className="contact-field-group">

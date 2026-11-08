@@ -3,6 +3,7 @@ import { Clock, Instagram } from "lucide-react";
 import site from "../data/site.js";
 import useReveal from "../useReveal.js";
 import useLang from "../LangContext.jsx";
+import GiftWrapping from "./GiftWrapping.jsx";
 import "./process.css";
 
 export default function Process() {
@@ -250,6 +251,11 @@ export default function Process() {
             ))}
           </div>
         </div>
+
+        {/* ============================================================
+            OPTIONAL GIFT WRAPPING & PRESENTATION ADD-ON
+            ============================================================ */}
+        <GiftWrapping />
 
         {/* ============================================================
             PANORAMIC CALL-TO-ACTION BANNER

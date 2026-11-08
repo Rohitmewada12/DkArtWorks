@@ -483,3 +483,63 @@
     font-size: 0.9rem;
   }
 }
+
+/* ============================================================
+   ACTIVE GIFT WRAPPING BADGE IN ENQUIRY FORM
+   ============================================================ */
+.contact-gift-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: #FBF3E8;
+  border: 1px solid #E65312;
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.84rem;
+  color: #211B15;
+  margin-bottom: 0.5rem;
+  animation: giftBadgeFadeIn 0.3s ease;
+}
+
+@keyframes giftBadgeFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-gift-badge-icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.contact-gift-badge-info {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.contact-gift-badge-info strong {
+  color: #C9470B;
+}
+
+.contact-gift-badge-remove {
+  background: transparent;
+  border: none;
+  color: #7A6958;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.contact-gift-badge-remove:hover {
+  background: rgba(201, 71, 11, 0.12);
+  color: #C9470B;
+}
+
