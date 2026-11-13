@@ -1,6 +1,6 @@
 const LABEL = "OPEN FOR COMMISSIONS • OPEN FOR COMMISSIONS • ";
 
-export default function SpinBadge({ size = 128, logo = "/gallery/logo.jpg" }) {
+export default function SpinBadge({ size = 128, logo = "/gallery/logo.png" }) {
   const id = "spin-badge-path";
   return (
     <div
@@ -24,7 +24,7 @@ export default function SpinBadge({ size = 128, logo = "/gallery/logo.jpg" }) {
       </svg>
       {logo && (
         <div className="spin-badge-logo">
-          <img src={logo} alt="" />
+          <img src={logo} alt="DK Arts Logo" />
         </div>
       )}
     </div>
