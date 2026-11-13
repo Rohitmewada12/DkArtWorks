@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, Maximize2, Sparkles } from "lucide-react";
+import { ExternalLink, Maximize2, Palette, Sparkles } from "lucide-react";
 import useReveal from "../useReveal.js";
 import { useBooking } from "../context/BookingContext.jsx";
 
@@ -39,6 +39,12 @@ export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
         ref={ref}
         className="art-list-item in-view"
         onClick={() => onOpen && onOpen(art)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onOpen && onOpen(art);
+          }
+        }}
         role="button"
         tabIndex={0}
         data-cursor="hover"
@@ -57,11 +63,12 @@ export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
         </div>
 
         <div className="art-list-content">
-          <div className="art-list-header">
-            <span className="art-list-category">{art.category}</span>
-            <h3 className="art-list-title">{art.title}</h3>
-          </div>
-          <p className="art-list-medium">{art.medium}</p>
+          <span className="art-list-category">{art.category}</span>
+          <h3 className="art-list-title">{art.title}</h3>
+          <p className="art-list-medium">
+            <Palette size={16} strokeWidth={1.8} className="art-list-medium-icon" aria-hidden="true" />
+            <span>{art.medium}</span>
+          </p>
           {art.description && (
             <p className="art-list-desc">{art.description}</p>
           )}
@@ -74,7 +81,7 @@ export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
             onClick={handleBookSimilar}
             aria-label={`Book similar to ${art.title}`}
           >
-            <Sparkles size={14} />
+            <Sparkles size={16} strokeWidth={1.9} className="art-list-btn-icon" />
             <span>Book Similar</span>
           </button>
 

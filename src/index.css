@@ -68,50 +68,6 @@
   --section-pad: clamp(4.5rem, 10vw, 8rem);
 }
 
-/* ============================================================
-   LIGHT THEME (Atelier Parchment Mode)
-   ============================================================ */
-:root[data-theme="light"] {
-  --paper: #f6f0e4;
-  --paper-deep: #ece3d3;
-  --paper-card: #fdfaf4;
-  --paper-surface: #e5dac9;
-  --ink: #ffffff;
-  --paper-soft: #f6f0e4;
-
-  --fg: #201a14;
-  --fg-soft: #635546;
-  --fg-faint: #8c7c6a;
-
-  --orange: #d85c18;
-  --orange-deep: #a83d14;
-  --orange-glow: rgba(216, 92, 24, 0.22);
-  --orange-soft: rgba(216, 92, 24, 0.1);
-
-  --border: #c8b79f;
-  --border-subtle: rgba(200, 183, 159, 0.55);
-  --line: rgba(32, 26, 20, 0.1);
-  --line-strong: #c8b79f;
-
-  --nav-bg: rgba(246, 240, 228, 0.9);
-  --footer-bg: #ece3d3;
-  --footer-fg: #201a14;
-  --footer-fg-soft: #635546;
-}
-
-:root[data-theme="light"] .grain {
-  opacity: 0.18;
-}
-
-:root[data-theme="light"] .letterbox {
-  background: #14110c;
-}
-
-:root[data-theme="light"] .hero-title,
-:root[data-theme="light"] .intro-card-title {
-  text-shadow: none;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -147,13 +103,6 @@ body::before {
       transparent 0,
       transparent 37px,
       rgba(242, 238, 227, 0.035) 38px);
-}
-
-:root[data-theme="light"] body::before {
-  background-image: repeating-linear-gradient(180deg,
-      transparent 0,
-      transparent 37px,
-      rgba(34, 29, 22, 0.05) 38px);
 }
 
 /* Film-grain texture, applied once behind everything — "screen" blend

@@ -10,6 +10,7 @@ import {
   Gift,
   Instagram,
   Sparkles,
+  ArrowRight,
 } from "lucide-react";
 import { pricingTiers, addOns, alsoAvailable } from "../data/pricing.js";
 import site from "../data/site.js";
@@ -441,8 +442,9 @@ export default function Pricing() {
                   className="pricing-cta-btn"
                   data-cursor="hover"
                 >
-                  <Sparkles size={18} />
-                  <span>{t("pricing.ctaButton")}</span>
+                  <Sparkles size={16} className="pricing-cta-btn-sparkle" />
+                  <span className="pricing-cta-btn-text">{t("pricing.ctaButton")}</span>
+                  <ArrowRight size={16} className="pricing-cta-btn-arrow" />
                 </button>
               </div>
 

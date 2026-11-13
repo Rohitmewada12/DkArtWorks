@@ -1,7 +1,6 @@
-import { Instagram, Languages, Menu, Moon, Sparkles, Sun, X } from "lucide-react";
+import { Instagram, Menu, Sparkles, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import site from "../data/site.js";
-import useTheme from "../useTheme.js";
 import useLang from "../LangContext.jsx";
 import { useBooking } from "../context/BookingContext.jsx";
 import "./nav.css";
@@ -19,8 +18,7 @@ const LINKS = [
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#gallery");
-  const [theme, toggleTheme] = useTheme();
-  const { lang, t, toggle: toggleLang } = useLang();
+  const { t } = useLang();
   const { openBooking } = useBooking();
 
   useEffect(() => {
@@ -76,26 +74,6 @@ export default function Nav() {
         </nav>
 
         <div className="nav-controls">
-          <button
-            className="nav-lang"
-            onClick={toggleLang}
-            aria-label={lang === "en" ? "Switch language to Hindi" : "अंग्रेज़ी में बदलें"}
-            title={lang === "en" ? "हिन्दी में देखें" : "View in English"}
-            data-cursor="hover"
-          >
-            <Languages size={16} strokeWidth={1.8} />
-          </button>
-
-          <button
-            className="nav-theme"
-            onClick={toggleTheme}
-            aria-label={theme === "dark" ? t("nav.themeToLight") : t("nav.themeToDark")}
-            title={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-            data-cursor="hover"
-          >
-            {theme === "dark" ? <Sun size={16} strokeWidth={1.8} /> : <Moon size={16} strokeWidth={1.8} />}
-          </button>
-
           <a
             className="nav-ig"
             href={site.instagramUrl}
@@ -166,18 +144,6 @@ export default function Nav() {
               <Instagram size={17} strokeWidth={1.8} />
               <span>@{site.instagramHandle}</span>
             </a>
-
-            <div className="nav-mobile-actions">
-              <button className="nav-mobile-theme" onClick={toggleTheme}>
-                {theme === "dark" ? <Sun size={16} strokeWidth={1.8} /> : <Moon size={16} strokeWidth={1.8} />}
-                <span>{theme === "dark" ? t("nav.lightPage") : t("nav.darkPage")}</span>
-              </button>
-
-              <button className="nav-mobile-lang" onClick={toggleLang}>
-                <Languages size={15} strokeWidth={1.8} />
-                <span>{lang === "en" ? "हिन्दी" : "English"}</span>
-              </button>
-            </div>
           </div>
         </div>
       )}

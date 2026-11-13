@@ -1,8 +1,6 @@
 // ============================================================
-// TRANSLATIONS — every piece of interface chrome (nav, headings,
-// buttons, form labels) in English and Hindi. Artwork titles,
-// testimonial quotes and the artist's bio stay as entered in
-// src/data — this file only covers the site's own words.
+// SITE STRINGS (English)
+// Interface chrome (nav, headings, buttons, form labels).
 // ============================================================
 
 const translations = {
@@ -15,10 +13,6 @@ const translations = {
     "nav.reviews": "Reviews",
     "nav.about": "About",
     "nav.contact": "Contact",
-    "nav.themeToLight": "Switch to light page",
-    "nav.themeToDark": "Switch to dark page",
-    "nav.lightPage": "Light page",
-    "nav.darkPage": "Dark page",
     "nav.openMenu": "Open menu",
     "nav.closeMenu": "Close menu",
 
@@ -94,7 +88,7 @@ const translations = {
     "pricing.ctaHeading": "Not sure what you need?",
     "pricing.ctaLede":
       "Send a reference photo and I'll suggest the best size and medium for it.",
-    "pricing.ctaButton": "Get a Custom Quote →",
+    "pricing.ctaButton": "Get a Custom Quote",
 
     "testimonials.chapter": "Plate 05",
     "testimonials.eyebrow": "REVIEWS",
@@ -123,125 +117,6 @@ const translations = {
     "footer.rights": "Original artwork — please don't reproduce without asking.",
 
     "whatsapp.tooltip": "Chat on WhatsApp",
-  },
-
-  hi: {
-    "nav.home": "होम",
-    "nav.gallery": "गैलरी",
-    "nav.reels": "रील्स",
-    "nav.commissions": "कमीशन",
-    "nav.pricing": "कीमतें",
-    "nav.reviews": "समीक्षाएं",
-    "nav.about": "परिचय",
-    "nav.contact": "संपर्क",
-    "nav.themeToLight": "हल्के थीम में बदलें",
-    "nav.themeToDark": "गहरे थीम में बदलें",
-    "nav.lightPage": "हल्का पेज",
-    "nav.darkPage": "गहरा पेज",
-    "nav.openMenu": "मेनू खोलें",
-    "nav.closeMenu": "मेनू बंद करें",
-
-    "hero.eyebrow": "एक कमीशन कलाकार",
-    "hero.titleLine1": "हाथ से बनाया गया,",
-    "hero.titleAccent": "आपके लिए।",
-    "hero.description":
-      "यथार्थवादी रेखाचित्र, पोर्ट्रेट और हस्तनिर्मित कलाकृतियां जो आपकी यादों को चिरस्थायी बनाती हैं।",
-    "hero.exploreGallery": "गैलरी देखें →",
-    "hero.commissionArtwork": "✎ कमीशन कलाकृति",
-    "hero.viewGallery": "गैलरी देखें →",
-    "hero.followInstagram": "इंस्टाग्राम पर फॉलो करें",
-    "hero.youtube": "यूट्यूब",
-    "hero.scroll": "देखने के लिए स्क्रॉल करें",
-
-    "stats.commissions": "पूरे किए गए कमीशन",
-    "stats.rating": "औसत रेटिंग",
-    "stats.years": "अभ्यास के वर्ष",
-    "stats.replyTime": "सामान्य जवाब समय",
-
-    "beforeAfter.chapter": "पृष्ठ 01.5",
-    "beforeAfter.eyebrow": "बदलाव",
-    "beforeAfter.heading": "फ़ोटो से पोर्ट्रेट तक",
-    "beforeAfter.lede":
-      "हर पूर्ण कृति के पीछे संदर्भ फ़ोटो देखने के लिए स्लाइडर को खींचें।",
-    "beforeAfter.before": "संदर्भ",
-    "beforeAfter.after": "पूर्ण",
-    "beforeAfter.sliderLabel": "संदर्भ फ़ोटो और पूर्ण कृति की तुलना के लिए खींचें",
-
-    "gallery.chapter": "पृष्ठ 01",
-    "gallery.eyebrow": "चुनिंदा काम",
-    "gallery.heading": "गैलरी",
-    "gallery.lede":
-      "अध्ययन, पूर्ण पेंटिंग्स और कमीशन किए गए पोर्ट्रेट — पूरी स्क्रीन में देखने के लिए किसी भी कृति पर टैप करें।",
-    "gallery.filter.All": "सभी",
-    "gallery.filter.Sketch": "स्केच",
-    "gallery.filter.Painting": "पेंटिंग",
-    "gallery.filter.Commission": "कमीशन",
-    "gallery.showMore": "और दिखाएं",
-    "gallery.left": "बाकी",
-
-    "reels.chapter": "पृष्ठ 02",
-    "reels.eyebrow": "गतिविधि में",
-    "reels.heading": "प्रक्रिया रील्स",
-    "reels.lede": "पेंसिल, ब्रश और कागज़ पर कृति बनते हुए के छोटे क्लिप्स।",
-    "reels.comingSoon": "नई रील\nजल्द आ रही है",
-
-    "process.chapter": "पृष्ठ 03",
-    "process.eyebrow": "कमीशन",
-    "process.heading": "एक कमीशन कैसे पूरा होता है",
-    "process.lede":
-      "आपके पहले विचार से लेकर अंतिम हस्तनिर्मित कलाकृति तक, प्रत्येक कमीशन अत्यंत सावधानी और विवरण के साथ बनाया जाता है।",
-    "process.turnaround": "समय सीमा",
-    "process.requestBtn": "यह कलाकृति मांगें →",
-    "process.startCommission": "अपना कमीशन शुरू करें →",
-    "process.memoryHeading": "क्या आपके पास ऐसी कोई याद है जो चित्र बनने योग्य हो?",
-    "process.memoryLede": "आइए अपनी पसंदीदा तस्वीर को एक हस्तनिर्मित कलाकृति में बदलें।",
-    "process.messageIg": "इंस्टाग्राम पर संदेश भेजें",
-    "process.ctaText": "क्या आपके पास ऐसी कोई याद है? आइए अपनी पसंदीदा तस्वीर को हस्तनिर्मित कला में बदलें।",
-    "process.ctaButton": "अपना कमीशन शुरू करें →",
-
-    "pricing.chapter": "पृष्ठ 04",
-    "pricing.eyebrow": "मूल्य सूची",
-    "pricing.heading": "थोड़ी कला। एक स्थायी याद।",
-    "pricing.lede":
-      "हस्तनिर्मित पोर्ट्रेट, पेंटिंग और कस्टम कलाकृतियों के लिए पारदर्शी शुरुआती कीमतें।",
-    "pricing.mostRequested": "सर्वाधिक लोकप्रिय",
-    "pricing.requestQuote": "कीमत का अनुरोध करें →",
-    "pricing.addons": "ऐड-ऑन्स",
-    "pricing.addonsEyebrow": "वैकल्पिक अतिरिक्त",
-    "pricing.alsoAvailable": "यह भी उपलब्ध है",
-    "pricing.alsoAvailableEyebrow": "कला पाने के अन्य तरीके",
-    "pricing.ctaHeading": "तय नहीं कर पा रहे कि आपको क्या चाहिए?",
-    "pricing.ctaLede":
-      "एक संदर्भ फ़ोटो भेजें और मैं इसके लिए सबसे उपयुक्त आकार और माध्यम सुझाऊंगा।",
-    "pricing.ctaButton": "कस्टम कोट प्राप्त करें →",
-
-    "testimonials.chapter": "पृष्ठ 05",
-    "testimonials.eyebrow": "समीक्षाएं",
-    "testimonials.heading": "ग्राहक क्या कहते हैं",
-    "testimonials.lede": "जिन लोगों ने कृति कमीशन करवाई, उनके कुछ शब्द।",
-
-    "about.chapter": "पृष्ठ 06",
-    "about.eyebrow": "कलाकार के बारे में",
-
-    "contact.chapter": "अंतिम पंक्ति",
-    "contact.eyebrow": "संपर्क करें",
-    "contact.heading": "एक कमीशन शुरू करें",
-    "contact.lede":
-      "मुझ तक पहुंचने का सबसे तेज़ तरीका इंस्टाग्राम है — अपने विचार के साथ एक DM भेजें। ईमेल या फ़ॉर्म पसंद है? दोनों भी ठीक हैं।",
-    "contact.whatsapp": "WhatsApp पर बात करें",
-    "contact.youtubeChannel": "यूट्यूब चैनल",
-    "contact.formName": "नाम",
-    "contact.formEmail": "ईमेल",
-    "contact.formQuestion": "आप क्या बनवाना चाहेंगे?",
-    "contact.namePlaceholder": "आपका नाम",
-    "contact.emailPlaceholder": "you@example.com",
-    "contact.messagePlaceholder": "पोर्ट्रेट, पालतू जानवर, आकार, अवसर — कुछ भी बताएं, मदद मिलेगी।",
-    "contact.send": "पूछताछ भेजें",
-    "contact.note": "यह आपका ईमेल ऐप खोलता है, इसमें यह जानकारी भरी होगी — यहां से सीधे कुछ नहीं भेजा जाता।",
-
-    "footer.rights": "मूल कलाकृति — बिना पूछे पुनः उपयोग न करें।",
-
-    "whatsapp.tooltip": "WhatsApp पर बात करें",
   },
 };
 

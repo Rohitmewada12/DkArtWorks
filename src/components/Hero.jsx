@@ -159,7 +159,7 @@ export default function Hero() {
               <div className="art-paper-footer">
                 <div className="art-signature-block">
                   <span className="art-hand-signature">{site.fullName}</span>
-                  <span className="art-sig-sub">Master Realist &amp; Portraitist</span>
+                  <span className="art-sig-sub">Realist &amp; Portrait Artist</span>
                 </div>
 
                 <div className="art-seal-stamp" aria-hidden="true">
@@ -234,7 +234,7 @@ export default function Hero() {
 
             {/* Floating Spinning Seal Badge */}
             <div className="hero-spinning-badge">
-              <SpinBadge size={114} />
+              <SpinBadge size={108} />
             </div>
           </div>
         </div>

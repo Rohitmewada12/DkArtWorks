@@ -3,6 +3,24 @@
    ============================================================ */
 
 .hero {
+  --hero-bg: #100d0a;
+  --hero-heading: #f5ebdd;
+  --hero-description: #d8c8b3;
+  --hero-secondary: #c9b79f;
+  --hero-orange: #e66a24;
+  --hero-border: rgba(201, 183, 159, 0.45);
+  --hero-btn-dark: #211b17;
+
+  /* Scoped tokens to prevent theme bleed into the dark hero */
+  --paper: #100d0a;
+  --paper-deep: #19130f;
+  --fg: #f5ebdd;
+  --fg-soft: #d8c8b3;
+  --fg-faint: #c9b79f;
+  --orange: #e66a24;
+  --orange-deep: #b9481f;
+  --border: rgba(201, 183, 159, 0.45);
+
   position: relative;
   min-height: calc(100vh - 72px);
   display: flex;
@@ -11,7 +29,8 @@
   padding-top: clamp(2rem, 5vw, 4rem);
   padding-bottom: 2rem;
   overflow: hidden;
-  background-color: var(--paper);
+  background-color: var(--hero-bg);
+  color: var(--hero-heading);
 }
 
 /* ============================================================
@@ -44,12 +63,38 @@
 .hero-bg-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at 70% 40%,
-    rgba(16, 13, 10, 0.4) 0%,
-    rgba(16, 13, 10, 0.85) 60%,
-    #100d0a 100%
-  );
+  background:
+    radial-gradient(
+      circle at 70% 35%,
+      rgba(16, 13, 10, 0.35) 0%,
+      rgba(16, 13, 10, 0.8) 55%,
+      #100d0a 90%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(16, 13, 10, 0.88) 0%,
+      rgba(16, 13, 10, 0.72) 50%,
+      rgba(16, 13, 10, 0.95) 100%
+    );
+}
+
+@media (min-width: 1025px) {
+  .hero-bg-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(16, 13, 10, 0.94) 0%,
+        rgba(16, 13, 10, 0.84) 48%,
+        rgba(16, 13, 10, 0.42) 82%,
+        rgba(16, 13, 10, 0.75) 100%
+      ),
+      radial-gradient(
+        circle at 70% 40%,
+        rgba(16, 13, 10, 0.35) 0%,
+        rgba(16, 13, 10, 0.8) 60%,
+        #100d0a 100%
+      );
+  }
 }
 
 /* ============================================================
@@ -68,14 +113,14 @@
   font-family: var(--font-mono);
   font-size: 0.65rem;
   letter-spacing: 0.28em;
-  color: var(--border);
+  color: #C9B79F;
   pointer-events: none;
   white-space: nowrap;
 }
 
 .hero-vertical-label .v-dot {
   color: var(--orange);
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 /* ============================================================
@@ -135,7 +180,7 @@
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--orange);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .hero-heading {
@@ -150,7 +195,7 @@
   font-family: var(--font-display);
   font-weight: 500;
   font-size: clamp(3.2rem, 6.2vw, 5.4rem);
-  color: var(--fg);
+  color: #F5EBDD;
   letter-spacing: -0.015em;
 }
 
@@ -182,7 +227,7 @@
   font-family: var(--font-body);
   font-size: clamp(1.02rem, 1.3vw, 1.16rem);
   line-height: 1.65;
-  color: var(--fg-soft);
+  color: #D8C8B3;
   max-width: 44ch;
   margin-top: 0.2rem;
 }
@@ -195,14 +240,16 @@
   margin-top: 0.5rem;
 }
 
-.btn-brush-orange {
+.btn-brush-orange,
+.hero-actions .btn-brush-orange {
   background: var(--orange);
-  color: #100d0a !important;
+  color: #211B17 !important;
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.98rem;
   padding: 0.9rem 1.8rem;
   border-radius: 3px;
+  border: 1px solid var(--orange);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -211,20 +258,36 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.btn-brush-orange:hover {
+.btn-brush-orange svg,
+.hero-actions .btn-brush-orange svg {
+  color: #211B17;
+  stroke: #211B17;
+}
+
+.btn-brush-orange:hover,
+.hero-actions .btn-brush-orange:hover {
   background: #f27732;
+  border-color: #f27732;
+  color: #211B17 !important;
   transform: translateY(-2px);
   box-shadow: 0 10px 28px rgba(230, 106, 36, 0.5);
 }
 
-.btn-studio-outline {
-  background: rgba(16, 13, 10, 0.5);
-  color: var(--fg);
+.btn-brush-orange:hover svg,
+.hero-actions .btn-brush-orange:hover svg {
+  color: #211B17;
+  stroke: #211B17;
+}
+
+.btn-studio-outline,
+.hero-actions .btn-studio-outline {
+  background: rgba(16, 13, 10, 0.6);
+  color: #F5EBDD !important;
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.95rem;
   padding: 0.88rem 1.65rem;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(216, 200, 179, 0.45);
   border-radius: 3px;
   display: inline-flex;
   align-items: center;
@@ -234,11 +297,24 @@
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
-.btn-studio-outline:hover {
-  border-color: var(--fg-soft);
-  color: var(--fg);
-  background: rgba(241, 228, 210, 0.05);
+.btn-studio-outline svg,
+.hero-actions .btn-studio-outline svg {
+  color: #F5EBDD;
+  stroke: #F5EBDD;
+}
+
+.btn-studio-outline:hover,
+.hero-actions .btn-studio-outline:hover {
+  border-color: #F5EBDD;
+  color: #F5EBDD !important;
+  background: rgba(245, 235, 221, 0.08);
   transform: translateY(-2px);
+}
+
+.btn-studio-outline:hover svg,
+.hero-actions .btn-studio-outline:hover svg {
+  color: #F5EBDD;
+  stroke: #F5EBDD;
 }
 
 .hero-social-strip {
@@ -255,25 +331,24 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  color: var(--fg-faint);
+  color: #C9B79F;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .hero-social-link:hover {
-  color: var(--orange);
+  color: #F5EBDD;
 }
 
 .hero-social-divider {
-  color: var(--border);
-  opacity: 0.6;
+  color: rgba(201, 183, 159, 0.45);
 }
 
 .hero-artist-tag {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: var(--fg-soft);
+  color: #C9B79F;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
 }
@@ -415,28 +490,34 @@
   justify-content: space-between;
   align-items: flex-end;
   padding: 0.8rem 0.4rem 0.2rem;
+  position: relative;
+  min-height: 58px;
 }
 
 .art-signature-block {
   display: flex;
   flex-direction: column;
   line-height: 1.1;
+  padding-left: 4.2rem;
+  min-width: 0;
 }
 
 .art-hand-signature {
   font-family: var(--font-hand);
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: 1.65rem;
   color: #241c16;
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .art-sig-sub {
   font-family: var(--font-mono);
   font-size: 0.58rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #7a6a57;
+  white-space: nowrap;
 }
 
 .art-seal-stamp {
@@ -478,10 +559,16 @@
 /* Spinning Seal Badge */
 .hero-spinning-badge {
   position: absolute;
-  left: -28px;
-  bottom: 24px;
+  left: -36px;
+  bottom: 34px;
   z-index: 8;
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+  transition: transform 0.3s ease;
+}
+
+.hero-composition:hover .hero-spinning-badge {
+  transform: translateY(-3px);
 }
 
 /* ============================================================
@@ -502,7 +589,7 @@
 .scroll-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  background: linear-gradient(90deg, transparent, rgba(201, 183, 159, 0.3), transparent);
 }
 
 .hero-scroll-btn {
@@ -510,7 +597,7 @@
   align-items: center;
   gap: 0.65rem;
   text-decoration: none;
-  color: var(--fg-soft);
+  color: #C9B79F;
   font-family: var(--font-mono);
   font-size: 0.74rem;
   letter-spacing: 0.12em;
@@ -519,14 +606,14 @@
 }
 
 .hero-scroll-btn:hover {
-  color: var(--orange);
+  color: #F5EBDD;
   transform: translateY(2px);
 }
 
 .mouse-indicator {
   width: 18px;
   height: 28px;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid rgba(201, 183, 159, 0.45);
   border-radius: 12px;
   display: flex;
   justify-content: center;
@@ -592,6 +679,21 @@
     max-width: 380px;
     margin: 0 auto;
   }
+
+  .hero-spinning-badge {
+    left: -28px;
+    bottom: 30px;
+    transform: scale(0.92);
+    transform-origin: bottom left;
+  }
+
+  .hero-composition:hover .hero-spinning-badge {
+    transform: scale(0.92) translateY(-3px);
+  }
+
+  .art-signature-block {
+    padding-left: 3.8rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -620,9 +722,37 @@
   }
 
   .hero-spinning-badge {
-    left: -12px;
-    bottom: 10px;
-    transform: scale(0.85);
+    left: -18px;
+    bottom: 24px;
+    transform: scale(0.78);
+    transform-origin: bottom left;
+  }
+
+  .hero-composition:hover .hero-spinning-badge {
+    transform: scale(0.78) translateY(-2px);
+  }
+
+  .art-paper-footer {
+    padding: 0.6rem 0.2rem 0.1rem;
+    min-height: 50px;
+  }
+
+  .art-signature-block {
+    padding-left: 3.2rem;
+  }
+
+  .art-hand-signature {
+    font-size: 1.45rem;
+  }
+
+  .art-sig-sub {
+    font-size: 0.52rem;
+    letter-spacing: 0.12em;
+  }
+
+  .art-seal-stamp {
+    width: 38px;
+    height: 38px;
   }
 
   .art-pencil-illustration {
