@@ -11,21 +11,26 @@ import {
   Instagram,
   Sparkles,
   ArrowRight,
+  MessageCircle,
 } from "lucide-react";
 import { pricingTiers, addOns, alsoAvailable } from "../data/pricing.js";
 import site from "../data/site.js";
 import useReveal from "../useReveal.js";
 import useLang from "../LangContext.jsx";
 import { useBooking } from "../context/BookingContext.jsx";
+import { getSanitizedWhatsAppNumber } from "../utils/bookingSubmission.js";
+import PriceEstimator from "./PriceEstimator.jsx";
 import "./pricing.css";
 
-export default function Pricing() {
+export default function Pricing({ onOpenPhotoGuide }) {
   const { t } = useLang();
   const { openBooking } = useBooking();
   const headingRef = useReveal();
   const tiersRef = useReveal({ threshold: 0.1 });
   const extraRef = useReveal({ threshold: 0.1 });
   const ctaRef = useReveal({ threshold: 0.1 });
+
+  const cleanWhatsAppNumber = getSanitizedWhatsAppNumber(site.whatsappNumber);
 
   const renderAddonIcon = (iconName) => {
     switch (iconName) {
@@ -275,36 +280,52 @@ export default function Pricing() {
                       })}
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() =>
-                        openBooking({
-                          sourceTitle: tier.title,
-                          sourceType: "Pricing Tier",
-                          artworkType:
-                            tier.id === "pet-portrait"
-                              ? "Pet Portrait"
-                              : tier.id === "colour-painting"
-                              ? "Custom Painting"
-                              : "Portrait",
-                          medium:
-                            tier.id === "colour-painting"
-                              ? "Watercolour"
-                              : tier.id === "pet-portrait"
-                              ? "Colour Pencil"
-                              : "Graphite / Pencil",
-                          budget:
-                            tier.id === "colour-painting"
-                              ? "₹2,500 – ₹5,000"
-                              : "₹1,000 – ₹2,500",
-                          source: `Pricing Card — ${tier.title}`,
-                        })
-                      }
-                      className="pricing-card-btn"
-                      data-cursor="hover"
-                    >
-                      {t("pricing.requestQuote")}
-                    </button>
+                    <div className="pricing-card-btn-row">
+                      <a
+                        href={`https://wa.me/${cleanWhatsAppNumber}?text=${encodeURIComponent(
+                          `Hi Deepak! 👋 I saw your ${tier.title} pricing tier on your website and would love to ask about booking a slot.`
+                        )}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="pricing-card-wa-btn"
+                        data-cursor="hover"
+                        aria-label={`Ask on WhatsApp about ${tier.title}`}
+                        title="Quick WhatsApp Enquiry"
+                      >
+                        <MessageCircle size={16} />
+                      </a>
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          openBooking({
+                            sourceTitle: tier.title,
+                            sourceType: "Pricing Tier",
+                            artworkType:
+                              tier.id === "pet-portrait"
+                                ? "Pet Portrait"
+                                : tier.id === "colour-painting"
+                                ? "Custom Painting"
+                                : "Portrait",
+                            medium:
+                              tier.id === "colour-painting"
+                                ? "Watercolour"
+                                : tier.id === "pet-portrait"
+                                ? "Colour Pencil"
+                                : "Graphite / Pencil",
+                            budget:
+                              tier.id === "colour-painting"
+                                ? "₹2,500 – ₹5,000"
+                                : "₹1,000 – ₹2,500",
+                            source: `Pricing Card — ${tier.title}`,
+                          })
+                        }
+                        className="pricing-card-btn"
+                        data-cursor="hover"
+                      >
+                        {t("pricing.requestQuote")}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -391,6 +412,11 @@ export default function Pricing() {
             </div>
           </div>
         </div>
+
+        {/* ============================================================
+            INTERACTIVE COMMISSION ESTIMATOR & LIVE CALCULATOR
+            ============================================================ */}
+        <PriceEstimator onOpenPhotoGuide={onOpenPhotoGuide} />
 
         {/* ============================================================
             PANORAMIC BOTTOM CTA BANNER (TORN-PAPER STRIP)

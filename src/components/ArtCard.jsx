@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { ExternalLink, Maximize2, Palette, Sparkles } from "lucide-react";
+import { ExternalLink, Maximize2, MessageCircle, Palette, Sparkles } from "lucide-react";
+import site from "../data/site.js";
 import useReveal from "../useReveal.js";
 import { useBooking } from "../context/BookingContext.jsx";
+import { getSanitizedWhatsAppNumber } from "../utils/bookingSubmission.js";
 
 function mapCategoryToArtworkType(cat) {
   if (!cat) return "Portrait";
@@ -16,6 +18,11 @@ export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
   const ref = useReveal({ threshold: 0.05 });
   const [loaded, setLoaded] = useState(false);
   const { openBooking } = useBooking();
+
+  const cleanWhatsAppNumber = getSanitizedWhatsAppNumber(site.whatsappNumber);
+  const whatsAppUrl = `https://wa.me/${cleanWhatsAppNumber}?text=${encodeURIComponent(
+    `Hi Deepak! 👋 I saw "${art.title}" (${art.medium}) in your gallery on your website and would love to ask about commissioning something similar.`
+  )}`;
 
   const handleBookSimilar = (e) => {
     e.stopPropagation();
@@ -75,6 +82,19 @@ export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
         </div>
 
         <div className="art-list-controls">
+          <a
+            href={whatsAppUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="art-list-wa-btn"
+            onClick={(e) => e.stopPropagation()}
+            aria-label={`Ask on WhatsApp about ${art.title}`}
+            title="Ask on WhatsApp"
+          >
+            <MessageCircle size={15} />
+            <span>WhatsApp</span>
+          </a>
+
           <button
             type="button"
             className="art-list-book-btn"
@@ -134,6 +154,18 @@ export default function ArtCard({ art, index, onOpen, viewMode = "grid" }) {
           </div>
 
           <div className="art-card-actions-wrap">
+            <a
+              href={whatsAppUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="art-card-quick-wa"
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`Ask on WhatsApp about ${art.title}`}
+              title="Ask on WhatsApp"
+            >
+              <MessageCircle size={14} />
+            </a>
+
             <button
               type="button"
               className="art-card-quick-book"

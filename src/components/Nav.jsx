@@ -12,6 +12,7 @@ const LINKS = [
   { href: "#pricing", key: "nav.pricing" },
   { href: "#testimonials", key: "nav.reviews" },
   { href: "#about", key: "nav.about" },
+  { href: "#faq", key: "nav.faq" },
   { href: "#contact", key: "nav.contact" },
 ];
 
@@ -22,7 +23,7 @@ export default function Nav() {
   const { openBooking } = useBooking();
 
   useEffect(() => {
-    const sectionIds = ["gallery", "reels", "process", "pricing", "testimonials", "about", "contact"];
+    const sectionIds = ["gallery", "reels", "process", "pricing", "testimonials", "about", "faq", "contact"];
 
     function handleScroll() {
       const scrollPos = window.scrollY + 160;

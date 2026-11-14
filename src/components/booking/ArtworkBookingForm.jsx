@@ -715,6 +715,30 @@ export default function ArtworkBookingForm() {
 
           {/* Reference Photo Attachment Section */}
           <div className="bk-photo-upload-box">
+            <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.4rem" }}>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent("dkarts:open_photo_guide"))}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#E65312",
+                  fontSize: "0.78rem",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                  textUnderlineOffset: "3px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.35rem",
+                  padding: 0,
+                }}
+              >
+                <HelpCircle size={13} />
+                <span>Reference Photo Guide (Tips for best realism)</span>
+              </button>
+            </div>
+
             <div className="bk-photo-upload-header">
               <span className="bk-field-label">
                 <ImageIcon size={15} />

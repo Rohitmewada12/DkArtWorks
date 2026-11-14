@@ -1,0 +1,741 @@
+/* ============================================================
+   DK ARTS — PRICE ESTIMATOR (INTERACTIVE COMMISSION CALCULATOR)
+   Palette matches the Warm Drawing Paper Studio aesthetic:
+   - Paper base: #F8EDDF (Warm parchment card)
+   - Border: #D8C0A5 (Deckled contour rule)
+   - Accent Orange: #E65312 (Burnt orange dry-brush)
+   - Text Espresso: #24170F
+   - Muted Walnut: #705B49
+   ============================================================ */
+
+.estimator-container {
+  margin-top: 3.5rem;
+  background: #F8EDDF;
+  border: 1px solid #D8C0A5;
+  border-radius: 12px;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  box-shadow:
+    0 4px 20px rgba(70, 45, 25, 0.08),
+    0 1px 3px rgba(70, 45, 25, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle ledger texture overlay inside the estimator */
+.estimator-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(36, 23, 15, 0.035) 1px, transparent 0);
+  background-size: 4px 4px;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Header badge row */
+.estimator-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px dashed #D8C0A5;
+  position: relative;
+  z-index: 1;
+}
+
+.estimator-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #E65312;
+  color: #FFFFFF;
+  padding: 0.32rem 0.85rem;
+  border-radius: 999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  box-shadow: 0 2px 8px rgba(230, 83, 18, 0.3);
+}
+
+.estimator-badge-note {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  color: #705B49;
+  letter-spacing: 0.02em;
+}
+
+/* Main Grid: Controls Left, Summary Ticket Right */
+.estimator-main-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.9fr;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 960px) {
+  .estimator-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Control groups */
+.estimator-controls-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.estimator-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.estimator-group-label-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.estimator-step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #E65312;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  flex-shrink: 0;
+}
+
+.estimator-group-title {
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #24170F;
+  letter-spacing: 0.01em;
+}
+
+/* Step 1: Medium Cards */
+.estimator-medium-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 540px) {
+  .estimator-medium-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.estimator-medium-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: #FFFDF9;
+  border: 1.5px solid #D8C0A5;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.estimator-medium-card:hover {
+  border-color: #E65312;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(230, 83, 18, 0.12);
+}
+
+.estimator-medium-card.is-selected {
+  border-color: #E65312;
+  background: #FFF7EE;
+  box-shadow: 0 0 0 1px #E65312, 0 4px 14px rgba(230, 83, 18, 0.18);
+}
+
+.estimator-card-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid #A89582;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: border-color 0.2s ease;
+}
+
+.estimator-medium-card.is-selected .estimator-card-radio {
+  border-color: #E65312;
+}
+
+.estimator-radio-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #E65312;
+}
+
+.estimator-pill-popular {
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  background: #E65312;
+  color: #FFFFFF;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-family: var(--font-mono, monospace);
+}
+
+.estimator-medium-name {
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #24170F;
+  margin-bottom: 0.15rem;
+}
+
+.estimator-medium-desc {
+  font-size: 0.76rem;
+  color: #705B49;
+  line-height: 1.35;
+}
+
+/* Step 2: Size Cards */
+.estimator-size-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+}
+
+@media (max-width: 600px) {
+  .estimator-size-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.estimator-size-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0.85rem 0.5rem;
+  background: #FFFDF9;
+  border: 1.5px solid #D8C0A5;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.estimator-size-card:hover {
+  border-color: #E65312;
+  transform: translateY(-1px);
+}
+
+.estimator-size-card.is-selected {
+  border-color: #E65312;
+  background: #FFF7EE;
+  box-shadow: 0 0 0 1px #E65312, 0 4px 14px rgba(230, 83, 18, 0.16);
+}
+
+.estimator-pill-tag {
+  position: absolute;
+  top: -7px;
+  background: #E65312;
+  color: #FFF;
+  font-size: 0.58rem;
+  font-weight: 800;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-family: var(--font-mono, monospace);
+}
+
+.estimator-size-label {
+  font-family: var(--font-display, serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #24170F;
+  line-height: 1.1;
+  margin-bottom: 0.2rem;
+}
+
+.estimator-size-dims {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  color: #E65312;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.estimator-size-desc {
+  font-size: 0.72rem;
+  color: #705B49;
+  line-height: 1.25;
+}
+
+/* Step 3: Subject Pills */
+.estimator-subject-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+}
+
+@media (max-width: 600px) {
+  .estimator-subject-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.estimator-subject-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 0.5rem;
+  background: #FFFDF9;
+  border: 1.5px solid #D8C0A5;
+  border-radius: 8px;
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #24170F;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.estimator-subject-pill:hover {
+  border-color: #E65312;
+}
+
+.estimator-subject-pill.is-selected {
+  border-color: #E65312;
+  background: #FFF7EE;
+  color: #E65312;
+  box-shadow: 0 0 0 1px #E65312;
+}
+
+.estimator-extra-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  color: #705B49;
+  margin-top: 0.2rem;
+}
+
+.estimator-subject-pill.is-selected .estimator-extra-badge {
+  color: #E65312;
+  font-weight: 700;
+}
+
+/* Step 4: Framing Options */
+.estimator-framing-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 600px) {
+  .estimator-framing-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.estimator-frame-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: #FFFDF9;
+  border: 1.5px solid #D8C0A5;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.estimator-frame-opt:hover {
+  border-color: #E65312;
+}
+
+.estimator-frame-opt.is-selected {
+  border-color: #E65312;
+  background: #FFF7EE;
+  box-shadow: 0 0 0 1px #E65312;
+}
+
+.estimator-frame-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid #A89582;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.estimator-frame-opt.is-selected .estimator-frame-radio {
+  border-color: #E65312;
+}
+
+.estimator-frame-text strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #24170F;
+  margin-bottom: 0.15rem;
+}
+
+.estimator-frame-text span {
+  display: block;
+  font-size: 0.75rem;
+  color: #705B49;
+  line-height: 1.35;
+}
+
+/* Step 5: Add-ons */
+.estimator-addons-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 540px) {
+  .estimator-addons-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.estimator-addon-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #FFFDF9;
+  border: 1.5px solid #D8C0A5;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.estimator-addon-card:hover {
+  border-color: #E65312;
+}
+
+.estimator-addon-card.is-active {
+  border-color: #E65312;
+  background: #FFF7EE;
+  box-shadow: 0 0 0 1px #E65312;
+}
+
+.estimator-addon-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid #A89582;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.estimator-addon-card.is-active .estimator-addon-check {
+  background: #E65312;
+  border-color: #E65312;
+}
+
+.estimator-addon-icon {
+  color: #E65312;
+  flex-shrink: 0;
+}
+
+.estimator-addon-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.estimator-addon-name {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #24170F;
+}
+
+.estimator-addon-price {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: #E65312;
+  font-weight: 600;
+}
+
+/* ============================================================
+   RIGHT COLUMN: ESTIMATE TICKET
+   ============================================================ */
+.estimator-summary-ticket {
+  background: #FFFDF9;
+  border: 1.5px solid #D8C0A5;
+  border-radius: 10px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow:
+    0 10px 30px rgba(50, 32, 18, 0.08),
+    0 2px 8px rgba(50, 32, 18, 0.04);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Vintage Deckle Top Edge */
+.estimator-summary-ticket::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #E65312 0%, #C9420C 50%, #E65312 100%);
+}
+
+.estimator-ticket-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #D8C0A5;
+}
+
+.estimator-ticket-eyebrow {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #E65312;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.estimator-ticket-title {
+  font-family: var(--font-display, serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #24170F;
+  margin: 0;
+}
+
+.estimator-ticket-stamp {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #A89582;
+  border: 1px dashed #A89582;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.1em;
+  transform: rotate(4deg);
+}
+
+/* Big Price Hero */
+.estimator-price-hero {
+  text-align: center;
+  background: #FFF5E8;
+  border: 1px solid #EED4BA;
+  border-radius: 8px;
+  padding: 1.25rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.estimator-price-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #705B49;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.35rem;
+}
+
+.estimator-price-value {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.2rem;
+  color: #E65312;
+  line-height: 1;
+}
+
+.estimator-currency {
+  font-family: var(--font-display, serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.estimator-amount {
+  font-family: var(--font-display, serif);
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.estimator-price-note {
+  font-size: 0.74rem;
+  color: #705B49;
+  margin-top: 0.45rem;
+}
+
+/* Itemized Breakdown */
+.estimator-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px dashed #D8C0A5;
+}
+
+.estimator-breakdown-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  color: #4A3A2C;
+}
+
+.estimator-breakdown-row.is-highlight {
+  color: #E65312;
+  font-weight: 600;
+}
+
+.estimator-item-name {
+  font-family: var(--font-body, "Inter", sans-serif);
+}
+
+.estimator-item-val {
+  font-family: var(--font-mono, monospace);
+  font-weight: 600;
+}
+
+/* Turnaround strip */
+.estimator-turnaround-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #F3E6D4;
+  border-radius: 6px;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.82rem;
+  color: #24170F;
+  margin-bottom: 1.5rem;
+}
+
+.estimator-clock-icon {
+  color: #E65312;
+}
+
+/* Actions Box */
+.estimator-actions-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.estimator-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  border: none;
+}
+
+/* WhatsApp High-Conversion Button */
+.estimator-btn-wa {
+  background: #25D366;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+
+.estimator-btn-wa:hover {
+  background: #1EBE5D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+}
+
+/* Booking Form Button */
+.estimator-btn-form {
+  background: #E65312;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(230, 83, 18, 0.35);
+}
+
+.estimator-btn-form:hover {
+  background: #C9420C;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(230, 83, 18, 0.45);
+}
+
+/* Photo guide helper trigger */
+.estimator-photo-guide-trigger {
+  margin-top: 1rem;
+  background: none;
+  border: none;
+  padding: 0.3rem 0;
+  color: #705B49;
+  font-size: 0.78rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.estimator-photo-guide-trigger:hover {
+  color: #E65312;
+}
+
+/* Guarantee Footnote */
+.estimator-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  font-size: 0.72rem;
+  color: #705B49;
+  text-align: center;
+}
+
+.estimator-guarantee-check {
+  color: #25D366;
+  flex-shrink: 0;
+}

@@ -132,10 +132,43 @@
   margin-top: 0.2rem;
 }
 
-.lightbox-close {
+.lightbox-top-bar {
   position: absolute;
   top: clamp(1rem, 3vw, 2rem);
   right: clamp(1rem, 3vw, 2rem);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 20;
+}
+
+.lightbox-tool-btn {
+  background: rgba(25, 19, 15, 0.85);
+  border: 1px solid #57483a;
+  color: #f1e4d2;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+}
+
+.lightbox-tool-btn:hover,
+.lightbox-tool-btn.is-active {
+  border-color: #E65312;
+  color: #FFFFFF;
+  background: #E65312;
+  box-shadow: 0 4px 14px rgba(230, 83, 18, 0.35);
+}
+
+.lightbox-close {
   background: rgba(25, 19, 15, 0.85);
   border: 1px solid #57483a;
   color: #f1e4d2;
@@ -147,7 +180,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  z-index: 10;
+  backdrop-filter: blur(8px);
 }
 
 .lightbox-close:hover {
@@ -155,6 +188,34 @@
   color: #c94a29;
   background: rgba(201, 74, 41, 0.15);
   transform: rotate(90deg);
+}
+
+.lightbox-frame.is-zoomed {
+  border-color: #E65312;
+  box-shadow: 0 0 0 1px #E65312, 0 24px 70px rgba(0, 0, 0, 0.95);
+}
+
+.lightbox-zoom-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(14, 11, 8, 0.88);
+  border: 1px solid #57483a;
+  color: #f1e4d2;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  pointer-events: none;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+  animation: zoomHintIn 0.3s ease;
+}
+
+@keyframes zoomHintIn {
+  from { opacity: 0; transform: translate(-50%, 8px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
 }
 
 .lightbox-nav {
@@ -194,11 +255,48 @@
   .lightbox-nav {
     display: none;
   }
+  .lightbox-tool-label {
+    display: none;
+  }
+  .lightbox-tool-btn {
+    width: 46px;
+    padding: 0;
+    justify-content: center;
+  }
 }
 
-/* Commission Similar Button in Lightbox */
+/* Commission & WhatsApp Buttons in Lightbox */
 .lightbox-booking-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
   margin: 0.85rem 0 0.5rem 0;
+}
+
+.lightbox-wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #25D366;
+  color: #FFFFFF;
+  border: 1px solid #25D366;
+  border-radius: 999px;
+  padding: 0.55rem 1.15rem;
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+}
+
+.lightbox-wa-btn:hover {
+  background: #1EBE5D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
 }
 
 .lightbox-book-btn {

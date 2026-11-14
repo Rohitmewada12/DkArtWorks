@@ -12,6 +12,7 @@ const translations = {
     "nav.pricing": "Pricing",
     "nav.reviews": "Reviews",
     "nav.about": "About",
+    "nav.faq": "FAQ",
     "nav.contact": "Contact",
     "nav.openMenu": "Open menu",
     "nav.closeMenu": "Close menu",

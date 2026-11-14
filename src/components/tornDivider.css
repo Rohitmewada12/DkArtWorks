@@ -1,0 +1,21 @@
+/* ============================================================
+   DK ARTS — TORN DECKLED PAPER EDGE DIVIDER
+   ============================================================ */
+
+.torn-divider-wrap {
+  width: 100%;
+  line-height: 0;
+  display: block;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.torn-divider-svg {
+  display: block;
+  width: 100%;
+  height: clamp(20px, 3.5vw, 36px);
+  transform: translateZ(0);
+}

@@ -1,0 +1,257 @@
+/* ============================================================
+   DK ARTS — PHOTO QUALITY GUIDE MODAL
+   ============================================================ */
+
+.pg-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  animation: pgFadeIn 0.25s ease;
+}
+
+@keyframes pgFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 11, 8, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.pg-card {
+  position: relative;
+  background: #F8EDDF;
+  border: 1.5px solid #D8C0A5;
+  border-radius: 12px;
+  max-width: 820px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* Close button */
+.pg-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FFFDF9;
+  border: 1px solid #D8C0A5;
+  color: #24170F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pg-close-btn:hover {
+  background: #E65312;
+  color: #FFFFFF;
+  border-color: #E65312;
+}
+
+/* Header */
+.pg-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px dashed #D8C0A5;
+}
+
+.pg-eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.pg-eyebrow-badge {
+  background: #E65312;
+  color: #FFF;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+}
+
+.pg-eyebrow-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  color: #705B49;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.pg-title {
+  font-family: var(--font-display, serif);
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  font-weight: 700;
+  color: #24170F;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.pg-subtitle {
+  font-size: 0.88rem;
+  color: #705B49;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Comparison Grid */
+.pg-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 680px) {
+  .pg-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pg-col {
+  background: #FFFDF9;
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid #D8C0A5;
+}
+
+.pg-col-good {
+  border-top: 3px solid #25D366;
+}
+
+.pg-col-bad {
+  border-top: 3px solid #E65312;
+}
+
+.pg-col-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.pg-col-header h3 {
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #24170F;
+  margin: 0;
+}
+
+.pg-icon-good {
+  color: #25D366;
+  flex-shrink: 0;
+}
+
+.pg-icon-bad {
+  color: #E65312;
+  flex-shrink: 0;
+}
+
+.pg-list {
+  margin: 0;
+  padding: 0 0 0 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.82rem;
+  color: #4A3A2C;
+  line-height: 1.45;
+}
+
+.pg-list li strong {
+  color: #24170F;
+}
+
+/* Special Artist Capabilities Box */
+.pg-features-box {
+  background: #FFF5E8;
+  border: 1px solid #EED4BA;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.pg-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #4A3A2C;
+}
+
+.pg-feature-icon {
+  color: #E65312;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pg-feature-item strong {
+  display: block;
+  color: #24170F;
+  margin-bottom: 0.15rem;
+}
+
+/* Footer */
+.pg-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed #D8C0A5;
+}
+
+.pg-footer-tip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #705B49;
+  max-width: 480px;
+}
+
+.pg-tip-icon {
+  color: #E65312;
+  flex-shrink: 0;
+}
+
+.pg-confirm-btn {
+  background: #E65312;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1.35rem;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pg-confirm-btn:hover {
+  background: #C9420C;
+}
