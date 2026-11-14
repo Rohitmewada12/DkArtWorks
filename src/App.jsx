@@ -1,4 +1,5 @@
-import IntroTitleCard from "./components/IntroTitleCard.jsx";
+// IntroTitleCard can be re-enabled later when ready:
+// import IntroTitleCard from "./components/IntroTitleCard.jsx";
 import CursorDot from "./components/CursorDot.jsx";
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
@@ -21,7 +22,7 @@ import site from "./data/site.js";
 export default function App() {
   return (
     <BookingProvider>
-      <IntroTitleCard />
+      {/* Intro video overlay temporarily removed; can be re-enabled later: <IntroTitleCard /> */}
       <div className="grain" aria-hidden="true" />
       <CursorDot />
       <Nav />
